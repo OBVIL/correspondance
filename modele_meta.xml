@@ -72,21 +72,23 @@
             </msDesc>                        
          </sourceDesc>
       </fileDesc>
+     <encodingDesc>
+        <p>description en texte libre par les éditeurs des principes et choix de transcription </p>
+     </encodingDesc>
+   
      <profileDesc>
         <!--attribut obligatoire, identifiant unique d'une lettre, url de la lettre-->
         <correspDesc ref="http://test">  
            <!--valeur fermée: "sent" pour une expédition "received" pour une réception, attributs facultatifs: @subtype @sortKey pour une redirection  -->
            <correspAction type="sent" subtype="redirecting" sortKey="2">  
               <persName xml:id="id_exped" key="nom_normalisé" ref="http://test">nom de l'expéditeur</persName>  <!--plusieurs attributs possibles pour identifier l'expéditeur-->
-              <placeName xml:id="id_lieu_exped" key="nom_normalisé" ref="http://test">lieu d'expédition</placeName>  <!--plusieurs attributs possibles pour identifier le lieu de l'expédition-->
-              
+              <placeName xml:id="id_lieu_exped" key="nom_normalisé" ref="http://test">lieu d'expédition</placeName>  <!--plusieurs attributs possibles pour identifier le lieu de l'expédition-->             
               <!--date dans l'attribut @when au format aaaa-mm-jj ; autres attributs possibles: @notBefore, @notAfter, @from, @to  -->
               <date when="2001-01-01" cert="high" resp="id_editeur"/> <!-- soit @when="2001-01-01" soit notAfter="2001-01-01" et notBefore="2001-01-01"-->
            </correspAction>
            <correspAction type="received" subtype="redirecting" sortKey="2">  
               <persName xml:id="id_dest" key="nom_normalisé" ref="http://test">nom de l'expéditeur</persName>  <!--plusieurs attributs possibles pour identifier l'expéditeur-->
-              <placeName xml:id="id_lieu_dest" key="nom_normalisé" ref="http://test">lieu d'expédition</placeName>  <!--plusieurs attributs possibles pour identifier le lieu de l'expédition-->
-              
+              <placeName xml:id="id_lieu_dest" key="nom_normalisé" ref="http://test">lieu d'expédition</placeName>  <!--plusieurs attributs possibles pour identifier le lieu de l'expédition-->            
               <!--date dans l'attribut @when au format aaaa-mm-jj ; autres attributs possibles: @notBefore, @notAfter, @from, @to  -->
               <date when="2001-01-01" cert="high" resp="id_editeur"/> <!-- soit @when="2001-01-01" soit notAfter="2001-01-01" et notBefore="2001-01-01"-->
            </correspAction>
@@ -96,9 +98,9 @@
               <ref type="replyTo" target="http://test"/>
               <ref type="repliedBy" target="http://test"/>
            </correspContext>
-
         </correspDesc>
         
+       <!-- encodage des relations entre correspondants-->
         <particDesc>
            <listPerson>
               <person sex="M" age="26" role="metier" sameAs="#id_exped"/>            
@@ -106,7 +108,9 @@
               <relation type="personal" name="friend" mutual="#id_exped #id_dest"/> 
            </listPerson>
         </particDesc>
-      
+        
+        
+        <!--intégration de mots-clés thématiques définissant le document -->
         <textClass>
            <!--@scheme donne le nom du thesaurus ou de la liste close de mots-clés-->
            <keywords scheme="nom_thesaurus"> 
@@ -117,6 +121,10 @@
         </textClass>
         
      </profileDesc>
+     
+     <revisionDesc>
+        <change when="2001-01-01" who="nom_editeur">notification d'un changement, d'une mise à jour de l'édition </change>
+     </revisionDesc>
      
   </teiHeader>
   <text>
