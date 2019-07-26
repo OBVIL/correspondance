@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang=""> <!--[Norme Iso 639-2b] ex : fre, ita, frm etc.-->
+    <teiHeader>
+        <fileDesc>
+            <titleStmt> <!--  reprise du TEI HEADER Obvil  -->
+                <!--  titre du document de correspondance -->
+                <title>titre de la lettre</title>
+                <author key="[Identifiant_auteur]" ref="http://test">[auteur]</author>
+                <!-- L'élément <ref/> contient l'url la lettre  -->
+                <editor key="[Identifiant_editeur]">[editeur]</editor>
+            </titleStmt>
+            <editionStmt>
+                <edition>OBVIL</edition>
+                <respStmt>
+                    <name>[nom]</name>
+                    <resp>[responsabilité]</resp><!-- préférer édition TEI -->
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Sorbonne Université, LABEX OBVIL</publisher>
+                <date when="2001-01-01"/><!-- when="[date_publication]" (Obvil) -->
+                <idno>http://obvil.sorbonne-universite.fr/corpus/[nom_corpus]/[nom_fichier]</idno>
+                <!--  ici identifiant unique de la lettre repris dans le <correspDesc> -->
+                <!-- Un seul identifiant. Pas d'attribut type sur l'élément <idno> -->
+                <availability status="restricted"> 
+                    <!-- Ne pas modifier : mise à jour et uniformisation et norme typographique par Frédéric Glorieux automatiquement -->
+                    <licence target="http://creativecommons.org/licenses/by-nc-nd/3.0/fr/">
+                        <p>Copyright © 2015 Université Paris-Sorbonne, agissant pour le Laboratoire d’Excellence « Observatoire de la vie littéraire » (ci-après dénommé OBVIL).</p>
+                        <p>Cette ressource électronique protégée par le code de la propriété intellectuelle sur les bases de données (L341-1) est mise à disposition de la communauté scientifique internationale par l’OBVIL, selon les termes de la licence Creative Commons : « Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France (CC BY-NC-ND 3.0 FR) ».</p>
+                        <p>Attribution : afin de référencer la source, toute utilisation ou publication dérivée de cette ressource électroniques comportera le nom de l’OBVIL et surtout l’adresse Internet de la ressource.</p>
+                        <p>Pas d’Utilisation Commerciale : dans l’intérêt de la communauté scientifique, toute utilisation commerciale est interdite.</p>
+                        <p>Pas de Modification : l’OBVIL s’engage à améliorer et à corriger cette ressource électronique, notamment en intégrant toutes les contributions extérieures, la diffusion de versions modifiées de cette ressource n’est pas souhaitable.</p>
+                    </licence>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                
+                <!-- bibl adapté lettre  -->
+                <bibl>[lieu de conservation], [fonds] , [carton], [référence]</bibl>
+                <!--  integration d'un nouveau modèle msDesc -->
+                <msDesc>
+                    <msIdentifier> <!-- convservation et origine du document -->
+                        <country>pays de conservation</country>
+                        <settlement>ville de conservation</settlement>
+                        <institution>lieu de conservation</institution>
+                        <repository>département de conservation</repository>
+                        <collection>nom de la collection</collection>
+                        <idno type="EAD">référence ou cote du document</idno> <!--  valeur d'exemple pour le @type de référence ou cote -->                 
+                    </msIdentifier>
+                    <msContents>
+                        <summary>résumé d'une lettre</summary>
+                        <msItem>
+                            <incipit>incipit d'une lettre</incipit>
+                        </msItem>
+                    </msContents>
+                    <physDesc>  <!--description matérielle-->
+                        <objectDesc form="letter"> <!--valeur d'exemple pour @form précision du type de document, autres valeurs d'exemples: billet, telegram, postcard-->
+                            <supportDesc>
+                                <extent>
+                                    <measure type="page">nombre de pages</measure> 
+                                </extent>
+                                <condition>texte libre renseignant l'état de conservation du document</condition>
+                            </supportDesc>
+                        </objectDesc>
+                        <accMat>texte libre précisant les pièces, documents joints à une lettre</accMat>
+                    </physDesc>                                           
+                </msDesc>                        
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <p>description en texte libre par les éditeurs des principes et choix de transcription </p>
+        </encodingDesc>
+        
+        <profileDesc>
+            <!--attribut obligatoire, identifiant unique d'une lettre, url de la lettre-->
+            <correspDesc ref="http://test">  
+                <!--valeur fermée: "sent" pour une expédition "received" pour une réception, attributs facultatifs: @subtype @sortKey pour une redirection  -->
+                <correspAction type="sent" subtype="redirecting" sortKey="2">  
+                    <persName xml:id="id_exped" key="nom_normalisé" ref="http://test">nom de l'expéditeur</persName>  <!--plusieurs attributs possibles pour identifier l'expéditeur-->
+                    <placeName xml:id="id_lieu_exped" key="nom_normalisé" ref="http://test">lieu d'expédition</placeName>  <!--plusieurs attributs possibles pour identifier le lieu de l'expédition-->             
+                    <!--date dans l'attribut @when au format aaaa-mm-jj ; autres attributs possibles: @notBefore, @notAfter, @from, @to  -->
+                    <date when="2001-01-01" cert="high" resp="id_editeur"/> <!-- soit @when="2001-01-01" soit notAfter="2001-01-01" et notBefore="2001-01-01"-->
+                </correspAction>
+                <correspAction type="received" subtype="redirecting" sortKey="2">  
+                    <persName xml:id="id_dest" key="nom_normalisé" ref="http://test">nom de l'expéditeur</persName>  <!--plusieurs attributs possibles pour identifier l'expéditeur-->
+                    <placeName xml:id="id_lieu_dest" key="nom_normalisé" ref="http://test">lieu d'expédition</placeName>  <!--plusieurs attributs possibles pour identifier le lieu de l'expédition-->            
+                    <!--date dans l'attribut @when au format aaaa-mm-jj ; autres attributs possibles: @notBefore, @notAfter, @from, @to  -->
+                    <date when="2001-01-01" cert="high" resp="id_editeur"/> <!-- soit @when="2001-01-01" soit notAfter="2001-01-01" et notBefore="2001-01-01"-->
+                </correspAction>
+                <correspContext>
+                    <ref type="next" target="http://test"/>
+                    <ref type="prev" target="http://test"/>
+                    <ref type="replyTo" target="http://test"/>
+                    <ref type="repliedBy" target="http://test"/>
+                </correspContext>
+            </correspDesc>
+            
+            <!-- encodage des relations entre correspondants-->
+            <particDesc>
+                <listPerson>
+                    <person sex="M" age="26" role="metier" sameAs="#id_exped"/>            
+                    <person sameAs="#id_dest"/>
+                    <relation type="personal" name="friend" mutual="#id_exped #id_dest"/> 
+                </listPerson>
+            </particDesc>
+            
+            
+            <!--intégration de mots-clés thématiques définissant le document -->
+            <textClass>
+                <!--@scheme donne le nom du thesaurus ou de la liste close de mots-clés-->
+                <keywords scheme="nom_thesaurus"> 
+                    <term>mot-clé 1</term>
+                    <term>mot-clé 2</term>
+                    <!--...-->
+                </keywords>
+            </textClass>
+            
+        </profileDesc>
+        
+        <revisionDesc>
+            <change when="2001-01-01" who="nom_editeur">notification d'un changement, d'une mise à jour de l'édition </change>
+        </revisionDesc>
+        
+    </teiHeader>
+    
+    <text>
+        <body>
+            <!-- autres valeurs autorisées: "envelope" "note" "postcard" "telegram" "attachment" -->
+            <div type="letter">
+               
+             
+               <!-- délimitation des pages et @facs pour l'image de la page concernée -->
+                <pb xml:id="id_page" n="1" facs="http://tests"/>
+                
+                <!--<head> type="title" pour un titre intégré par l'auteur à sa lettre ou type="object" pour l'object d'une lettre "objet:..."-->
+                <head type="object"> titre intégré par l'auteur ou object</head>
+                <fw type="type">saisie des en-têtes formalisées</fw>
+               <!-- formule de début de lettre -->
+                <opener>
+                    <salute>formule d'apostrophe</salute>
+                    <dateline>mention d'une date dans la formule de début</dateline>
+                    <address sameAs="#id_exped"> <!--@sameAs pour dire s'il s'agit de l'adresse de l'expéditeur ou du destinataire, pointe vers l' @xml:id de <persName> du correspDesc -->
+                        <addrLine>ligne d'une adresse si mention adresse </addrLine>
+                    </address>                   
+                </opener>
+                
+                <!-- paragraphe d'une lettre  -->
+                <p>
+                    texte de la lettre ou du document de correspondance
+                   
+                    
+                    <!--notes critiques des éditeurs ou de l'auteur lui même type="author", autres valeurs possibles de @place voir documentation -->
+                    <note type ="editor" place="bottom">note explicative</note>
+                    
+                    <!-- ajouts de l'auteur ou annotations postérieures @type="posterior", autres valeurs possibles de @place voir documentation -->
+                    <add type="author" place="above">annotation</add>
+                    
+                    
+                    <ref target="http://test">référence par l'auteur à une autre lettre</ref> <!--targer pointe vers la lettre dont il est question-->
+                    
+                    <!-- entités nommées -->
+                    <persName xml:id ="id_personne" key="nom_normalisé" ref="http://test" >nom de personne</persName>
+                    <!-- entités nommées -->
+                    <placeName xml:id ="id_lieu" key="nom_normalisé" ref="http://test" >nom de lieu</placeName>
+                    <!-- entités nommées -->
+                    <orgName xml:id ="id_org" key="nom_normalisé" ref="http://test" >nom d'organisation/institution</orgName>
+                    <!-- date au format aaaa-mm-jj -->
+                    <date when="2001-01-01"/>
+                    <!-- titres d'oeuvres  autres valeurs suggérées pour @type: "science" "art" -->
+                    <bibl xml:id="id_oeuvre" source="http://test" type="literature">titre d'une oeuvre </bibl>
+                    
+                    
+                    <!--citations-->
+                    <cit>
+                        <quote>texte cité</quote>
+                        <bibl source="http://test">référence bibliographique de la citation</bibl>
+                    </cit>
+                    
+                   <!-- liste-->
+                    <list>
+                        <item>composant n° 1 de la liste</item>
+                        <item>composant n° 2 de la liste</item>
+                    </list>
+                    
+                    <!--distinction graphique d'un mot ou d'un passage valeurs proposées à définir-->
+                    <hi rend="?">passage distinctif</hi>
+                    
+                    <!--pour encoder un dessin ou une forme graphique-->
+                    <figure>
+                        <graphic url="http://test"
+                        />
+                        <desc>description du dessin</desc>
+                    </figure>
+                    
+                    <formula notation="notation">formule mathématique</formula> <!--@notation pour préciser la notation scientifique-->
+                  
+                    <!-- tableau-->
+                    <table rows="5" cols="2">
+                        <head>titre du tableau</head>
+                        <row role="data">
+                            <cell>cellule d'un tableau</cell>
+                        </row>
+                    </table>
+                    
+                   <!-- notes de musique-->
+                    <notatedMusic>
+                        <!-- image des notes -->
+                        <graphic url="http://test"/>                        
+                        <desc>description</desc>
+                    </notatedMusic>
+                    
+                    
+                    <!--balises de transcription / apparat critique-->
+                    
+                    <!--pour marquer un saut de ligne-->
+                    <lb/> 
+                    
+                    <!--pour baliser une ommission pour les autres valeurs possibles de @unit et @reason voir documentation--> 
+                    <gap unit="char" quantity="4" reason="illegible"/> 
+                    
+                    <unclear reason="faded">mot ou passage incertain</unclear>
+                    <del>mot râturé</del>
+                    
+                    <!-- choix de transcriptions -->
+                    <!--abréviations-->
+                    <choice>
+                        <abbr>Mr</abbr>
+                        <expan>M<ex>onsieu</ex>r</expan>
+                    </choice>
+                    <!--correction-->
+                    <choice>
+                        <sic>a</sic>
+                        <corr>à</corr>
+                    </choice>
+                    <!--régularisation-->                   
+                    <choice>
+                        <reg>août</reg>
+                        <orig>Août</orig>
+                    </choice>
+                                                         
+                    
+                </p>
+                
+                
+                
+               <!-- tableau en dehors d'un paragraphe-->
+                <table rows="5" cols="2">
+                    <head>titre du tableau</head>
+                    <row>
+                        <cell role="data">cellule d'un tableau</cell>
+                    </row>
+                </table>
+                
+                
+                <!-- notes de musique hors d'un paragraphe -->
+                <notatedMusic>
+                    <!-- image des notes -->
+                    <graphic url="http://test"/>                        
+                    <desc>description</desc>
+                </notatedMusic>
+                
+                
+                
+               <!-- formule de fin de lettre-->
+                <closer>
+                    <salute>formule de politesse</salute>
+                    <address sameAs="#id_dest"> <!--@sameAs pour dire s'il s'agit de l'adresse de l'expéditeur ou du destinataire, pointe vers l' @xml:id de <persName> du correspDesc -->
+                        <addrLine>ligne adresse si mention adresse</addrLine>
+                    </address>
+                    <dateline>mention d'une date dans la formule de fin de lettre</dateline>
+                    <signed>signature</signed>
+                </closer>
+                
+                <!--distinction graphique d'une partie d'un texte-->
+                
+                <postscript>
+                    <p>texte du post-scriptum</p>
+                </postscript>
+            </div>
+        </body>
+    </text>
+</TEI>
