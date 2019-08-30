@@ -69,7 +69,9 @@
                   <text/>
                 </element>
                 <element name="repository">
-                  <text/>
+                  <data type="string">
+                    <param name="pattern">.+</param>
+                  </data>          
                 </element>
                 <element name="collection">
                   <text/>
@@ -100,38 +102,50 @@
                   </choice>
                 </element> 
               </optional>
-              <element name="physDesc">
-                <element name="objectDesc">
-                  <attribute name="form">
-                    <choice>                      
-                      <value>letter</value>
-                      <value>telegram</value>
-                      <value>note</value>
-                      <value>postcard</value>
-                    </choice>
-                  </attribute>
-                  <element name="supportDesc">
-                    <element name="extent">
-                      <element name="measure">
-                        <attribute name="type">
-                          <value>page</value>
-                        </attribute>
-                        <text/>
-                      </element>
-                    </element> 
+              <optional>
+                <element name="physDesc">
+                  <element name="objectDesc">
                     <optional>
-                      <element name="condition">
-                        <text/>
+                      <attribute name="form">
+                        <choice>                      
+                          <value>letter</value>
+                          <value>telegram</value>
+                          <value>note</value>
+                          <value>postcard</value>
+                        </choice>
+                      </attribute>
+                    </optional>
+                    
+                    <optional>
+                      <element name="supportDesc">
+                        <optional>
+                          <element name="extent">
+                            <element name="measure">
+                              <attribute name="type">
+                                <value>page</value>
+                              </attribute>
+                              <text/>
+                            </element>
+                          </element> 
+                        </optional>                    
+                        <optional>
+                          <element name="condition">
+                            <text/>
+                          </element>
+                        </optional>
                       </element>
                     </optional>
+                    
+                    
                   </element>
+                  <optional>
+                    <element name="accMat">
+                      <text/>
+                    </element>
+                  </optional>
                 </element>
-                <optional>
-                  <element name="accMat">
-                    <text/>
-                  </element>
-                </optional>
-              </element>
+              </optional>
+              
             </element>
           </element>
         </element>
@@ -166,6 +180,27 @@
                 <ref name="persName"/>
                 <optional>
                   <ref name="placeName"/>
+                </optional>
+                <optional>
+                  <element name="orgName">
+                    <optional>
+                      <attribute name="key">
+                        <data type="NCName"/>
+                      </attribute>
+                    </optional>
+                    <optional>
+                      <attribute name="ref">
+                        <data type="anyURI"/>
+                      </attribute>
+                    </optional>
+                    <optional>
+                      <attribute>
+                        <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+                        <data type="NCName"/>
+                      </attribute>
+                    </optional>            
+                    <text/>
+                  </element>
                 </optional>
                 <optional>
                   <ref name="date"/>
@@ -272,6 +307,7 @@
                   <value>telegram</value>
                   <value>note</value>
                   <value>postcard</value>
+                  <value>attachment</value>
                 </choice>
               </attribute>
               <interleave>
@@ -301,7 +337,7 @@
                   </element>
                 </zeroOrMore>
                 <zeroOrMore>
-                  <ref name="head"/>
+                  <ref name="head_1"/>
                 </zeroOrMore>
                 <zeroOrMore>
                   <element name="fw">
@@ -338,23 +374,27 @@
                   <ref name="notatedMusic"/>
                 </zeroOrMore>
                 <zeroOrMore>
-                  <element name="figure">
-                    <interleave>
-                      <optional>
-                        <ref name="graphic"/>
-                      </optional>
-                      <ref name="desc"/>
-                    </interleave>         
-                  </element> 
+                  <ref name="figure"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                  <ref name="note"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                  <ref name="add"/>
                 </zeroOrMore>
                 <zeroOrMore>
                   <element name="formula">
-                    <optional>
-                      <attribute name="notation">
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>
-                    <text/>
+                    <interleave>
+                      <optional>
+                        <attribute name="notation">
+                          <data type="NCName"/>
+                        </attribute>
+                      </optional>
+                      <optional>
+                        <ref name="graphic"/>
+                      </optional>
+                      <text/>
+                    </interleave>            
                   </element>
                 </zeroOrMore>
                 <zeroOrMore>
@@ -388,6 +428,11 @@
                 </zeroOrMore>
                 <zeroOrMore>
                   <element name="postscript">
+                    <optional>
+                      <attribute name="n">
+                        <data type="integer"/>
+                      </attribute>
+                    </optional>
                     <oneOrMore>
                       <ref name="p"/>
                     </oneOrMore>                   
@@ -412,13 +457,50 @@
           <data type="NCName"/>
         </attribute>
       </optional>
-      <attribute name="when">
-        <choice>
-          <data type="date"/>
-          <data type="gYear"/>
-          <data type="gYearMonth"/>
-        </choice>
-      </attribute>
+      <choice>     
+        <attribute name="when">
+          <choice>
+            <data type="date"/>
+            <data type="gYear"/>
+            <data type="gYearMonth"/>
+          </choice>          
+        </attribute>
+        <attribute name="notAfter">
+          <choice>
+            <data type="date"/>
+            <data type="gYear"/>
+            <data type="gYearMonth"/>
+          </choice>
+        </attribute>
+        <attribute name="notBefore">
+          <choice>
+            <data type="date"/>
+            <data type="gYear"/>
+            <data type="gYearMonth"/>
+          </choice>
+        </attribute>
+        <group>
+          <interleave>
+            <attribute name="notAfter">
+              <choice>
+                <data type="date"/>
+                <data type="gYear"/>
+                <data type="gYearMonth"/>
+              </choice>
+            </attribute>
+            <attribute name="notBefore">
+              <choice>
+                <data type="date"/>
+                <data type="gYear"/>
+                <data type="gYearMonth"/>
+              </choice>
+            </attribute>
+          </interleave>         
+        </group>     
+      </choice>
+      
+      
+      
       <text/>
     </element>
   </define>
@@ -462,56 +544,57 @@
               </attribute>
             </optional>                  
           </element>
-          <element name="add">
-            <interleave>
-              <attribute name="type">
-                <choice>
-                  <value>posterior</value>
-                  <value>author</value>
-                </choice>
-              </attribute>
-              <optional>
-                <ref name="place"/>
-              </optional>
-            </interleave>
-            <text/>
-          </element>
+          <ref name="add"/>
           <element name="choice">
             <choice>
               <group>
-                <element name="reg">
-                  <data type="NCName"/>
-                </element>
-                <element name="orig">
-                  <data type="NCName"/>
-                </element>
+                <interleave>
+                  <element name="reg">
+                    <text/>
+                  </element>
+                  <element name="orig">
+                    <text/>
+                  </element>
+                </interleave>
               </group>
               <group>
-                <element name="abbr">
-                  <data type="NCName"/>
-                </element>
-                <element name="expan">
-                  <oneOrMore>
-                    <choice>
-                      <text/>
-                      <element name="ex">
-                        <data type="NCName"/>
-                      </element>
-                    </choice>
-                  </oneOrMore>
-                </element>
+                <interleave>
+                  <element name="abbr">
+                    <text/>
+                  </element>
+                  <element name="expan">
+                    <oneOrMore>
+                      <choice>
+                        <text/>
+                        <element name="ex">
+                          <text/>
+                        </element>
+                      </choice>
+                    </oneOrMore>
+                  </element>
+                </interleave>
               </group>
               <group>
-                <element name="sic">
-                  <data type="NCName"/>
-                </element>
-                <element name="corr">
-                  <data type="NCName"/>
-                </element>
+                <interleave>
+                  <element name="sic">
+                    <text/>
+                  </element>
+                  <element name="corr">
+                    <text/>
+                  </element>
+                </interleave>
               </group>
             </choice>
           </element>
          <element name="supplied">
+           <optional>
+             <attribute name="reason">
+               <data type="NCName"/>
+             </attribute>
+             <attribute name="resp">
+               <data type="NCName"/>
+             </attribute>
+           </optional>           
            <text/>
          </element> 
           <element name="cit">
@@ -527,21 +610,19 @@
           <element name="del">
             <text/>
           </element>
-          <element name="figure">
+          <ref name="figure"/>         
+          <element name="formula">
             <interleave>
+              <optional>
+                <attribute name="notation">
+                  <data type="NCName"/>
+                </attribute>
+              </optional>
               <optional>
                 <ref name="graphic"/>
               </optional>
-              <ref name="desc"/>
-            </interleave>         
-          </element>         
-          <element name="formula">
-            <optional>
-              <attribute name="notation">
-                <data type="NCName"/>
-              </attribute>
-            </optional>
-            <text/>
+              <text/>
+            </interleave>            
           </element>
           <element name="gap">
             <interleave>
@@ -583,20 +664,7 @@
               </element>
             </oneOrMore>
           </element>
-          <element name="note">
-            <interleave>
-              <attribute name="type">
-                <choice>
-                  <value>author</value>
-                  <value>editor</value>
-                </choice>
-              </attribute>
-              <optional>
-                <ref name="place"/>
-              </optional>             
-            </interleave>            
-            <text/>
-          </element>
+          <ref name="note"/>
           <element name="orgName">
             <optional>
               <attribute name="key">
@@ -617,9 +685,11 @@
             <text/>
           </element>
           <element name="unclear">
-            <attribute name="reason">
-              <data type="NCName"/>
-            </attribute>
+            <optional>
+              <attribute name="reason">
+                <data type="NCName"/>
+              </attribute>
+            </optional>   
             <text/>
           </element>
         </choice>
@@ -707,7 +777,18 @@
       <text/>
     </element>
   </define>
-  <define name="head">
+  <define name="head_1">
+    <element name="head">   
+      <attribute name="type">
+        <choice>
+          <value>object</value>
+          <value>title</value>
+        </choice>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="head_2">
     <element name="head">
       <optional>
         <attribute name="type">
@@ -755,7 +836,7 @@
         </attribute>
       </optional>
       <zeroOrMore>
-        <ref name="head"/>
+        <ref name="head_2"/>
       </zeroOrMore>
       <zeroOrMore>
         <element name="row">
@@ -773,7 +854,8 @@
               </optional>
               <text/>
             </element>
-          </zeroOrMore>         
+          </zeroOrMore> 
+          <text/>
         </element>
       </zeroOrMore>      
     </element>
@@ -803,8 +885,23 @@
       <empty/>
     </element>
   </define>
+  <define name="figDesc">
+    <element name="figDesc">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>   
+      <text/>
+    </element>
+  </define>
   <define name="desc">
     <element name="desc">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
       <text/>
     </element>
   </define>
@@ -824,4 +921,58 @@
       </choice>
     </attribute>
   </define>
+  <define name="figure">
+    <element name="figure">
+      <interleave>
+        <zeroOrMore>
+          <ref name="graphic"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="figDesc"/>
+        </zeroOrMore>
+      </interleave>         
+    </element>
+  </define>
+  <define name="note">
+    <element name="note">
+      <interleave>
+        <attribute name="type">
+          <choice>
+            <value>author</value>
+            <value>editor</value>
+          </choice>
+        </attribute>
+        <optional>
+          <ref name="place"/>
+        </optional> 
+        <oneOrMore>
+          <choice>
+            <text/>
+            <ref name="placeName"/>
+            <ref name="bibl"/>
+            <ref name="persName"/>
+          </choice>
+        </oneOrMore>
+      </interleave>            
+      <text/>
+    </element>
+  </define>
+  <define name="add">
+    <element name="add">
+      <interleave>
+        <attribute name="type">
+          <choice>
+            <value>posterior</value>
+            <value>author</value>
+          </choice>
+        </attribute>
+        <optional>
+          <ref name="place"/>
+        </optional>
+      </interleave>
+      <text/>
+    </element>
+  </define>
+  
+  
 </grammar>
