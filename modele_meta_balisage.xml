@@ -39,10 +39,6 @@
                 </availability>
             </publicationStmt>
             <sourceDesc>
-                
-                <!-- bibl adapté lettre  -->
-                <bibl>[lieu de conservation], [fonds] , [carton], [référence]</bibl>
-                <!--  integration d'un nouveau modèle msDesc -->
                 <msDesc>
                     <msIdentifier> <!-- convservation et origine du document -->
                         <country>pays de conservation</country>

@@ -1,0 +1,20 @@
+
+
+Le fichier modele_header_obvil_test part d'un modèle Header Obvil légèrement modifié:
+
+-un seul titre dans le <titleStmt>
+-l'élément <sourceDesc> vide 
+-un <profileDesc> vide
+
+
+Pour qu'un fichier xml soit valide avec le schéma correspondance, il faut:
+
+- <msDesc> rempli (dans le sourceDesc)
+avec tous les champs msIdentifier et au moins le nb de pages et l'attribut form de objectDesc
+
+- un <correspDesc> (dans le profileDesc) avec une référence uri/url dans @ref
+et au moins un <correspAction> avec son @type rempli ("sent" "received")
+avec un <persName> si inconnu mettre "unknown"
+
+-une <div> dans <body> avec son @type
+
