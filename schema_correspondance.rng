@@ -59,24 +59,34 @@
           <element name="sourceDesc">
             <element name="msDesc">
               <element name="msIdentifier">
-                <element name="country">
-                  <text/>
-                </element>
-                <element name="settlement">
-                  <text/>
-                </element>
-                <element name="institution">
-                  <text/>
-                </element>
+                <optional>
+                  <element name="country">
+                    <text/>
+                  </element>
+                </optional>
+                <optional>
+                  <element name="settlement">
+                    <text/>
+                  </element>
+                </optional>
+                <optional>
+                  <element name="institution">
+                    <text/>
+                  </element>
+                </optional>                
                 <element name="repository">
                   <data type="string">
                     <param name="pattern">.+</param>
                   </data>          
                 </element>
-                <element name="collection">
-                  <text/>
-                </element>
-                <ref name="idno"/>
+                <optional>
+                  <element name="collection">
+                    <text/>
+                  </element>
+                </optional>
+                <optional>
+                  <ref name="idno"/>
+                </optional>               
               </element>
               <optional>
                 <element name="msContents">
@@ -177,40 +187,21 @@
                     <value>received</value>
                   </choice>
                 </attribute>
+                
                 <ref name="persName"/>
-                <optional>
-                  <ref name="placeName"/>
-                </optional>
-                <optional>
-                  <element name="orgName">
-                    <optional>
-                      <attribute name="key">
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute name="ref">
-                        <data type="anyURI"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute>
-                        <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>            
-                    <text/>
-                  </element>
-                </optional>
-                <optional>
-                  <ref name="date"/>
-                </optional>
+                <zeroOrMore>
+                  <choice>
+                    <ref name="placeName"/>
+                    <ref name="orgName"/>
+                    <ref name="date"/>
+                  </choice>
+                </zeroOrMore>
               </element>
             </oneOrMore>
             <optional>
               <element name="correspContext">
                 <oneOrMore>
-                  <ref name="ref"/>
+                  <ref name="ref_context"/>
                 </oneOrMore>
               </element>
             </optional>           
@@ -268,9 +259,11 @@
           <optional>
             <element name="textClass">
               <element name="keywords">
-                <attribute name="scheme">
-                  <data type="NCName"/>
-                </attribute>
+                <optional>
+                  <attribute name="scheme">
+                    <data type="NCName"/>
+                  </attribute>
+                </optional>
                 <oneOrMore>
                   <element name="term">
                     <text/>
@@ -310,197 +303,150 @@
                   <value>attachment</value>
                 </choice>
               </attribute>
+              
               <interleave>
-                <zeroOrMore>
-                  <element name="lb">
-                    <empty/>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="pb">
-                    <optional>
-                      <attribute name="facs">
-                        <data type="anyURI"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute name="n">
-                        <data type="integer"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute>
-                        <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>                  
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="head_1"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="fw">
-                    <optional>
-                      <attribute name="type">
-                        <data type="NCName"/>
-                      </attribute>                    
-                    </optional>    
-                    <text/>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="opener">
-                    <interleave>
-                      <zeroOrMore>
-                        <ref name="salute"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="dateline"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="address"/>
-                      </zeroOrMore>                    
-                    </interleave>
-                  </element>
-                </zeroOrMore>
                 <oneOrMore>
                   <ref name="p"/>
                 </oneOrMore>
                 <zeroOrMore>
-                  <ref name="table"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="notatedMusic"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="figure"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="note"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="add"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="formula">
-                    <interleave>
+                  <choice>
+                    <ref name="subst"/>
+                    <ref name="lb"/>
+                    <ref name="head_1"/>      
+                    <ref name="pb"/>
+                    <ref name="table"/>
+                    <ref name="notatedMusic"/>
+                    <ref name="figure"/>
+                    <ref name="note"/>
+                    <ref name="add"/>
+                    <ref name="formula"/>
+                    <ref name="list"/>
+                    
+                    <element name="fw">
                       <optional>
-                        <attribute name="notation">
+                        <attribute name="type">
                           <data type="NCName"/>
+                        </attribute>                    
+                      </optional>    
+                      <text/>
+                    </element>
+                    <element name="opener">
+                      <zeroOrMore>
+                        <choice>
+                          <ref name="salute"/>
+                          <ref name="dateline"/>
+                          <ref name="address"/>
+                        </choice>
+                      </zeroOrMore>
+                    </element>
+                    <element name="closer">
+                      <zeroOrMore>
+                        <choice>
+                          <ref name="salute"/>
+                          <ref name="address"/>
+                          <ref name="dateline"/>
+                          <element name="signed">
+                            <text/>
+                          </element>
+                        </choice>
+                      </zeroOrMore>
+                    </element>
+                    <element name="postscript">
+                      <optional>
+                        <attribute name="n">
+                          <data type="integer"/>
                         </attribute>
                       </optional>
-                      <optional>
-                        <ref name="graphic"/>
-                      </optional>
-                      <text/>
-                    </interleave>            
-                  </element>
+                      <oneOrMore>
+                        <ref name="p"/>
+                      </oneOrMore>                   
+                    </element>
+                  </choice>
                 </zeroOrMore>
-                <zeroOrMore>
-                  <element name="list">
-                    <oneOrMore>
-                      <element name="item">
-                        <text/>
-                      </element>
-                    </oneOrMore>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="closer">
-                    <interleave>
-                      <zeroOrMore>
-                        <ref name="salute"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="address"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="dateline"/> 
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <element name="signed">
-                          <text/>
-                        </element>                        
-                      </zeroOrMore>
-                    </interleave>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="postscript">
-                    <optional>
-                      <attribute name="n">
-                        <data type="integer"/>
-                      </attribute>
-                    </optional>
-                    <oneOrMore>
-                      <ref name="p"/>
-                    </oneOrMore>                   
-                  </element>
-                </zeroOrMore>
-              </interleave>                                      
+              </interleave>
             </element>
           </oneOrMore>          
         </element>
       </element>
     </element>
   </start>
+  <define name="a_when">
+    <attribute name="when">
+      <choice>
+        <data type="date"/>
+        <data type="gYear"/>
+        <data type="gMonth"/>
+        <data type="gDay"/>
+        <data type="gYearMonth"/>
+        <data type="gMonthDay"/>
+        <data type="time"/>
+        <data type="dateTime"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_notBefore">
+    <attribute name="notBefore">
+      <choice>
+        <data type="date"/>
+        <data type="gYear"/>
+        <data type="gMonth"/>
+        <data type="gDay"/>
+        <data type="gYearMonth"/>
+        <data type="gMonthDay"/>
+        <data type="time"/>
+        <data type="dateTime"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_notAfter">
+    <attribute name="notAfter">
+      <choice>
+        <data type="date"/>
+        <data type="gYear"/>
+        <data type="gMonth"/>
+        <data type="gDay"/>
+        <data type="gYearMonth"/>
+        <data type="gMonthDay"/>
+        <data type="time"/>
+        <data type="dateTime"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_resp">
+    <attribute name="resp">
+      <choice>
+        <value>author</value>
+        <value>editor</value>
+        <value>posterior</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_cert">
+    <attribute name="cert">
+      <choice>
+        <value>high</value>
+        <value>medium</value>
+        <value>low</value>
+      </choice>
+    </attribute>
+  </define>
   <define name="date">
     <element name="date">
-      <optional>
-        <attribute name="cert">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="resp">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <choice>     
-        <attribute name="when">
-          <choice>
-            <data type="date"/>
-            <data type="gYear"/>
-            <data type="gYearMonth"/>
-          </choice>          
-        </attribute>
-        <attribute name="notAfter">
-          <choice>
-            <data type="date"/>
-            <data type="gYear"/>
-            <data type="gYearMonth"/>
-          </choice>
-        </attribute>
-        <attribute name="notBefore">
-          <choice>
-            <data type="date"/>
-            <data type="gYear"/>
-            <data type="gYearMonth"/>
-          </choice>
-        </attribute>
+      <choice>
+        <ref name="a_when"/>
+        <ref name="a_notAfter"/>
+        <ref name="a_notBefore"/>
         <group>
-          <interleave>
-            <attribute name="notAfter">
-              <choice>
-                <data type="date"/>
-                <data type="gYear"/>
-                <data type="gYearMonth"/>
-              </choice>
-            </attribute>
-            <attribute name="notBefore">
-              <choice>
-                <data type="date"/>
-                <data type="gYear"/>
-                <data type="gYearMonth"/>
-              </choice>
-            </attribute>
-          </interleave>         
-        </group>     
+          <ref name="a_notAfter"/>
+          <ref name="a_notBefore"/>        
+        </group>
       </choice>
-      
-      
-      
+      <optional>
+        <ref name="a_cert"/>
+      </optional>
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
       <text/>
     </element>
   </define>
@@ -519,32 +465,29 @@
       <oneOrMore>
         <choice>
           <text/>
+          <ref name="add"/>
           <ref name="bibl"/>
+          <ref name="note"/>
           <ref name="date"/>
           <ref name="notatedMusic"/>
           <ref name="persName"/>
           <ref name="placeName"/>
           <ref name="ref"/>
           <ref name="table"/>
-          <element name="pb">
-            <optional>
-              <attribute name="facs">
-                <data type="anyURI"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute name="n">
-                <data type="integer"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute>
-                <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                <data type="NCName"/>
-              </attribute>
-            </optional>                  
-          </element>
-          <ref name="add"/>
+          <ref name="figure"/>
+          <ref name="supplied"/>
+          <ref name="unclear"/>
+          <ref name="gap"/>
+          <ref name="del"/>
+          <ref name="pb"/>
+          <ref name="subst"/>
+          <ref name="cit"/>
+          <ref name="formula"/>
+          <ref name="hi"/>
+          <ref name="lb"/>
+          <ref name="list"/>
+          <ref name="orgName"/>
+          
           <element name="choice">
             <choice>
               <group>
@@ -585,113 +528,8 @@
                 </interleave>
               </group>
             </choice>
-          </element>
-         <element name="supplied">
-           <optional>
-             <attribute name="reason">
-               <data type="NCName"/>
-             </attribute>
-             <attribute name="resp">
-               <data type="NCName"/>
-             </attribute>
-           </optional>           
-           <text/>
-         </element> 
-          <element name="cit">
-            <interleave>           
-              <element name="quote">
-                <text/>
-              </element>           
-              <zeroOrMore>
-                <ref name="bibl"/>
-              </zeroOrMore>                           
-            </interleave>
-         </element>
-          <element name="del">
-            <text/>
-          </element>
-          <ref name="figure"/>         
-          <element name="formula">
-            <interleave>
-              <optional>
-                <attribute name="notation">
-                  <data type="NCName"/>
-                </attribute>
-              </optional>
-              <optional>
-                <ref name="graphic"/>
-              </optional>
-              <text/>
-            </interleave>            
-          </element>
-          <element name="gap">
-            <interleave>
-              <optional>
-                <attribute name="quantity">
-                  <data type="integer"/>
-                </attribute>
-              </optional>
-              <optional>
-                <attribute name="reason">
-                  <choice>
-                    <value>cancelled</value>
-                    <value>deleted</value>
-                    <value>editorial</value>
-                    <value>illegible</value>
-                    <value>irrevelant</value>
-                    <value>sampling</value>
-                  </choice>
-                </attribute>
-              </optional>
-              <optional>
-                <attribute name="unit">
-                  <data type="NCName"/>
-                </attribute>
-              </optional>
-            </interleave>          
-          </element>
-          <element name="hi">
-            <attribute name="rend"/>
-            <text/>
-          </element>
-          <element name="lb">
-            <empty/>
-          </element>
-          <element name="list">
-            <oneOrMore>
-              <element name="item">
-                <text/>
-              </element>
-            </oneOrMore>
-          </element>
-          <ref name="note"/>
-          <element name="orgName">
-            <optional>
-              <attribute name="key">
-                <data type="NCName"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute name="ref">
-                <data type="anyURI"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute>
-                <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                <data type="NCName"/>
-              </attribute>
-            </optional>            
-            <text/>
-          </element>
-          <element name="unclear">
-            <optional>
-              <attribute name="reason">
-                <data type="NCName"/>
-              </attribute>
-            </optional>   
-            <text/>
-          </element>
+          </element> 
+   
         </choice>
       </oneOrMore>
     </element>
@@ -715,6 +553,40 @@
         </attribute>
       </optional>
       <text/>
+    </element>   
+  </define>
+  <define name="gap">
+    <element name="gap">
+      <interleave>
+        <optional>
+          <attribute name="reason">
+            <choice>
+              <value>cancelled</value>
+              <value>editorial</value>
+              <value>illegible</value>
+              <value>irrevelant</value>
+              <value>sampling</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <interleave>
+            <attribute name="quantity">
+              <data type="integer"/>
+            </attribute>
+            <attribute name="unit">
+              <choice>
+                <value>cm</value>
+                <value>mm</value>
+                <value>chars</value>
+                <value>line</value>
+                <value>page</value>
+                <value>in</value>
+              </choice>
+            </attribute>
+          </interleave>       
+        </optional>
+      </interleave>          
     </element>
   </define>
   <define name="persName">
@@ -735,7 +607,9 @@
           <data type="NCName"/>
         </attribute>
       </optional>          
-      <text/>
+      <data type="string">
+        <param name="pattern">.+</param>
+      </data>
     </element>
   </define>
   <define name="placeName">
@@ -759,6 +633,21 @@
       <text/>
     </element>
   </define>
+  <define name="ref_context">
+    <element name="ref">
+      <attribute name="target">
+        <data type="anyURI"/>
+      </attribute>
+      <attribute name="type">
+        <choice>
+          <value>next</value>
+          <value>prev</value>
+          <value>replyTo</value>
+          <value>repliedBy</value>
+        </choice>
+      </attribute>
+    </element>
+  </define>
   <define name="ref">
     <element name="ref">
       <attribute name="target">
@@ -766,12 +655,7 @@
       </attribute>
       <optional>
         <attribute name="type">
-          <choice>
-            <value>next</value>
-            <value>prev</value>
-            <value>replyTo</value>
-            <value>repliedBy</value>
-          </choice>
+          <data type="NCName"/>
         </attribute>
       </optional>
       <text/>
@@ -814,7 +698,12 @@
   <define name="address">
     <element name="address">
       <optional>
-        <attribute name="sameAs"/>
+        <attribute name="type">
+          <choice>
+            <value>receiver</value>
+            <value>sender</value>
+          </choice>
+        </attribute>
       </optional>
       <oneOrMore>
         <element name="addrLine">
@@ -879,10 +768,9 @@
   </define>
   <define name="graphic">
     <element name="graphic">
-      <attribute name="url">
+      <attribute name="facs">
         <data type="anyURI"/>
       </attribute>
-      <empty/>
     </element>
   </define>
   <define name="figDesc">
@@ -969,10 +857,191 @@
         <optional>
           <ref name="place"/>
         </optional>
+      </interleave> 
+      <interleave>
+        <zeroOrMore>
+         <ref name="del"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="unclear"></ref>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="supplied"></ref>
+        </zeroOrMore>
+        <text/>
       </interleave>
+    </element>  
+  </define>
+  <define name="supplied">
+    <element name="supplied">
+      <optional>
+        <attribute name="reason">
+          <data type="NCName"/>
+        </attribute>
+      </optional> 
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
+      <optional>
+        <ref name="a_cert"></ref>
+      </optional>
       <text/>
     </element>
   </define>
-  
-  
+  <define name="unclear">
+    <element name="unclear">
+      <optional>
+        <attribute name="reason">
+          <choice>
+            <value>illegible</value>
+            <value>faded</value>
+            <value>background_noise</value>
+            <value>eccentric_ductus</value>
+          </choice>
+        </attribute>      
+      </optional>
+      <optional>
+        <ref name="a_cert"/>
+      </optional>
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="del">
+    <element name="del">
+      <interleave>
+        <zeroOrMore>
+          <ref name="unclear"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="supplied"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="gap"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="lb"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="pb"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="del"/>
+        </zeroOrMore>
+        <text/>
+      </interleave>
+    </element>
+  </define>
+  <define name="pb">
+    <element name="pb">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="n">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>                  
+    </element>    
+  </define>
+  <define name="lb">
+    <element name="lb">
+      <empty/>
+    </element>
+  </define>
+  <define name="subst">
+    <element name="subst">    
+      <interleave>
+        <zeroOrMore>
+          <ref name="add"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="del"/>
+        </zeroOrMore>
+        <text/>
+      </interleave>
+    </element>
+  </define>
+  <define name="orgName">
+    <element name="orgName">
+      <optional>
+        <attribute name="key">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="ref">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>            
+      <text/>
+    </element>
+  </define>
+  <define name="cit">
+    <element name="cit">
+      <choice>
+        <element name="quote">
+          <text/>
+        </element>
+        <group>
+          <element name="quote">
+            <text/>
+          </element>
+          <ref name="bibl"/>
+        </group>
+        <group>
+          <element name="quote">
+            <text/>
+          </element>
+          <ref name="ref"/>
+        </group>
+      </choice>
+    </element>
+  </define>
+  <define name="formula">
+    <element name="formula">
+      <optional>
+        <attribute name="notation">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <ref name="graphic"/>
+          <text/>
+        </choice>
+      </oneOrMore>        
+    </element>
+  </define>
+  <define name="hi">
+    <element name="hi">
+      <attribute name="rend"/>
+      <text/>
+    </element>
+  </define>
+  <define name="list">
+    <element name="list">
+      <oneOrMore>
+        <element name="item">
+          <text/>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
 </grammar>
