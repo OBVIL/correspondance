@@ -324,6 +324,7 @@
                     <ref name="fw"/>
                     <ref name="lg"/>
                     <ref name="l"/>
+                    <ref name="gap"/>
                     
                     
                     <element name="opener">
@@ -789,7 +790,7 @@
       <text/>
     </element>
   </define>
-  <define name="place">
+  <define name="a_place">
     <attribute name="place">
       <choice>
         <value>below</value>
@@ -827,16 +828,130 @@
           </choice>
         </attribute>
         <optional>
-          <ref name="place"/>
+          <ref name="a_place"/>
         </optional> 
+        
         <oneOrMore>
           <choice>
             <text/>
-            <ref name="placeName"/>
+            <!-- partie des options div-->
+            <ref name="p"/>
+            <ref name="subst"/>
+            <ref name="lb"/>
+            <ref name="head_1"/>      
+            <ref name="pb"/>
+            <ref name="table"/>
+            <ref name="notatedMusic"/>
+            <ref name="figure"/>
+            <ref name="note"/>
+            <ref name="add"/>
+            <ref name="formula"/>
+            <ref name="list"/>
+            <ref name="fw"/>
+            <ref name="lg"/>
+            <ref name="l"/>
+            <ref name="gap"/>
+            
+            <element name="opener">
+              <zeroOrMore>
+                <choice>
+                  <ref name="salute"/>
+                  <ref name="dateline"/>
+                  <ref name="address"/>
+                </choice>
+              </zeroOrMore>
+            </element>
+            <element name="closer">
+              <zeroOrMore>
+                <choice>
+                  <ref name="salute"/>
+                  <ref name="address"/>
+                  <ref name="dateline"/>
+                  <element name="signed">
+                    <text/>
+                  </element>
+                </choice>
+              </zeroOrMore>
+            </element>
+            <element name="postscript">
+              <optional>
+                <attribute name="n">
+                  <data type="integer"/>
+                </attribute>
+              </optional>
+              <oneOrMore>
+                <ref name="p"/>
+              </oneOrMore>                   
+            </element>
+            
+            <!--partie des options de p-->
+            <ref name="add"/>
             <ref name="bibl"/>
+            <ref name="note"/>
+            <ref name="date"/>
+            <ref name="notatedMusic"/>
             <ref name="persName"/>
+            <ref name="placeName"/>
+            <ref name="ref"/>
+            <ref name="table"/>
+            <ref name="figure"/>
+            <ref name="supplied"/>
+            <ref name="unclear"/>
+            <ref name="gap"/>
+            <ref name="del"/>
+            <ref name="pb"/>
+            <ref name="subst"/>
+            <ref name="cit"/>
+            <ref name="formula"/>
+            <ref name="hi"/>
+            <ref name="lb"/>
+            <ref name="list"/>
+            <ref name="orgName"/>
+            
+            <element name="choice">
+              <choice>
+                <group>
+                  <interleave>
+                    <element name="reg">
+                      <text/>
+                    </element>
+                    <element name="orig">
+                      <text/>
+                    </element>
+                  </interleave>
+                </group>
+                <group>
+                  <interleave>
+                    <element name="abbr">
+                      <text/>
+                    </element>
+                    <element name="expan">
+                      <oneOrMore>
+                        <choice>
+                          <text/>
+                          <element name="ex">
+                            <text/>
+                          </element>
+                        </choice>
+                      </oneOrMore>
+                    </element>
+                  </interleave>
+                </group>
+                <group>
+                  <interleave>
+                    <element name="sic">
+                      <text/>
+                    </element>
+                    <element name="corr">
+                      <text/>
+                    </element>
+                  </interleave>
+                </group>
+              </choice>
+            </element> 
           </choice>
         </oneOrMore>
+        
       </interleave>            
       <text/>
     </element>
@@ -851,7 +966,7 @@
           </choice>
         </attribute>
         <optional>
-          <ref name="place"/>
+          <ref name="a_place"/>
         </optional>
       </interleave> 
       <interleave>
