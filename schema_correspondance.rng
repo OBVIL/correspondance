@@ -321,15 +321,11 @@
                     <ref name="add"/>
                     <ref name="formula"/>
                     <ref name="list"/>
+                    <ref name="fw"/>
+                    <ref name="lg"/>
+                    <ref name="l"/>
                     
-                    <element name="fw">
-                      <optional>
-                        <attribute name="type">
-                          <data type="NCName"/>
-                        </attribute>                    
-                      </optional>    
-                      <text/>
-                    </element>
+                    
                     <element name="opener">
                       <zeroOrMore>
                         <choice>
@@ -1042,6 +1038,131 @@
           <text/>
         </element>
       </oneOrMore>
+    </element>
+  </define>
+  <define name="fw">
+    <element name="fw">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>                    
+      </optional>    
+      <text/>
+    </element>
+  </define>
+  <define name="l">
+    <element name="l">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="add"/>
+          <ref name="bibl"/>
+          <ref name="note"/>
+          <ref name="date"/>
+          <ref name="notatedMusic"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="ref"/>
+          <ref name="table"/>
+          <ref name="figure"/>
+          <ref name="supplied"/>
+          <ref name="unclear"/>
+          <ref name="gap"/>
+          <ref name="del"/>
+          <ref name="pb"/>
+          <ref name="subst"/>
+          <ref name="cit"/>
+          <ref name="formula"/>
+          <ref name="hi"/>
+          <ref name="lb"/>
+          <ref name="list"/>
+          <ref name="orgName"/>
+          
+          <element name="choice">
+            <choice>
+              <group>
+                <interleave>
+                  <element name="reg">
+                    <text/>
+                  </element>
+                  <element name="orig">
+                    <text/>
+                  </element>
+                </interleave>
+              </group>
+              <group>
+                <interleave>
+                  <element name="abbr">
+                    <text/>
+                  </element>
+                  <element name="expan">
+                    <oneOrMore>
+                      <choice>
+                        <text/>
+                        <element name="ex">
+                          <text/>
+                        </element>
+                      </choice>
+                    </oneOrMore>
+                  </element>
+                </interleave>
+              </group>
+              <group>
+                <interleave>
+                  <element name="sic">
+                    <text/>
+                  </element>
+                  <element name="corr">
+                    <text/>
+                  </element>
+                </interleave>
+              </group>
+            </choice>
+          </element> 
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="lg">
+    <element name="lg">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <oneOrMore>
+          <ref name="l"/>
+        </oneOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="note"/>
+            <ref name="gap"/>
+            <ref name="pb"/>
+            <element name="opener">
+              <zeroOrMore>
+                <choice>
+                  <ref name="salute"/>
+                  <ref name="dateline"/>
+                  <ref name="address"/>
+                </choice>
+              </zeroOrMore>
+            </element>
+            <element name="closer">
+              <zeroOrMore>
+                <choice>
+                  <ref name="salute"/>
+                  <ref name="address"/>
+                  <ref name="dateline"/>
+                  <element name="signed">
+                    <text/>
+                  </element>
+                </choice>
+              </zeroOrMore>
+            </element>
+          </choice>
+        </zeroOrMore>
+      </interleave>
     </element>
   </define>
 </grammar>
