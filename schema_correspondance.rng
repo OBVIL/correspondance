@@ -289,6 +289,8 @@
           </element>
         </optional>      
       </element>
+     
+    <!-- elements du texte epistolaire-->
       <element name="text">
         <element name="body">
           <oneOrMore>
@@ -304,69 +306,106 @@
                 </choice>
               </attribute>
               
-              <interleave>
-                <oneOrMore>
+              <oneOrMore>
+                <choice>
                   <ref name="p"/>
-                </oneOrMore>
-                <zeroOrMore>
-                  <choice>
-                    <ref name="subst"/>
-                    <ref name="lb"/>
-                    <ref name="head_1"/>      
-                    <ref name="pb"/>
-                    <ref name="table"/>
-                    <ref name="notatedMusic"/>
-                    <ref name="figure"/>
-                    <ref name="note"/>
-                    <ref name="add"/>
-                    <ref name="formula"/>
-                    <ref name="list"/>
-                    <ref name="fw"/>
-                    <ref name="lg"/>
-                    <ref name="l"/>
-                    <ref name="gap"/>
-                    
-                    
-                    <element name="opener">
-                      <zeroOrMore>
-                        <choice>
-                          <ref name="salute"/>
-                          <ref name="dateline"/>
-                          <ref name="address"/>
-                        </choice>
-                      </zeroOrMore>
-                    </element>
-                    <element name="closer">
-                      <zeroOrMore>
-                        <choice>
-                          <ref name="salute"/>
-                          <ref name="address"/>
-                          <ref name="dateline"/>
-                          <element name="signed">
-                            <text/>
-                          </element>
-                        </choice>
-                      </zeroOrMore>
-                    </element>
-                    <element name="postscript">
-                      <optional>
-                        <attribute name="n">
-                          <data type="integer"/>
-                        </attribute>
-                      </optional>
-                      <oneOrMore>
-                        <ref name="p"/>
-                      </oneOrMore>                   
-                    </element>
-                  </choice>
-                </zeroOrMore>
-              </interleave>
+                  <ref name="subst"/>
+                  <ref name="lb"/>
+                  <ref name="head_1"/>      
+                  <ref name="pb"/>
+                  <ref name="table"/>
+                  <ref name="notatedMusic"/>
+                  <ref name="figure"/>
+                  <ref name="note"/>
+                  <ref name="add"/>
+                  <ref name="formula"/>
+                  <ref name="list"/>
+                  <ref name="fw"/>
+                  <ref name="lg"/>
+                  <ref name="l"/>
+                  <ref name="gap"/>
+                  <ref name="address"/>
+                  <ref name="opener"/>
+                  <ref name="closer"/>
+                  <ref name="postscript"/>
+                </choice>
+              </oneOrMore>
             </element>
           </oneOrMore>          
         </element>
       </element>
     </element>
   </start>
+  
+  <!--définition des options de choice-->
+  <define name="reg">
+    <element name="reg">
+      <text/>
+    </element>
+  </define>
+  <define name="orig">
+    <element name="orig">
+      <text/>
+    </element>
+  </define>
+  <define name="abbr">
+    <element name="abbr">
+      <text/>
+    </element>
+  </define>
+  <define name="ex">
+    <element name="ex">
+      <text/>
+    </element>
+  </define>
+  <define name="expan">
+    <element name="expan">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="ex"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="sic">
+    <element name="sic">
+      <text/>
+    </element>
+  </define>
+  <define name="corr">
+    <element name="corr">
+      <text/>
+    </element>
+  </define>
+  
+  <!--définition du choice-->
+  <define name="choice">
+    <element name="choice">
+      <choice>
+        <group>
+          <interleave>
+            <ref name="reg"/>
+            <ref name="orig"/>
+          </interleave>
+        </group>
+        <group>
+          <interleave>
+            <ref name="abbr"/>
+            <ref name="expan"/>
+          </interleave>
+        </group>
+        <group>
+          <interleave>
+            <ref name="sic"/>
+            <ref name="corr"/>
+          </interleave>
+        </group>
+      </choice>
+    </element>
+  </define>
+  
+  <!--définition certains attributs  a_nomattribut-->
   <define name="a_when">
     <attribute name="when">
       <choice>
@@ -427,6 +466,237 @@
       </choice>
     </attribute>
   </define>
+  <define name="a_place">
+    <attribute name="place">
+      <choice>
+        <value>below</value>
+        <value>bottom</value>
+        <value>margin</value>
+        <value>top</value>
+        <value>opposite</value>
+        <value>overleaf</value>
+        <value>above</value>
+        <value>end</value>
+        <value>inline</value>
+        <value>inspace</value>        
+      </choice>
+    </attribute>
+  </define>
+  
+  <!--définition élements -->
+  <define name="cit">
+    <element name="cit">
+      <choice>
+        <element name="quote">
+          <text/>
+        </element>
+        <group>
+          <element name="quote">
+            <text/>
+          </element>
+          <ref name="bibl"/>
+        </group>
+        <group>
+          <element name="quote">
+            <text/>
+          </element>
+          <ref name="ref"/>
+        </group>
+      </choice>
+    </element>
+  </define>
+  
+  <define name="hi">
+    <element name="hi">
+      <attribute name="rend">
+        <choice>
+          <data type="NCName"/>
+          <value>i</value> <!--italique-->
+          <value>b</value> <!--gras-->
+          <value>u</value> <!--souligné-->
+          <value>sub</value> <!--indice-->
+          <value>sup</value> <!--exposant-->
+        </choice>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="list">
+    <element name="list">
+      <oneOrMore>
+        <element name="item">
+          <text/>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="fw">
+    <element name="fw">
+      <optional>
+        <attribute name="type">
+          <choice>
+            <data type="NCName"/>
+            <value>header</value>
+            <value>footer</value>
+            <value>pageNum</value>
+            <value>lineNum</value>
+            <value>sig</value>
+            <value>catch</value>
+          </choice>
+        </attribute>                    
+      </optional>    
+      <text/>
+    </element>
+  </define>
+  <define name="pb">
+    <element name="pb">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="n">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>                  
+    </element>    
+  </define>
+  <define name="lb">
+    <element name="lb">
+      <empty/>
+    </element>
+  </define>
+  <define name="subst">
+    <element name="subst">    
+      <interleave>
+        <zeroOrMore>
+          <ref name="add"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="del"/>
+        </zeroOrMore>
+        <text/>
+      </interleave>
+    </element>
+  </define>
+  <define name="graphic">
+    <element name="graphic">
+      <attribute name="facs">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="figDesc">
+    <element name="figDesc">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>   
+      <text/>
+    </element>
+  </define>
+  <define name="desc">
+    <element name="desc">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  
+  <define name="figure">
+    <element name="figure">
+      <interleave>
+        <zeroOrMore>
+          <ref name="graphic"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="figDesc"/>
+        </zeroOrMore>
+      </interleave>         
+    </element>
+  </define>
+  
+  <define name="formula">
+    <element name="formula">
+      <optional>
+        <attribute name="notation">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <ref name="graphic"/>
+          <text/>
+        </choice>
+      </oneOrMore>        
+    </element>
+  </define>
+  
+  <define name="notatedMusic">
+    <element name="notatedMusic">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <ref name="graphic"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="desc"/>
+        </zeroOrMore>  
+      </interleave>     
+    </element>
+  </define>
+  <define name="table">
+    <element name="table">
+      <optional>
+        <attribute name="cols">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="rows">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="head_2"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <element name="row">
+          <optional>
+            <attribute name="role">
+              <data type="NCName"/>
+            </attribute>
+          </optional>
+          <zeroOrMore>
+            <element name="cell">
+              <optional>
+                <attribute name="role">
+                  <data type="NCName"/>
+                </attribute>
+              </optional>
+              <text/>
+            </element>
+          </zeroOrMore> 
+          <text/>
+        </element>
+      </zeroOrMore>      
+    </element>
+  </define>
   <define name="date">
     <element name="date">
       <choice>
@@ -457,80 +727,6 @@
       <text/>
     </element>
   </define>
-  <define name="p">
-    <element name="p">
-      <oneOrMore>
-        <choice>
-          <text/>
-          <ref name="add"/>
-          <ref name="bibl"/>
-          <ref name="note"/>
-          <ref name="date"/>
-          <ref name="notatedMusic"/>
-          <ref name="persName"/>
-          <ref name="placeName"/>
-          <ref name="ref"/>
-          <ref name="table"/>
-          <ref name="figure"/>
-          <ref name="supplied"/>
-          <ref name="unclear"/>
-          <ref name="gap"/>
-          <ref name="del"/>
-          <ref name="pb"/>
-          <ref name="subst"/>
-          <ref name="cit"/>
-          <ref name="formula"/>
-          <ref name="hi"/>
-          <ref name="lb"/>
-          <ref name="list"/>
-          <ref name="orgName"/>
-          
-          <element name="choice">
-            <choice>
-              <group>
-                <interleave>
-                  <element name="reg">
-                    <text/>
-                  </element>
-                  <element name="orig">
-                    <text/>
-                  </element>
-                </interleave>
-              </group>
-              <group>
-                <interleave>
-                  <element name="abbr">
-                    <text/>
-                  </element>
-                  <element name="expan">
-                    <oneOrMore>
-                      <choice>
-                        <text/>
-                        <element name="ex">
-                          <text/>
-                        </element>
-                      </choice>
-                    </oneOrMore>
-                  </element>
-                </interleave>
-              </group>
-              <group>
-                <interleave>
-                  <element name="sic">
-                    <text/>
-                  </element>
-                  <element name="corr">
-                    <text/>
-                  </element>
-                </interleave>
-              </group>
-            </choice>
-          </element> 
-   
-        </choice>
-      </oneOrMore>
-    </element>
-  </define>
   <define name="bibl">
     <element name="bibl">
       <optional>
@@ -540,7 +736,12 @@
       </optional>
       <optional>
         <attribute name="type">
-          <data type="NCName"/>
+          <choice>
+            <data type="NCName"/>
+            <value>literature</value>
+            <value>science</value>
+            <value>art</value>
+          </choice>
         </attribute>
       </optional>
       <optional>
@@ -586,6 +787,7 @@
       </interleave>          
     </element>
   </define>
+  
   <define name="persName">
     <element name="persName">
       <optional>
@@ -630,332 +832,28 @@
       <text/>
     </element>
   </define>
-  <define name="ref_context">
-    <element name="ref">
-      <attribute name="target">
-        <data type="anyURI"/>
-      </attribute>
-      <attribute name="type">
-        <choice>
-          <value>next</value>
-          <value>prev</value>
-          <value>replyTo</value>
-          <value>repliedBy</value>
-        </choice>
-      </attribute>
-    </element>
-  </define>
-  <define name="ref">
-    <element name="ref">
-      <attribute name="target">
-        <data type="anyURI"/>
-      </attribute>
+  <define name="orgName">
+    <element name="orgName">
       <optional>
-        <attribute name="type">
+        <attribute name="key">
           <data type="NCName"/>
         </attribute>
       </optional>
-      <text/>
-    </element>
-  </define>
-  <define name="head_1">
-    <element name="head">   
-      <attribute name="type">
-        <choice>
-          <value>object</value>
-          <value>title</value>
-        </choice>
-      </attribute>
-      <text/>
-    </element>
-  </define>
-  <define name="head_2">
-    <element name="head">
       <optional>
-        <attribute name="type">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <text/>
-    </element>
-  </define>
-  <define name="salute">
-    <element name="salute">
-      <text/>
-    </element>
-  </define>
-  <define name="dateline">
-    <element name="dateline">
-      <text/>
-      <zeroOrMore>
-        <ref name="date"/>
-      </zeroOrMore>     
-    </element>
-  </define>
-  <define name="address">
-    <element name="address">
-      <optional>
-        <attribute name="type">
-          <choice>
-            <value>receiver</value>
-            <value>sender</value>
-          </choice>
-        </attribute>
-      </optional>
-      <oneOrMore>
-        <element name="addrLine">
-          <text/>
-        </element>
-      </oneOrMore>    
-    </element>
-  </define>
-  <define name="table">
-    <element name="table">
-      <optional>
-        <attribute name="cols">
-          <data type="integer"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="rows">
-          <data type="integer"/>
-        </attribute>
-      </optional>
-      <zeroOrMore>
-        <ref name="head_2"/>
-      </zeroOrMore>
-      <zeroOrMore>
-        <element name="row">
-          <optional>
-            <attribute name="role">
-              <data type="NCName"/>
-            </attribute>
-          </optional>
-          <zeroOrMore>
-            <element name="cell">
-              <optional>
-                <attribute name="role">
-                  <data type="NCName"/>
-                </attribute>
-              </optional>
-              <text/>
-            </element>
-          </zeroOrMore> 
-          <text/>
-        </element>
-      </zeroOrMore>      
-    </element>
-  </define>
-  <define name="notatedMusic">
-    <element name="notatedMusic">
-      <optional>
-        <attribute name="type">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <interleave>
-        <zeroOrMore>
-          <ref name="graphic"/>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="desc"/>
-        </zeroOrMore>  
-      </interleave>     
-    </element>
-  </define>
-  <define name="graphic">
-    <element name="graphic">
-      <attribute name="facs">
-        <data type="anyURI"/>
-      </attribute>
-    </element>
-  </define>
-  <define name="figDesc">
-    <element name="figDesc">
-      <optional>
-        <attribute name="facs">
-          <data type="anyURI"/>
-        </attribute>
-      </optional>   
-      <text/>
-    </element>
-  </define>
-  <define name="desc">
-    <element name="desc">
-      <optional>
-        <attribute name="facs">
+        <attribute name="ref">
           <data type="anyURI"/>
         </attribute>
       </optional>
-      <text/>
-    </element>
-  </define>
-  <define name="a_place">
-    <attribute name="place">
-      <choice>
-        <value>below</value>
-        <value>bottom</value>
-        <value>margin</value>
-        <value>top</value>
-        <value>opposite</value>
-        <value>overleaf</value>
-        <value>above</value>
-        <value>end</value>
-        <value>inline</value>
-        <value>inspace</value>        
-      </choice>
-    </attribute>
-  </define>
-  <define name="figure">
-    <element name="figure">
-      <interleave>
-        <zeroOrMore>
-          <ref name="graphic"/>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="figDesc"/>
-        </zeroOrMore>
-      </interleave>         
-    </element>
-  </define>
-  <define name="note">
-    <element name="note">
-      <interleave>
-        <attribute name="type">
-          <choice>
-            <value>author</value>
-            <value>editor</value>
-          </choice>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
         </attribute>
-        <optional>
-          <ref name="a_place"/>
-        </optional> 
-        
-        <oneOrMore>
-          <choice>
-            <text/>
-            <!-- partie des options div-->
-            <ref name="p"/>
-            <ref name="subst"/>
-            <ref name="lb"/>
-            <ref name="head_1"/>      
-            <ref name="pb"/>
-            <ref name="table"/>
-            <ref name="notatedMusic"/>
-            <ref name="figure"/>
-            <ref name="note"/>
-            <ref name="add"/>
-            <ref name="formula"/>
-            <ref name="list"/>
-            <ref name="fw"/>
-            <ref name="lg"/>
-            <ref name="l"/>
-            <ref name="gap"/>
-            
-            <element name="opener">
-              <zeroOrMore>
-                <choice>
-                  <ref name="salute"/>
-                  <ref name="dateline"/>
-                  <ref name="address"/>
-                </choice>
-              </zeroOrMore>
-            </element>
-            <element name="closer">
-              <zeroOrMore>
-                <choice>
-                  <ref name="salute"/>
-                  <ref name="address"/>
-                  <ref name="dateline"/>
-                  <element name="signed">
-                    <text/>
-                  </element>
-                </choice>
-              </zeroOrMore>
-            </element>
-            <element name="postscript">
-              <optional>
-                <attribute name="n">
-                  <data type="integer"/>
-                </attribute>
-              </optional>
-              <oneOrMore>
-                <ref name="p"/>
-              </oneOrMore>                   
-            </element>
-            
-            <!--partie des options de p-->
-            <ref name="add"/>
-            <ref name="bibl"/>
-            <ref name="note"/>
-            <ref name="date"/>
-            <ref name="notatedMusic"/>
-            <ref name="persName"/>
-            <ref name="placeName"/>
-            <ref name="ref"/>
-            <ref name="table"/>
-            <ref name="figure"/>
-            <ref name="supplied"/>
-            <ref name="unclear"/>
-            <ref name="gap"/>
-            <ref name="del"/>
-            <ref name="pb"/>
-            <ref name="subst"/>
-            <ref name="cit"/>
-            <ref name="formula"/>
-            <ref name="hi"/>
-            <ref name="lb"/>
-            <ref name="list"/>
-            <ref name="orgName"/>
-            
-            <element name="choice">
-              <choice>
-                <group>
-                  <interleave>
-                    <element name="reg">
-                      <text/>
-                    </element>
-                    <element name="orig">
-                      <text/>
-                    </element>
-                  </interleave>
-                </group>
-                <group>
-                  <interleave>
-                    <element name="abbr">
-                      <text/>
-                    </element>
-                    <element name="expan">
-                      <oneOrMore>
-                        <choice>
-                          <text/>
-                          <element name="ex">
-                            <text/>
-                          </element>
-                        </choice>
-                      </oneOrMore>
-                    </element>
-                  </interleave>
-                </group>
-                <group>
-                  <interleave>
-                    <element name="sic">
-                      <text/>
-                    </element>
-                    <element name="corr">
-                      <text/>
-                    </element>
-                  </interleave>
-                </group>
-              </choice>
-            </element> 
-          </choice>
-        </oneOrMore>
-        
-      </interleave>            
+      </optional>            
       <text/>
     </element>
   </define>
+  
   <define name="add">
     <element name="add">
       <interleave>
@@ -971,7 +869,7 @@
       </interleave> 
       <interleave>
         <zeroOrMore>
-         <ref name="del"/>
+          <ref name="del"/>
         </zeroOrMore>
         <zeroOrMore>
           <ref name="unclear"></ref>
@@ -1045,126 +943,279 @@
       </interleave>
     </element>
   </define>
-  <define name="pb">
-    <element name="pb">
+  
+  <!--définition d'un ref contexte avec valeurs fermées pour le type-->
+  <define name="ref_context">
+    <element name="ref">
+      <attribute name="target">
+        <data type="anyURI"/>
+      </attribute>
+      <attribute name="type">
+        <choice>
+          <value>next</value>
+          <value>prev</value>
+          <value>replyTo</value>
+          <value>repliedBy</value>
+        </choice>
+      </attribute>
+    </element>
+  </define>
+  
+ <!-- ref normal attribut type optionnel-->
+  <define name="ref">
+    <element name="ref">
+      <attribute name="target">
+        <data type="anyURI"/>
+      </attribute>
       <optional>
-        <attribute name="facs">
-          <data type="anyURI"/>
+        <attribute name="type">
+          <data type="NCName"/>
         </attribute>
       </optional>
+      <text/>
+    </element>
+  </define>
+  
+  <!--head spécifique pour les textes de lettres valeurs fermées-->
+  <define name="head_1">
+    <element name="head">   
+      <attribute name="type">
+        <choice>
+          <value>object</value>
+          <value>title</value>
+        </choice>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  
+ <!-- head pour un tableau element table -->
+  <define name="head_2">
+    <element name="head">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  
+<!--  définition post-scriptum-->  
+  <define name="postscript">
+    <element name="postscript">
       <optional>
         <attribute name="n">
           <data type="integer"/>
         </attribute>
       </optional>
-      <optional>
-        <attribute>
-          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-          <data type="NCName"/>
-        </attribute>
-      </optional>                  
-    </element>    
-  </define>
-  <define name="lb">
-    <element name="lb">
-      <empty/>
-    </element>
-  </define>
-  <define name="subst">
-    <element name="subst">    
-      <interleave>
-        <zeroOrMore>
-          <ref name="add"/>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="del"/>
-        </zeroOrMore>
-        <text/>
-      </interleave>
-    </element>
-  </define>
-  <define name="orgName">
-    <element name="orgName">
-      <optional>
-        <attribute name="key">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="ref">
-          <data type="anyURI"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute>
-          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-          <data type="NCName"/>
-        </attribute>
-      </optional>            
-      <text/>
-    </element>
-  </define>
-  <define name="cit">
-    <element name="cit">
-      <choice>
-        <element name="quote">
-          <text/>
-        </element>
-        <group>
-          <element name="quote">
-            <text/>
-          </element>
-          <ref name="bibl"/>
-        </group>
-        <group>
-          <element name="quote">
-            <text/>
-          </element>
-          <ref name="ref"/>
-        </group>
-      </choice>
-    </element>
-  </define>
-  <define name="formula">
-    <element name="formula">
-      <optional>
-        <attribute name="notation">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
       <oneOrMore>
         <choice>
-          <ref name="graphic"/>
-          <text/>
+          <ref name="p"/>
+          <ref name="address"/>
+          <ref name="note"/>
         </choice>
-      </oneOrMore>        
+        
+      </oneOrMore>                   
     </element>
   </define>
-  <define name="hi">
-    <element name="hi">
-      <attribute name="rend"/>
-      <text/>
-    </element>
-  </define>
-  <define name="list">
-    <element name="list">
+  
+  
+  <!--définition éléments pour opener et closer-->
+  <define name="salute">
+    <element name="salute">
       <oneOrMore>
-        <element name="item">
+        <choice>
           <text/>
-        </element>
+          <ref name="lb"/>
+        </choice>
       </oneOrMore>
     </element>
   </define>
-  <define name="fw">
-    <element name="fw">
+  <define name="signed">
+    <element name="signed">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="lb"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="dateline">
+    <element name="dateline">
+      <text/>
+      <zeroOrMore>
+        <ref name="date"/>
+      </zeroOrMore>     
+    </element>
+  </define>
+  <define name="address">
+    <element name="address">
       <optional>
         <attribute name="type">
-          <data type="NCName"/>
-        </attribute>                    
-      </optional>    
+          <choice>
+            <value>receiver</value>
+            <value>sender</value>
+            <value>other</value>
+          </choice>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <element name="addrLine">
+          <oneOrMore>
+            <choice>
+              <text/>
+              <ref name="placeName"/>
+              <ref name="persName"/>
+              <ref name="orgName"/>
+              <ref name="choice"/>
+              <ref name="del"/>
+              <ref name="add"/>
+              <ref name="subst"/>
+              <ref name="figure"/>
+              <ref name="pb"/>
+            </choice>
+          </oneOrMore>
+        </element>
+      </oneOrMore>    
+    </element>
+  </define>
+  
+  <define name="opener">
+    <element name="opener">
+      <zeroOrMore>
+        <choice>
+          <ref name="salute"/>
+          <ref name="dateline"/>
+          <ref name="address"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="closer">
+    <element name="closer">
+      <zeroOrMore>
+        <choice>
+          <ref name="salute"/>
+          <ref name="address"/>
+          <ref name="dateline"/>
+          <ref name="signed"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  
+  
+  <!--définition de p-->
+  <define name="p">
+    <element name="p">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="add"/>
+          <ref name="bibl"/>
+          <ref name="note"/>
+          <ref name="date"/>
+          <ref name="notatedMusic"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="ref"/>
+          <ref name="table"/>
+          <ref name="figure"/>
+          <ref name="supplied"/>
+          <ref name="unclear"/>
+          <ref name="gap"/>
+          <ref name="del"/>
+          <ref name="pb"/>
+          <ref name="subst"/>
+          <ref name="cit"/>
+          <ref name="formula"/>
+          <ref name="hi"/>
+          <ref name="lb"/>
+          <ref name="list"/>
+          <ref name="orgName"/>
+          <ref name="choice"/>
+          
+          
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  
+  <!--définition d'une note-->
+  <define name="note">
+    <element name="note">
+      <interleave>
+        <attribute name="type">
+          <choice>
+            <value>author</value>
+            <value>editor</value>
+          </choice>
+        </attribute>
+        <optional>
+          <ref name="a_place"/>
+        </optional> 
+        
+        <oneOrMore>
+          <choice>
+            <text/>
+            <!-- partie des options div-->
+            <ref name="p"/>
+            <ref name="subst"/>
+            <ref name="lb"/>
+            <ref name="head_1"/>      
+            <ref name="pb"/>
+            <ref name="table"/>
+            <ref name="notatedMusic"/>
+            <ref name="figure"/>
+            <ref name="add"/>
+            <ref name="formula"/>
+            <ref name="list"/>
+            <ref name="fw"/>
+            <ref name="lg"/>
+            <ref name="l"/>
+            <ref name="gap"/>
+            <ref name="address"/>
+            
+            <ref name="opener"/>
+            <ref name="closer"/>
+            
+            <ref name="postscript"/>
+            
+            <!--partie des options de p-->
+            <ref name="add"/>
+            <ref name="bibl"/>
+            <ref name="date"/>
+            <ref name="notatedMusic"/>
+            <ref name="persName"/>
+            <ref name="placeName"/>
+            <ref name="ref"/>
+            <ref name="table"/>
+            <ref name="figure"/>
+            <ref name="supplied"/>
+            <ref name="unclear"/>
+            <ref name="gap"/>
+            <ref name="del"/>
+            <ref name="pb"/>
+            <ref name="subst"/>
+            <ref name="cit"/>
+            <ref name="formula"/>
+            <ref name="hi"/>
+            <ref name="lb"/>
+            <ref name="list"/>
+            <ref name="orgName"/>
+            <ref name="choice"/>
+            
+          </choice>
+        </oneOrMore>
+        
+      </interleave>            
       <text/>
     </element>
   </define>
+ 
+  <!--définition élement l et lg pour les poèmes -->
   <define name="l">
     <element name="l">
       <oneOrMore>
@@ -1192,52 +1243,12 @@
           <ref name="lb"/>
           <ref name="list"/>
           <ref name="orgName"/>
-          
-          <element name="choice">
-            <choice>
-              <group>
-                <interleave>
-                  <element name="reg">
-                    <text/>
-                  </element>
-                  <element name="orig">
-                    <text/>
-                  </element>
-                </interleave>
-              </group>
-              <group>
-                <interleave>
-                  <element name="abbr">
-                    <text/>
-                  </element>
-                  <element name="expan">
-                    <oneOrMore>
-                      <choice>
-                        <text/>
-                        <element name="ex">
-                          <text/>
-                        </element>
-                      </choice>
-                    </oneOrMore>
-                  </element>
-                </interleave>
-              </group>
-              <group>
-                <interleave>
-                  <element name="sic">
-                    <text/>
-                  </element>
-                  <element name="corr">
-                    <text/>
-                  </element>
-                </interleave>
-              </group>
-            </choice>
-          </element> 
+          <ref name="choice"/>
         </choice>
       </oneOrMore>
     </element>
   </define>
+  
   <define name="lg">
     <element name="lg">
       <optional>
@@ -1254,30 +1265,12 @@
             <ref name="note"/>
             <ref name="gap"/>
             <ref name="pb"/>
-            <element name="opener">
-              <zeroOrMore>
-                <choice>
-                  <ref name="salute"/>
-                  <ref name="dateline"/>
-                  <ref name="address"/>
-                </choice>
-              </zeroOrMore>
-            </element>
-            <element name="closer">
-              <zeroOrMore>
-                <choice>
-                  <ref name="salute"/>
-                  <ref name="address"/>
-                  <ref name="dateline"/>
-                  <element name="signed">
-                    <text/>
-                  </element>
-                </choice>
-              </zeroOrMore>
-            </element>
+            <ref name="opener"/>
+            <ref name="closer"/>
           </choice>
         </zeroOrMore>
       </interleave>
     </element>
   </define>
+  
 </grammar>
