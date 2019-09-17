@@ -11,7 +11,6 @@
                 <!--  titre du document de correspondance -->
                 <title>titre de la lettre</title>
                 <author key="[Identifiant_auteur]" ref="http://test">[auteur]</author>
-                <!-- L'élément <ref/> contient l'url la lettre  -->
                 <editor key="[Identifiant_editeur]">[editeur]</editor>
             </titleStmt>
             <editionStmt>
@@ -25,7 +24,7 @@
                 <publisher>Sorbonne Université, LABEX OBVIL</publisher>
                 <date when="2001-01-01"/><!-- when="[date_publication]" (Obvil) -->
                 <idno>http://obvil.sorbonne-universite.fr/corpus/[nom_corpus]/[nom_fichier]</idno>
-                <!--  ici identifiant unique de la lettre repris dans le <correspDesc> -->
+                <!-- L'élément <idno> contient l'url du document de correspondance, identifiant unique que l'on retrouve dans le <correspDesc> -->
                 <!-- Un seul identifiant. Pas d'attribut type sur l'élément <idno> -->
                 <availability status="restricted"> 
                     <!-- Ne pas modifier : mise à jour et uniformisation et norme typographique par Frédéric Glorieux automatiquement -->
@@ -55,15 +54,15 @@
                         </msItem>
                     </msContents>
                     <physDesc>  <!--description matérielle-->
-                        <objectDesc form="letter"> <!--valeur d'exemple pour @form précision du type de document, autres valeurs d'exemples: billet, telegram, postcard-->
+                        <objectDesc form="letter"> <!-- @form valeurs possibles: "letter" "note" "postcard" "telegram"-->
                             <supportDesc>
                                 <extent>
-                                    <measure type="page">nombre de pages</measure> 
+                                    <measure type="page">5</measure> 
                                 </extent>
-                                <condition>texte libre renseignant l'état de conservation du document</condition>
+                                <condition>état de conservation du document</condition>
                             </supportDesc>
                         </objectDesc>
-                        <accMat>texte libre précisant les pièces, documents joints à une lettre</accMat>
+                        <accMat>description des pièces, documents joints à une lettre</accMat>
                     </physDesc>                                           
                 </msDesc>                        
             </sourceDesc>
@@ -128,15 +127,15 @@
         <body>
             <!-- autres valeurs autorisées: "envelope" "note" "postcard" "telegram" "attachment" -->
             <div type="letter">
-               
-             
-               <!-- délimitation des pages et @facs pour l'image de la page concernée -->
+                
+                
+                <!-- délimitation des pages et @facs pour l'image de la page concernée -->
                 <pb xml:id="id_page" n="1" facs="http://tests"/>
                 
                 <!--<head> type="title" pour un titre intégré par l'auteur à sa lettre ou type="object" pour l'object d'une lettre "objet:..."-->
                 <head type="object"> titre intégré par l'auteur ou object</head>
                 <fw type="type">saisie des en-têtes formalisées</fw>
-               <!-- formule de début de lettre -->
+                <!-- formule de début de lettre -->
                 <opener>
                     <salute>formule d'apostrophe</salute>
                     <dateline>mention d'une date dans la formule de début</dateline>
@@ -148,7 +147,7 @@
                 <!-- paragraphe d'une lettre  -->
                 <p>
                     texte de la lettre ou du document de correspondance
-                   
+                    
                     
                     <!--notes critiques des éditeurs ou de l'auteur lui même type="author", autres valeurs possibles de @place voir documentation -->
                     <note type ="editor" place="bottom">note explicative</note>
@@ -177,7 +176,7 @@
                         <bibl source="http://test">référence bibliographique de la citation</bibl>
                     </cit>
                     
-                   <!-- liste-->
+                    <!-- liste-->
                     <list>
                         <item>composant n° 1 de la liste</item>
                         <item>composant n° 2 de la liste</item>
@@ -194,7 +193,7 @@
                     </figure>
                     
                     <formula notation="notation">formule mathématique</formula> <!--@notation pour préciser la notation scientifique-->
-                  
+                    
                     <!-- tableau-->
                     <table rows="5" cols="2">
                         <head>titre du tableau</head>
@@ -203,7 +202,7 @@
                         </row>
                     </table>
                     
-                   <!-- notes de musique-->
+                    <!-- notes de musique-->
                     <notatedMusic>
                         <!-- image des notes -->
                         <graphic url="http://test"/>                        
@@ -238,13 +237,13 @@
                         <reg>août</reg>
                         <orig>Août</orig>
                     </choice>
-                                                         
+                    
                     
                 </p>
                 
+                <p> <figure><figDesc facs="dk">kfkfkf</figDesc><graphic facs=""></graphic></figure></p>
                 
-                
-               <!-- tableau en dehors d'un paragraphe-->
+                <!-- tableau en dehors d'un paragraphe-->
                 <table rows="5" cols="2">
                     <head>titre du tableau</head>
                     <row>
@@ -262,7 +261,7 @@
                 
                 
                 
-               <!-- formule de fin de lettre-->
+                <!-- formule de fin de lettre-->
                 <closer>
                     <salute>formule de politesse</salute>
                     <address sameAs="#id_dest"> <!--@sameAs pour dire s'il s'agit de l'adresse de l'expéditeur ou du destinataire, pointe vers l' @xml:id de <persName> du correspDesc -->
@@ -281,3 +280,4 @@
         </body>
     </text>
 </TEI>
+
