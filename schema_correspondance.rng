@@ -63,121 +63,132 @@
             </element>
           </element>
           <element name="sourceDesc">
-            <element name="msDesc">
-              <a:documentation><code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code> permet de décrire le manuscrit du document de correspondance.</a:documentation>
-              <element name="msIdentifier">
-                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;msIdentifier&gt;</code> est obligatoire dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code>. Il donne des informations sur l'origine et le lieu de conservation du document. Le <code xmlns="http://www.w3.org/1999/xhtml">&lt;repository&gt;</code>, nom du dépôt dans lequel le manuscrit est entreposé, doit être rempli. Les autres éléments sont optionnels. </a:documentation>
-                <optional>
-                  <element name="country">
-                    <text/>
-                  </element>
-                </optional>
-                <optional>
-                  <element name="settlement">
-                    <text/>
-                  </element>
-                </optional>
-                <optional>
-                  <element name="institution">
-                    <text/>
-                  </element>
-                </optional>                
-                <element name="repository">
-                  <data type="string">
-                    <param name="pattern">.+</param>
-                  </data>          
-                </element>
-                <optional>
-                  <element name="collection">
-                    <text/>
-                  </element>
-                </optional>
-                <optional>
-                  <ref name="idno_msId"/>
-                </optional>               
-              </element>
-              <optional>
-                <element name="msContents">
-                  <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;msContents&gt;</code>peut contenir un résumé avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;summary&gt;</code>) et/ou un incipit avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;msItem&gt;</code></a:documentation> 
-                  <choice>
-                    <element name="summary">
-                      <text/>
-                    </element>
-                    <element name="msItem">
-                      <element name="incipit">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;sourceDesc&gt;</code> contient la description de la source à partir de laquelle le texte électronique a été produit. Lorsque le document de correspondance est tiré d'un manuscrit, <code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code> permet de décrire ce manuscrit, quand le document de correspondance est tiré d'un ouvrage, d'un recueil de lettres ou d'un article publié, <code xmlns="http://www.w3.org/1999/xhtml">&lt;bibl&gt;</code> permet de préciser cette source</a:documentation>
+            <oneOrMore>
+              <choice>
+                <ref name="bibl"/>
+                <element name="msDesc">
+                  <a:documentation><code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code> permet de décrire le manuscrit du document de correspondance.</a:documentation>
+                  <element name="msIdentifier">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;msIdentifier&gt;</code> est obligatoire dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code>. Il donne des informations sur l'origine et le lieu de conservation du document. Le <code xmlns="http://www.w3.org/1999/xhtml">&lt;repository&gt;</code>, nom du dépôt dans lequel le manuscrit est entreposé, doit être rempli. Les autres éléments sont optionnels. </a:documentation>
+                    <optional>
+                      <element name="country">
                         <text/>
                       </element>
-                    </element>
-                    <group>
-                      <element name="summary">
+                    </optional>
+                    <optional>
+                      <element name="settlement">
                         <text/>
                       </element>
-                      <element name="msItem">
-                        <element name="incipit">
-                          <text/>
-                        </element>
-                      </element>
-                    </group>
-                  </choice>
-                </element> 
-              </optional>
-              <optional>
-                <element name="physDesc">
-                  <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;physDesc&gt;</code>donne une description matérielle du document. <code xmlns="http://www.w3.org/1999/xhtml">&lt;objectDesc&gt;</code> permet de décrire la matérialité du document, <code xmlns="http://www.w3.org/1999/xhtml">&lt;accMat&gt;</code> décrit le matériel accompagnant le document principal (e.g. annexes, objets, pièces jointes...)  </a:documentation>
-                  <element name="objectDesc">
-                    <optional>
-                      <attribute name="form">
-                        <div xmlns="http://www.w3.org/1999/xhtml"> <!--div de doc -->
-                          <p>L'attribut @form renseigne la forme principale du document de correspondance </p>
-                          <p>Les valeurs autorisées sont: </p>
-                          <ul>
-                            <li>"letter" pour une lettre</li>
-                            <li>"telegram" pour un télégramme</li>
-                            <li>"note" pour un billet, autrement dit une communication qui ne respecte pas les formes épistolaires</li>
-                            <li>"postcard" pour une carte postale</li>
-                          </ul>
-                        </div>
-                        
-                        <choice>                      
-                          <value>letter</value>
-                          <value>telegram</value>
-                          <value>note</value>
-                          <value>postcard</value>
-                        </choice>
-                      </attribute>
                     </optional>
-                    
                     <optional>
-                      <element name="supportDesc">
-                        <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;supportDesc&gt;</code> permet de donner le nombre de page avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;extent&gt;</code> et de décrire l'état du document dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;condition&gt;</code></a:documentation>
-                        <optional>
-                          <element name="extent">
-                            <element name="measure">
-                              <a:documentation>Il n'est pas possible de choisir le @type de mesure qui est "page" par défaut</a:documentation>
-                              <attribute name="type">
-                                <value>page</value>
-                              </attribute>
-                              <text/>
-                            </element>
-                          </element> 
-                        </optional>                    
-                        <optional>
-                          <element name="condition">
-                            <text/>
-                          </element>
-                        </optional>
+                      <element name="institution">
+                        <text/>
+                      </element>
+                    </optional>                
+                    <element name="repository">
+                      <data type="string">
+                        <param name="pattern">.+</param>
+                      </data>          
+                    </element>
+                    <optional>
+                      <element name="collection">
+                        <text/>
                       </element>
                     </optional>
-                    
+                    <optional>
+                      <ref name="idno_msId"/>
+                    </optional>               
                   </element>
                   <optional>
-                    <element name="accMat">
-                      <text/>
+                    <element name="msContents">
+                      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;msContents&gt;</code>peut contenir un résumé avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;summary&gt;</code>) et/ou un incipit avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;msItem&gt;</code></a:documentation> 
+                      <choice>
+                        <element name="summary">
+                          <text/>
+                        </element>
+                        <element name="msItem">
+                          <element name="incipit">
+                            <text/>
+                          </element>
+                        </element>
+                        <group>
+                          <element name="summary">
+                            <text/>
+                          </element>
+                          <element name="msItem">
+                            <element name="incipit">
+                              <text/>
+                            </element>
+                          </element>
+                        </group>
+                      </choice>
+                    </element> 
+                  </optional>
+                  <optional>
+                    <element name="physDesc">
+                      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;physDesc&gt;</code>donne une description matérielle du document. <code xmlns="http://www.w3.org/1999/xhtml">&lt;objectDesc&gt;</code> permet de décrire la matérialité du document, <code xmlns="http://www.w3.org/1999/xhtml">&lt;accMat&gt;</code> décrit le matériel accompagnant le document principal (e.g. annexes, objets, pièces jointes...)  </a:documentation>
+                      <element name="objectDesc">
+                        <optional>
+                          <attribute name="form">
+                            <div xmlns="http://www.w3.org/1999/xhtml"> <!--div de doc -->
+                              <p>L'attribut @form renseigne la forme principale du document de correspondance </p>
+                              <p>Les valeurs autorisées sont: </p>
+                              <ul>
+                                <li>"letter" pour une lettre</li>
+                                <li>"telegram" pour un télégramme</li>
+                                <li>"note" pour un billet, autrement dit une communication qui ne respecte pas les formes épistolaires</li>
+                                <li>"postcard" pour une carte postale</li>
+                              </ul>
+                            </div>
+                            
+                            <choice>                      
+                              <value>letter</value>
+                              <value>telegram</value>
+                              <value>note</value>
+                              <value>postcard</value>
+                            </choice>
+                          </attribute>
+                        </optional>
+                        
+                        <optional>
+                          <element name="supportDesc">
+                            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;supportDesc&gt;</code> permet de donner le nombre de page avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;extent&gt;</code> et de décrire l'état du document dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;condition&gt;</code></a:documentation>
+                            <optional>
+                              <element name="extent">
+                                <element name="measure">
+                                  <a:documentation>Il n'est pas possible de choisir le @type de mesure qui est "page" par défaut</a:documentation>
+                                  <attribute name="type">
+                                    <value>page</value>
+                                  </attribute>
+                                  <text/>
+                                </element>
+                              </element> 
+                            </optional>                    
+                            <optional>
+                              <element name="condition">
+                                <text/>
+                              </element>
+                            </optional>
+                          </element>
+                        </optional>
+                        
+                      </element>
+                      <optional>
+                        <element name="accMat">
+                          <text/>
+                        </element>
+                      </optional>
                     </element>
                   </optional>
+                  <optional>
+                    <ref name="history"/>
+                  </optional>
                 </element>
-              </optional>
-            </element>
+              </choice>
+            </oneOrMore>
+            
+            
           </element>
         </element>
         
@@ -186,190 +197,198 @@
             <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;encodingDesc&gt;</code> permet de décrire en texte libre les choix de transcription</a:documentation>
             <ref name="p"/>
           </element>
-        </optional>        
-        <element name="profileDesc">
-          <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;profileDesc&gt;</code> renseigne les actions de correspondance dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code> qui est obligatoire. L'élément permet aussi de décrire les relations entre les acteurs de la correspondance dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;particDesc&gt;</code> et d'associer un ou plusieurs mots-clés thématiques au document en utilisant <code xmlns="http://www.w3.org/1999/xhtml">&lt;textClass&gt;</code></a:documentation>
-          <element name="correspDesc">
-            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code> doit comprendre au moins un <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspAction&gt;</code> décrivant une action de correspondance. La description des contextes de correspondance est optionnelle, elle peut se faire dans l'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code></a:documentation>
-            <attribute name="ref">
-              <a:documentation>L'attribut @ref contient l'url du document de correspondance, identifiant unique voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> </a:documentation>
-              <data type="anyURI"/>
-            </attribute>
-            <oneOrMore>
-              <element name="correspAction">
-                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspAction&gt;</code> décrit un événement de correspondance (e.g. expédition). Son attribut @type est obligatoire. Il comprend au moins un élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;persName&gt;</code> avec le nom qui est associé à l'action (e.g. nom du destinataire). La date de l'action <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code>, le lieu de l'action <code xmlns="http://www.w3.org/1999/xhtml">&lt;placeName&gt;</code> (e.g lieu d'expédition), le nom d'une organisation ou institution <code xmlns="http://www.w3.org/1999/xhtml">&lt;orgName&gt;</code> sont optionnels.</a:documentation>
-                <div xmlns="http://www.w3.org/1999/xhtml"> 
-                  <p>Les attributs @sortKey et @subtype sont optionnels. Ils permettent de décrire le transfert d'une lettre. Exemple: </p>
-                  <a:example>
-                    <!-- action 1 premier envoi-->
-                    <correspAction type="sent" sortKey="1">  
-                      <persName>nom de l'expéditeur</persName> 
-                      <placeName>lieu 1</placeName>  
-                      <date when="2001-01-01"/> <!--date d'expédition-->
-                    </correspAction>
-                    
-                    <!--action 2 première réception-->
-                    <correspAction type="received" subtype="redirecting" sortKey="2">  
-                      <persName>unknown</persName> 
-                      <placeName>lieu 2</placeName>  
-                      <date when="2001-01-03"/> <!--date première reception-->
-                    </correspAction>
-                    
-                    <!--action 3 transfert de la lettre-->
-                    <correspAction type="sent" subtype="redirecting" sortKey="3">  
-                      <persName>unknown</persName> 
-                      <placeName>lieu 2</placeName>  
-                      <date when="2001-01-04"/> <!--date du renvoi-->
-                    </correspAction>
-                    
-                    <!--action 4 réception finale de la lettre-->
-                    <correspAction type="reveived" subtype="redirecting" sortKey="4">  
-                      <persName>nom destinataire final</persName> 
-                      <placeName>lieu 3</placeName>  
-                    </correspAction>
-                  </a:example>
-                </div>
-                
-                
-                <optional>
-                  <attribute name="sortKey">
-                    <data type="integer"/>
-                  </attribute>
-                </optional>
-                <optional>
-                  <attribute name="subtype">
-                    <data type="NCName"/>
-                  </attribute>
-                </optional>
-                <attribute name="type">
-                  <div xmlns="http://www.w3.org/1999/xhtml">
-                    <p>Les valeurs autorisées sont: </p>
-                    <ul>
-                      <li>"sent" pour un envoi</li>
-                      <li>"received" pour une réception</li>
-                    </ul>
-                  </div>
-                  <choice>
-                    <value>sent</value>
-                    <value>received</value>
-                  </choice>
-                </attribute>
-                
-                <ref name="persName"/>
-                <zeroOrMore>
-                  <choice>
-                    <ref name="placeName"/>
-                    <ref name="orgName"/>
-                    <ref name="date"/>
-                  </choice>
-                </zeroOrMore>
-              </element>
-            </oneOrMore>
+        </optional>
+        <optional>
+          <element name="profileDesc">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;profileDesc&gt;</code> permet de renseigner les actions de correspondance dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code>. Il permet aussi de décrire les relations entre les acteurs de la correspondance dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;particDesc&gt;</code> et d'associer un ou plusieurs mots-clés thématiques au document en utilisant <code xmlns="http://www.w3.org/1999/xhtml">&lt;textClass&gt;</code></a:documentation>         
+            
             <optional>
-              <element name="correspContext">
-                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code> (optionnel) permet de replacer un document de correspondance dans son/ses contexte(s) de correspondance. Il contient un ou plusieurs éléments <code xmlns="http://www.w3.org/1999/xhtml">&lt;ref&gt;</code> renvoyant vers d'autres lettres. </a:documentation>
-                <oneOrMore>
-                  <ref name="ref_context"/>
-                </oneOrMore>
-              </element>
-            </optional>           
-          </element>
-          <optional>
-            <element name="particDesc">
-              <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;particDesc&gt;</code> permet de décrire les liens et relations entre différents acteurs de la correspondance (voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;relation&gt;</code>) </a:documentation>
-              <element name="listPerson">
-                <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;listPerson&gt;</code> définit les personnes dont on souhaite décrire les liens</a:documentation>
-                <oneOrMore>
-                  <element name="person">
-                    <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;person&gt;</code> fournit des informations optionnelles sur un acteur identifiable de la correspondance: idenitifiant @sameAs, âge @age, sexe @sex, fonction/métier @role</a:documentation>
+              <element name="correspDesc">
+                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code> peut comprendre un ou plusieurs <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspAction&gt;</code> décrivant une action de correspondance. La description des contextes de correspondance peut se faire dans l'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code></a:documentation>
+                <attribute name="ref">
+                  <a:documentation>L'attribut @ref contient l'url du document de correspondance, identifiant unique voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> </a:documentation>
+                  <data type="anyURI"/>
+                </attribute>
+                <zeroOrMore>
+                  <element name="correspAction">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspAction&gt;</code> décrit un événement de correspondance (e.g. expédition). Son attribut @type est obligatoire. Il comprend au moins un élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;persName&gt;</code> avec le nom qui est associé à l'action (e.g. nom du destinataire). La date de l'action <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code>, le lieu de l'action <code xmlns="http://www.w3.org/1999/xhtml">&lt;placeName&gt;</code> (e.g lieu d'expédition), le nom d'une organisation ou institution <code xmlns="http://www.w3.org/1999/xhtml">&lt;orgName&gt;</code> sont optionnels.</a:documentation>
+                    <div xmlns="http://www.w3.org/1999/xhtml"> 
+                      <p>Les attributs @sortKey et @subtype sont optionnels. Ils permettent de décrire le transfert d'une lettre. Exemple: </p>
+                      <a:example>
+                        <!-- action 1 premier envoi-->
+                        <correspAction type="sent" sortKey="1">  
+                          <persName>nom de l'expéditeur</persName> 
+                          <placeName>lieu 1</placeName>  
+                          <date when="2001-01-01"/> <!--date d'expédition-->
+                        </correspAction>
+                        
+                        <!--action 2 première réception-->
+                        <correspAction type="received" subtype="redirecting" sortKey="2">  
+                          <persName>unknown</persName> 
+                          <placeName>lieu 2</placeName>  
+                          <date when="2001-01-03"/> <!--date première reception-->
+                        </correspAction>
+                        
+                        <!--action 3 transfert de la lettre-->
+                        <correspAction type="sent" subtype="redirecting" sortKey="3">  
+                          <persName>unknown</persName> 
+                          <placeName>lieu 2</placeName>  
+                          <date when="2001-01-04"/> <!--date du renvoi-->
+                        </correspAction>
+                        
+                        <!--action 4 réception finale de la lettre-->
+                        <correspAction type="reveived" subtype="redirecting" sortKey="4">  
+                          <persName>nom destinataire final</persName> 
+                          <placeName>lieu 3</placeName>  
+                        </correspAction>
+                      </a:example>
+                    </div>
+                    
+                    
                     <optional>
-                      <attribute name="age">
+                      <attribute name="sortKey">
                         <data type="integer"/>
                       </attribute>
                     </optional>
                     <optional>
-                      <attribute name="role">
+                      <attribute name="subtype">
+                        <data type="NCName"/>
+                      </attribute>
+                    </optional>
+                    <attribute name="type">
+                      <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Les valeurs autorisées sont: </p>
+                        <ul>
+                          <li>"sent" pour un envoi</li>
+                          <li>"received" pour une réception</li>
+                        </ul>
+                      </div>
+                      <choice>
+                        <value>sent</value>
+                        <value>received</value>
+                      </choice>
+                    </attribute>
+                    
+                    <ref name="persName"/>
+                    <zeroOrMore>
+                      <choice>
+                        <ref name="placeName"/>
+                        <ref name="orgName"/>
+                        <ref name="date"/>
+                      </choice>
+                    </zeroOrMore>
+                  </element>
+                </zeroOrMore>
+                <optional>
+                  <element name="correspContext">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code> (optionnel) permet de replacer un document de correspondance dans son/ses contexte(s) de correspondance. Il contient un ou plusieurs éléments <code xmlns="http://www.w3.org/1999/xhtml">&lt;ref&gt;</code> renvoyant vers d'autres lettres. </a:documentation>
+                    <oneOrMore>
+                      <ref name="ref_context"/>
+                    </oneOrMore>
+                  </element>
+                </optional>           
+              </element>
+            </optional>
+            
+            
+            <optional>
+              <element name="particDesc">
+                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;particDesc&gt;</code> permet de décrire les liens et relations entre différents acteurs de la correspondance (voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;relation&gt;</code>) </a:documentation>
+                <element name="listPerson">
+                  <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;listPerson&gt;</code> définit les personnes dont on souhaite décrire les liens</a:documentation>
+                  <oneOrMore>
+                    <element name="person">
+                      <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;person&gt;</code> fournit des informations optionnelles sur un acteur identifiable de la correspondance: idenitifiant @sameAs, âge @age, sexe @sex, fonction/métier @role</a:documentation>
+                      <optional>
+                        <attribute name="age">
+                          <data type="integer"/>
+                        </attribute>
+                      </optional>
+                      <optional>
+                        <attribute name="role">
+                          <data type="NCName"/>
+                        </attribute>
+                      </optional>
+                      <optional>
+                        <attribute name="sameAs"/>
+                      </optional>
+                      <optional>
+                        <attribute name="sex">
+                          <data type="NCName"/>
+                        </attribute>
+                      </optional>
+                    </element>
+                  </oneOrMore>
+                  <element name="relation">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;relation&gt;</code> caractérise la nature des relations entre les individus déclarés. Si la relation est réciproque on utilise @mutual, si elle est hiérarchique @active et @passive</a:documentation>
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                      <ul>
+                        <li>@type donne le type de relation (e.g. "social" "personal")</li>
+                        <li> @name donne un nom à la relation (e.g. "spouse" "friend" "supervisor")</li>
+                        <li>@mutual identifie les correspondants entre lesquels la relation est réciproque</li>
+                        <li>@active identifie les correspondants "actifs" dans une relation à sens unique, non mutuelle </li>
+                        <li> @passive identifie les correspondants "passifs" dans une relation à sens unique ou non mutuelle (ne peut s'utiliser que si un @active est déjà utilisé) </li>
+                      </ul>
+                      <p>Exemple:</p>
+                      <a:example>
+                        <particDesc> <!--relation amicale entre l'expéditeur et le destinataire-->
+                          <listPerson> 
+                            <!--déclaration des individus-->
+                            <person sex="M" age="26" role="secretary" sameAs="#id_exped"/>            
+                            <person sex="F" sameAs="#id_dest"/>
+                            <!--description de la relation-->
+                            <relation type="personal" name="friend" mutual="#id_exped #id_dest"/> 
+                          </listPerson>
+                        </particDesc>
+                      </a:example>
+                    </div>
+                    <optional>
+                      <attribute name="name">
                         <data type="NCName"/>
                       </attribute>
                     </optional>
                     <optional>
-                      <attribute name="sameAs"/>
-                    </optional>
-                    <optional>
-                      <attribute name="sex">
+                      <attribute name="type">
                         <data type="NCName"/>
                       </attribute>
+                    </optional>
+                    <optional>
+                      <attribute name="mutual"/>
+                    </optional>
+                    <optional>
+                      <attribute name="active"/>
+                    </optional>
+                    <optional>
+                      <attribute name="passive"/>
                     </optional>
                   </element>
-                </oneOrMore>
-                <element name="relation">
-                  <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;relation&gt;</code> caractérise la nature des relations entre les individus déclarés. Si la relation est réciproque on utilise @mutual, si elle est hiérarchique @active et @passive</a:documentation>
-                  <div xmlns="http://www.w3.org/1999/xhtml">
-                    <ul>
-                      <li>@type donne le type de relation (e.g. "social" "personal")</li>
-                      <li> @name donne un nom à la relation (e.g. "spouse" "friend" "supervisor")</li>
-                      <li>@mutual identifie les correspondants entre lesquels la relation est réciproque</li>
-                      <li>@active identifie les correspondants "actifs" dans une relation à sens unique, non mutuelle </li>
-                      <li> @passive identifie les correspondants "passifs" dans une relation à sens unique ou non mutuelle (ne peut s'utiliser que si un @active est déjà utilisé) </li>
-                    </ul>
-                    <p>Exemple:</p>
-                    <a:example>
-                      <particDesc> <!--relation amicale entre l'expéditeur et le destinataire-->
-                        <listPerson> 
-                          <!--déclaration des individus-->
-                          <person sex="M" age="26" role="secretary" sameAs="#id_exped"/>            
-                          <person sex="F" sameAs="#id_dest"/>
-                          <!--description de la relation-->
-                          <relation type="personal" name="friend" mutual="#id_exped #id_dest"/> 
-                        </listPerson>
-                      </particDesc>
-                    </a:example>
-                  </div>
-                  <optional>
-                    <attribute name="name">
-                      <data type="NCName"/>
-                    </attribute>
-                  </optional>
-                  <optional>
-                    <attribute name="type">
-                      <data type="NCName"/>
-                    </attribute>
-                  </optional>
-                  <optional>
-                    <attribute name="mutual"/>
-                  </optional>
-                  <optional>
-                    <attribute name="active"/>
-                  </optional>
-                  <optional>
-                    <attribute name="passive"/>
-                  </optional>
                 </element>
               </element>
-            </element>
-          </optional>
-          
-          <optional>
-            <element name="textClass">
-              <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;textClass&gt;</code> permet d'associer un thèse/mot-clé ou une série de thèmes/mots-clés au document de correspondance</a:documentation>
-              <element name="keywords">
-                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;keywords&gt;</code> contient le ou les mots-clés <code xmlns="http://www.w3.org/1999/xhtml">&lt;term&gt;</code></a:documentation>
-                <optional>
-                  <attribute name="scheme">
-                    <a:documentation>@scheme, optionnel, donne le nom du thésaurus auquel se rattache le ou les mots-clés (e.g. scheme= "RAMEAU") </a:documentation>
-                    <data type="NCName"/>
-                  </attribute>
-                </optional>
-                <oneOrMore>
-                  <element name="term">
-                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;term&gt;</code> contien un mot clé ou un thème</a:documentation>
-                    <text/>
-                  </element>
-                </oneOrMore>
+            </optional>
+            
+            <optional>
+              <element name="textClass">
+                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;textClass&gt;</code> permet d'associer un thèse/mot-clé ou une série de thèmes/mots-clés au document de correspondance</a:documentation>
+                <element name="keywords">
+                  <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;keywords&gt;</code> contient le ou les mots-clés <code xmlns="http://www.w3.org/1999/xhtml">&lt;term&gt;</code></a:documentation>
+                  <optional>
+                    <attribute name="scheme">
+                      <a:documentation>@scheme, optionnel, donne le nom du thésaurus auquel se rattache le ou les mots-clés (e.g. scheme= "RAMEAU") </a:documentation>
+                      <data type="NCName"/>
+                    </attribute>
+                  </optional>
+                  <oneOrMore>
+                    <element name="term">
+                      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;term&gt;</code> contien un mot clé ou un thème</a:documentation>
+                      <text/>
+                    </element>
+                  </oneOrMore>
+                </element>
               </element>
-            </element>
-          </optional>         
-        </element>
+            </optional>         
+          </element>
+        </optional>
+        
         <optional>
           <element name="revisionDesc">
             <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;revisionDesc&gt;</code> détaille la mise à jour éditoriale du document. Chaque changement est notifié dans une balise <code xmlns="http://www.w3.org/1999/xhtml">&lt;change&gt;</code></a:documentation>
@@ -395,7 +414,21 @@
         <element name="body">
           <oneOrMore>
             <element name="div">
+              <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;div&gt;</code> contient le corps de texte d'un document de correspondance. Il en faut au moins un pour que le fichier XML soit valide. Il peut y en avoir plusieurs si l'on souhaite encoder le texte de documents secondaires qui accompagnent le document principal comme par exemple le texte d'une enveloppe, d'un brouillon ou d'une pièce jointe.</a:documentation>
               <attribute name="type">
+                <div xmlns="http://www.w3.org/1999/xhtml"> 
+                  <p>@type détermine la nature du document du document de correspondance, valeurs autorisées:  </p>
+                  <ul>
+                    <li>" letter " pour une lettre</li>
+                    <li>" envelope " pour une enveloppe</li>
+                    <li>" telegram " pour un télégramme</li>
+                    <li>" note " pour un billet, un texte transmis entre deux correspondants mais ne respectant pas de formes épistolaires</li>
+                    <li>" postcard " pour une carte postale </li>
+                    <li>" attachment " pour une pièce jointe</li>
+                    <li>" draft " pour un brouillon</li>
+                  </ul>
+                </div>
+                
                 <choice> 
                   <value>envelope</value>
                   <value>letter</value>
@@ -403,11 +436,13 @@
                   <value>note</value>
                   <value>postcard</value>
                   <value>attachment</value>
+                  <value>draft</value>
                 </choice>
               </attribute>
               
               <oneOrMore>
                 <choice>
+                  <ref name="ab"/>
                   <ref name="p"/>
                   <ref name="subst"/>
                   <ref name="lb"/>
@@ -569,7 +604,7 @@
   <!--  définition post-scriptum-->  
   <define name="postscript">
     <element name="postscript">
-      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;postscript&gt;</code> permet d'entrer le texte du post-scriptum</a:documentation>
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;postscript&gt;</code> permet d'entrer le texte d'un post-scriptum</a:documentation>
       <optional>
         <attribute name="n">
           <a:documentation>@n pour numéroter les post-scriptum si il y en a plusieurs</a:documentation>
@@ -613,7 +648,7 @@
       <optional>
         <attribute name="key">
           <a:documentation>@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</a:documentation>
-          <data type="NCName"/>
+          <data type="string"/>
         </attribute>
       </optional>
       <optional>
@@ -1161,6 +1196,9 @@
   <define name="choice">
     <element name="choice">
       <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code> décrit les choix éditoriaux qui sont faits au moment d'une transcription </a:documentation>
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
       <choice>
         <group>
           <interleave>
@@ -1261,6 +1299,18 @@
   
   
   <!--définition certains attributs  a_nomattribut-->
+  <define name="a_rend">
+    <attribute name="rend">
+      <choice>
+        <data type="NCName"/>
+        <value>i</value> <!--italique-->
+        <value>b</value> <!--gras-->
+        <value>u</value> <!--souligné-->
+        <value>sub</value> <!--indice-->
+        <value>sup</value> <!--exposant-->
+      </choice>
+    </attribute>
+  </define>
   <define name="a_when">
     <attribute name="when">
       <a:documentation>date de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</a:documentation>
@@ -1419,16 +1469,7 @@
   
   <define name="hi">
     <element name="hi">
-      <attribute name="rend">
-        <choice>
-          <data type="NCName"/>
-          <value>i</value> <!--italique-->
-          <value>b</value> <!--gras-->
-          <value>u</value> <!--souligné-->
-          <value>sub</value> <!--indice-->
-          <value>sup</value> <!--exposant-->
-        </choice>
-      </attribute>
+      <ref name="a_rend"/>
       <text/>
     </element>
   </define>
@@ -1612,5 +1653,54 @@
       </interleave>
     </element>
   </define>
-  
+  <define name="history">
+    <element name="history">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;history&gt;</code> contient la description plus ou moins précise de l'histoire du manuscrit, soit en texte libre <code xmlns="http://www.w3.org/1999/xhtml">&lt;p&gt;</code>, soit en utilisant les balises <code xmlns="http://www.w3.org/1999/xhtml">&lt;origin&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;provenance&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;acquisition&gt;</code></a:documentation>
+      <zeroOrMore>
+        <choice>
+          <element name="origin">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;origin&gt;</code> contient des informations sur l'origine du manuscrit</a:documentation>
+            <ref name="p"/>
+          </element>
+          <element name="provenance">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;provenance&gt;</code> contient des informations sur un épisode précis de l'histoire du manuscrit après sa création et avant son acquisition </a:documentation>
+            <ref name="p"/>
+          </element>
+          <element name="acquisition">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;acquisition&gt;</code> contient des informations sur les modalités et circonstances de l'entrée du manuscrit ou de la partie du manuscrit dans l'institution qui le détient </a:documentation>
+            <ref name="p"/>
+          </element>
+          <ref name="p"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ab">
+    <element name="ab">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;ab&gt;</code> contient un élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;stamp&gt;</code> qui permet d'encoder les cachets postaux et timbres apposés sur les documents de correspondance</a:documentation>
+      <optional>
+        <ref name="a_rend"/>
+      </optional>
+      <ref name="stamp"/>
+    </element>
+  </define>
+  <define name="stamp">
+    <element name="stamp">
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;stamp&gt;</code> permet de décrire en texte libre le contenu de cachets postaux et de timbres apposés sur les documents de correspondance. L'attribut @type est optionnel</p>
+        <a:example>
+          <ab><stamp type="postmark">Marque circulaire précisant Brighton Hove - Sussex et <date when="1970-10-26">26 Oct 1970</date></stamp></ab>
+        </a:example>
+      </div>
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <text/>
+      <optional>
+        <ref name="date"/>
+      </optional>
+    </element>
+  </define>
 </grammar>
