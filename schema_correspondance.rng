@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar ns="http://www.tei-c.org/ns/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<grammar ns="http://www.tei-c.org/ns/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+  <a:documentation> Schéma correspondances</a:documentation>
+  
+  
   <start>
     <element name="TEI">
       <attribute>
@@ -7,6 +11,7 @@
       </attribute>
       <element name="teiHeader">
         <element name="fileDesc">
+          <a:documentation>Le <code xmlns="http://www.w3.org/1999/xhtml">&lt;fileDesc&gt;</code> donne des informations sur l'édition, la publication et l'origine du document de correspondance. Dans le <code xmlns="http://www.w3.org/1999/xhtml">&lt;fileDesc&gt;</code> les éléments <code xmlns="http://www.w3.org/1999/xhtml">&lt;titleStmt&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;editionStmt&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> ont été repris du header Obvil, <code xmlns="http://www.w3.org/1999/xhtml">&lt;SourceDesc&gt;</code> a été modifié. </a:documentation>
           <element name="titleStmt">
             <element name="title">
               <text/>
@@ -37,11 +42,12 @@
             </element>
           </element>
           <element name="publicationStmt">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;idno&gt;</code> du <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> contient l'url du document de correspondance, identifiant unique que l'on retrouve dans le <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code></a:documentation>
             <element name="publisher">
               <text/>
             </element>
             <ref name="date"/>
-            <ref name="idno"/>
+            <ref name="idno_publication"/>
             <element name="availability">
               <attribute name="status">
                 <data type="NCName"/>
@@ -57,237 +63,343 @@
             </element>
           </element>
           <element name="sourceDesc">
-            <element name="msDesc">
-              <element name="msIdentifier">
-                <element name="country">
-                  <text/>
-                </element>
-                <element name="settlement">
-                  <text/>
-                </element>
-                <element name="institution">
-                  <text/>
-                </element>
-                <element name="repository">
-                  <data type="string">
-                    <param name="pattern">.+</param>
-                  </data>          
-                </element>
-                <element name="collection">
-                  <text/>
-                </element>
-                <ref name="idno"/>
-              </element>
-              <optional>
-                <element name="msContents">
-                  <choice>
-                    <element name="summary">
-                      <text/>
-                    </element>
-                    <element name="msItem">
-                      <element name="incipit">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;sourceDesc&gt;</code> contient la description de la source à partir de laquelle le texte électronique a été produit. Lorsque le document de correspondance est tiré d'un manuscrit, <code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code> permet de décrire ce manuscrit, quand le document de correspondance est tiré d'un ouvrage, d'un recueil de lettres ou d'un article publié, <code xmlns="http://www.w3.org/1999/xhtml">&lt;bibl&gt;</code> permet de préciser cette source</a:documentation>
+            <oneOrMore>
+              <choice>
+                <ref name="bibl"/>
+                <element name="msDesc">
+                  <a:documentation><code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code> permet de décrire le manuscrit du document de correspondance.</a:documentation>
+                  <element name="msIdentifier">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;msIdentifier&gt;</code> est obligatoire dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;msDesc&gt;</code>. Il donne des informations sur l'origine et le lieu de conservation du document. Le <code xmlns="http://www.w3.org/1999/xhtml">&lt;repository&gt;</code>, nom du dépôt dans lequel le manuscrit est entreposé, doit être rempli. Les autres éléments sont optionnels. </a:documentation>
+                    <optional>
+                      <element name="country">
                         <text/>
                       </element>
-                    </element>
-                    <group>
-                      <element name="summary">
+                    </optional>
+                    <optional>
+                      <element name="settlement">
                         <text/>
                       </element>
-                      <element name="msItem">
-                        <element name="incipit">
-                          <text/>
-                        </element>
-                      </element>
-                    </group>
-                  </choice>
-                </element> 
-              </optional>
-              <optional>
-                <element name="physDesc">
-                  <element name="objectDesc">
-                    <optional>
-                      <attribute name="form">
-                        <choice>                      
-                          <value>letter</value>
-                          <value>telegram</value>
-                          <value>note</value>
-                          <value>postcard</value>
-                        </choice>
-                      </attribute>
                     </optional>
-                    
                     <optional>
-                      <element name="supportDesc">
-                        <optional>
-                          <element name="extent">
-                            <element name="measure">
-                              <attribute name="type">
-                                <value>page</value>
-                              </attribute>
-                              <text/>
-                            </element>
-                          </element> 
-                        </optional>                    
-                        <optional>
-                          <element name="condition">
-                            <text/>
-                          </element>
-                        </optional>
+                      <element name="institution">
+                        <text/>
+                      </element>
+                    </optional>                
+                    <element name="repository">
+                      <data type="string">
+                        <param name="pattern">.+</param>
+                      </data>          
+                    </element>
+                    <optional>
+                      <element name="collection">
+                        <text/>
                       </element>
                     </optional>
-                    
-                    
+                    <optional>
+                      <ref name="idno_msId"/>
+                    </optional>               
                   </element>
                   <optional>
-                    <element name="accMat">
-                      <text/>
+                    <element name="msContents">
+                      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;msContents&gt;</code>peut contenir un résumé avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;summary&gt;</code>) et/ou un incipit avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;msItem&gt;</code></a:documentation> 
+                      <choice>
+                        <element name="summary">
+                          <text/>
+                        </element>
+                        <element name="msItem">
+                          <element name="incipit">
+                            <text/>
+                          </element>
+                        </element>
+                        <group>
+                          <element name="summary">
+                            <text/>
+                          </element>
+                          <element name="msItem">
+                            <element name="incipit">
+                              <text/>
+                            </element>
+                          </element>
+                        </group>
+                      </choice>
+                    </element> 
+                  </optional>
+                  <optional>
+                    <element name="physDesc">
+                      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;physDesc&gt;</code>donne une description matérielle du document. <code xmlns="http://www.w3.org/1999/xhtml">&lt;objectDesc&gt;</code> permet de décrire la matérialité du document, <code xmlns="http://www.w3.org/1999/xhtml">&lt;accMat&gt;</code> décrit le matériel accompagnant le document principal (e.g. annexes, objets, pièces jointes...)  </a:documentation>
+                      <element name="objectDesc">
+                        <optional>
+                          <attribute name="form">
+                            <div xmlns="http://www.w3.org/1999/xhtml"> <!--div de doc -->
+                              <p>L'attribut @form renseigne la forme principale du document de correspondance </p>
+                              <p>Les valeurs autorisées sont: </p>
+                              <ul>
+                                <li>"letter" pour une lettre</li>
+                                <li>"telegram" pour un télégramme</li>
+                                <li>"note" pour un billet, autrement dit une communication qui ne respecte pas les formes épistolaires</li>
+                                <li>"postcard" pour une carte postale</li>
+                              </ul>
+                            </div>
+                            
+                            <choice>                      
+                              <value>letter</value>
+                              <value>telegram</value>
+                              <value>note</value>
+                              <value>postcard</value>
+                            </choice>
+                          </attribute>
+                        </optional>
+                        
+                        <optional>
+                          <element name="supportDesc">
+                            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;supportDesc&gt;</code> permet de donner le nombre de page avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;extent&gt;</code> et de décrire l'état du document dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;condition&gt;</code></a:documentation>
+                            <optional>
+                              <element name="extent">
+                                <element name="measure">
+                                  <a:documentation>Il n'est pas possible de choisir le @type de mesure qui est "page" par défaut</a:documentation>
+                                  <attribute name="type">
+                                    <value>page</value>
+                                  </attribute>
+                                  <text/>
+                                </element>
+                              </element> 
+                            </optional>                    
+                            <optional>
+                              <element name="condition">
+                                <text/>
+                              </element>
+                            </optional>
+                          </element>
+                        </optional>
+                        
+                      </element>
+                      <optional>
+                        <element name="accMat">
+                          <text/>
+                        </element>
+                      </optional>
                     </element>
                   </optional>
+                  <optional>
+                    <ref name="history"/>
+                  </optional>
                 </element>
-              </optional>
-              
-            </element>
+              </choice>
+            </oneOrMore>
+            
+            
           </element>
         </element>
+        
         <optional>
           <element name="encodingDesc">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;encodingDesc&gt;</code> permet de décrire en texte libre les choix de transcription</a:documentation>
             <ref name="p"/>
           </element>
-        </optional>        
-        <element name="profileDesc">
-          <element name="correspDesc">
-            <attribute name="ref">
-              <data type="anyURI"/>
-            </attribute>
-            <oneOrMore>
-              <element name="correspAction">
-                <optional>
-                  <attribute name="sortKey">
-                    <data type="integer"/>
-                  </attribute>
-                </optional>
-                <optional>
-                  <attribute name="subtype">
-                    <data type="NCName"/>
-                  </attribute>
-                </optional>
-                <attribute name="type">
-                  <choice>
-                    <value>sent</value>
-                    <value>received</value>
-                  </choice>
-                </attribute>
-                <ref name="persName"/>
-                <optional>
-                  <ref name="placeName"/>
-                </optional>
-                <optional>
-                  <element name="orgName">
-                    <optional>
-                      <attribute name="key">
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute name="ref">
-                        <data type="anyURI"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute>
-                        <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>            
-                    <text/>
-                  </element>
-                </optional>
-                <optional>
-                  <ref name="date"/>
-                </optional>
-              </element>
-            </oneOrMore>
+        </optional>
+        <optional>
+          <element name="profileDesc">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;profileDesc&gt;</code> permet de renseigner les actions de correspondance dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code>. Il permet aussi de décrire les relations entre les acteurs de la correspondance dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;particDesc&gt;</code> et d'associer un ou plusieurs mots-clés thématiques au document en utilisant <code xmlns="http://www.w3.org/1999/xhtml">&lt;textClass&gt;</code></a:documentation>         
+            
             <optional>
-              <element name="correspContext">
-                <oneOrMore>
-                  <ref name="ref"/>
-                </oneOrMore>
-              </element>
-            </optional>           
-          </element>
-          <optional>
-            <element name="particDesc">
-              <element name="listPerson">
-                <oneOrMore>
-                  <element name="person">
+              <element name="correspDesc">
+                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code> peut comprendre un ou plusieurs <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspAction&gt;</code> décrivant une action de correspondance. La description des contextes de correspondance peut se faire dans l'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code></a:documentation>
+                <attribute name="ref">
+                  <a:documentation>L'attribut @ref contient l'url du document de correspondance, identifiant unique voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> </a:documentation>
+                  <data type="anyURI"/>
+                </attribute>
+                <zeroOrMore>
+                  <element name="correspAction">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspAction&gt;</code> décrit un événement de correspondance (e.g. expédition). Son attribut @type est obligatoire. Il comprend au moins un élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;persName&gt;</code> avec le nom qui est associé à l'action (e.g. nom du destinataire). La date de l'action <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code>, le lieu de l'action <code xmlns="http://www.w3.org/1999/xhtml">&lt;placeName&gt;</code> (e.g lieu d'expédition), le nom d'une organisation ou institution <code xmlns="http://www.w3.org/1999/xhtml">&lt;orgName&gt;</code> sont optionnels.</a:documentation>
+                    <div xmlns="http://www.w3.org/1999/xhtml"> 
+                      <p>Les attributs @sortKey et @subtype sont optionnels. Ils permettent de décrire le transfert d'une lettre. Exemple: </p>
+                      <a:example>
+                        <!-- action 1 premier envoi-->
+                        <correspAction type="sent" sortKey="1">  
+                          <persName>nom de l'expéditeur</persName> 
+                          <placeName>lieu 1</placeName>  
+                          <date when="2001-01-01"/> <!--date d'expédition-->
+                        </correspAction>
+                        
+                        <!--action 2 première réception-->
+                        <correspAction type="received" subtype="redirecting" sortKey="2">  
+                          <persName>unknown</persName> 
+                          <placeName>lieu 2</placeName>  
+                          <date when="2001-01-03"/> <!--date première reception-->
+                        </correspAction>
+                        
+                        <!--action 3 transfert de la lettre-->
+                        <correspAction type="sent" subtype="redirecting" sortKey="3">  
+                          <persName>unknown</persName> 
+                          <placeName>lieu 2</placeName>  
+                          <date when="2001-01-04"/> <!--date du renvoi-->
+                        </correspAction>
+                        
+                        <!--action 4 réception finale de la lettre-->
+                        <correspAction type="reveived" subtype="redirecting" sortKey="4">  
+                          <persName>nom destinataire final</persName> 
+                          <placeName>lieu 3</placeName>  
+                        </correspAction>
+                      </a:example>
+                    </div>
+                    
+                    
                     <optional>
-                      <attribute name="age">
+                      <attribute name="sortKey">
                         <data type="integer"/>
                       </attribute>
                     </optional>
                     <optional>
-                      <attribute name="role">
+                      <attribute name="subtype">
+                        <data type="NCName"/>
+                      </attribute>
+                    </optional>
+                    <attribute name="type">
+                      <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Les valeurs autorisées sont: </p>
+                        <ul>
+                          <li>"sent" pour un envoi</li>
+                          <li>"received" pour une réception</li>
+                        </ul>
+                      </div>
+                      <choice>
+                        <value>sent</value>
+                        <value>received</value>
+                      </choice>
+                    </attribute>
+                    
+                    <ref name="persName"/>
+                    <zeroOrMore>
+                      <choice>
+                        <ref name="placeName"/>
+                        <ref name="orgName"/>
+                        <ref name="date"/>
+                      </choice>
+                    </zeroOrMore>
+                  </element>
+                </zeroOrMore>
+                <optional>
+                  <element name="correspContext">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code> (optionnel) permet de replacer un document de correspondance dans son/ses contexte(s) de correspondance. Il contient un ou plusieurs éléments <code xmlns="http://www.w3.org/1999/xhtml">&lt;ref&gt;</code> renvoyant vers d'autres lettres. </a:documentation>
+                    <oneOrMore>
+                      <ref name="ref_context"/>
+                    </oneOrMore>
+                  </element>
+                </optional>           
+              </element>
+            </optional>
+            
+            
+            <optional>
+              <element name="particDesc">
+                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;particDesc&gt;</code> permet de décrire les liens et relations entre différents acteurs de la correspondance (voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;relation&gt;</code>) </a:documentation>
+                <element name="listPerson">
+                  <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;listPerson&gt;</code> définit les personnes dont on souhaite décrire les liens</a:documentation>
+                  <oneOrMore>
+                    <element name="person">
+                      <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;person&gt;</code> fournit des informations optionnelles sur un acteur identifiable de la correspondance: idenitifiant @sameAs, âge @age, sexe @sex, fonction/métier @role</a:documentation>
+                      <optional>
+                        <attribute name="age">
+                          <data type="integer"/>
+                        </attribute>
+                      </optional>
+                      <optional>
+                        <attribute name="role">
+                          <data type="NCName"/>
+                        </attribute>
+                      </optional>
+                      <optional>
+                        <attribute name="sameAs"/>
+                      </optional>
+                      <optional>
+                        <attribute name="sex">
+                          <data type="NCName"/>
+                        </attribute>
+                      </optional>
+                    </element>
+                  </oneOrMore>
+                  <element name="relation">
+                    <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;relation&gt;</code> caractérise la nature des relations entre les individus déclarés. Si la relation est réciproque on utilise @mutual, si elle est hiérarchique @active et @passive</a:documentation>
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                      <ul>
+                        <li>@type donne le type de relation (e.g. "social" "personal")</li>
+                        <li> @name donne un nom à la relation (e.g. "spouse" "friend" "supervisor")</li>
+                        <li>@mutual identifie les correspondants entre lesquels la relation est réciproque</li>
+                        <li>@active identifie les correspondants "actifs" dans une relation à sens unique, non mutuelle </li>
+                        <li> @passive identifie les correspondants "passifs" dans une relation à sens unique ou non mutuelle (ne peut s'utiliser que si un @active est déjà utilisé) </li>
+                      </ul>
+                      <p>Exemple:</p>
+                      <a:example>
+                        <particDesc> <!--relation amicale entre l'expéditeur et le destinataire-->
+                          <listPerson> 
+                            <!--déclaration des individus-->
+                            <person sex="M" age="26" role="secretary" sameAs="#id_exped"/>            
+                            <person sex="F" sameAs="#id_dest"/>
+                            <!--description de la relation-->
+                            <relation type="personal" name="friend" mutual="#id_exped #id_dest"/> 
+                          </listPerson>
+                        </particDesc>
+                      </a:example>
+                    </div>
+                    <optional>
+                      <attribute name="name">
                         <data type="NCName"/>
                       </attribute>
                     </optional>
                     <optional>
-                      <attribute name="sameAs"/>
-                    </optional>
-                    <optional>
-                      <attribute name="sex">
+                      <attribute name="type">
                         <data type="NCName"/>
                       </attribute>
+                    </optional>
+                    <optional>
+                      <attribute name="mutual"/>
+                    </optional>
+                    <optional>
+                      <attribute name="active"/>
+                    </optional>
+                    <optional>
+                      <attribute name="passive"/>
                     </optional>
                   </element>
-                </oneOrMore>
-                <element name="relation">
-                  <optional>
-                    <attribute name="name">
-                      <data type="NCName"/>
-                    </attribute>
-                  </optional>
-                  <optional>
-                    <attribute name="type">
-                      <data type="NCName"/>
-                    </attribute>
-                  </optional>
-                  <optional>
-                    <attribute name="mutual"/>
-                  </optional>
-                  <optional>
-                    <attribute name="active"/>
-                  </optional>
-                  <optional>
-                    <attribute name="passive"/>
-                  </optional>
                 </element>
               </element>
-            </element>
-          </optional>
-          
-          <optional>
-            <element name="textClass">
-              <element name="keywords">
-                <attribute name="scheme">
-                  <data type="NCName"/>
-                </attribute>
-                <oneOrMore>
-                  <element name="term">
-                    <text/>
-                  </element>
-                </oneOrMore>
+            </optional>
+            
+            <optional>
+              <element name="textClass">
+                <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;textClass&gt;</code> permet d'associer un thèse/mot-clé ou une série de thèmes/mots-clés au document de correspondance</a:documentation>
+                <element name="keywords">
+                  <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;keywords&gt;</code> contient le ou les mots-clés <code xmlns="http://www.w3.org/1999/xhtml">&lt;term&gt;</code></a:documentation>
+                  <optional>
+                    <attribute name="scheme">
+                      <a:documentation>@scheme, optionnel, donne le nom du thésaurus auquel se rattache le ou les mots-clés (e.g. scheme= "RAMEAU") </a:documentation>
+                      <data type="NCName"/>
+                    </attribute>
+                  </optional>
+                  <oneOrMore>
+                    <element name="term">
+                      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;term&gt;</code> contien un mot clé ou un thème</a:documentation>
+                      <text/>
+                    </element>
+                  </oneOrMore>
+                </element>
               </element>
-            </element>
-          </optional>         
-        </element>
+            </optional>         
+          </element>
+        </optional>
+        
         <optional>
           <element name="revisionDesc">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;revisionDesc&gt;</code> détaille la mise à jour éditoriale du document. Chaque changement est notifié dans une balise <code xmlns="http://www.w3.org/1999/xhtml">&lt;change&gt;</code></a:documentation>
             <oneOrMore>
               <element name="change">
                 <attribute name="when">
+                  <a:documentation>@when donne la date de la modification (format voir <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code>)</a:documentation>
                   <data type="date"/>
                 </attribute>
                 <attribute name="who">
+                  <a:documentation>désigne la personne qui a effectué la modification</a:documentation>
                   <data type="NCName"/>
                 </attribute>
                 <text/>
@@ -296,11 +408,27 @@
           </element>
         </optional>      
       </element>
+     
+    <!-- elements du texte epistolaire-->
       <element name="text">
         <element name="body">
           <oneOrMore>
             <element name="div">
+              <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;div&gt;</code> contient le corps de texte d'un document de correspondance. Il en faut au moins un pour que le fichier XML soit valide. Il peut y en avoir plusieurs si l'on souhaite encoder le texte de documents secondaires qui accompagnent le document principal comme par exemple le texte d'une enveloppe, d'un brouillon ou d'une pièce jointe.</a:documentation>
               <attribute name="type">
+                <div xmlns="http://www.w3.org/1999/xhtml"> 
+                  <p>@type détermine la nature du document du document de correspondance, valeurs autorisées:  </p>
+                  <ul>
+                    <li>" letter " pour une lettre</li>
+                    <li>" envelope " pour une enveloppe</li>
+                    <li>" telegram " pour un télégramme</li>
+                    <li>" note " pour un billet, un texte transmis entre deux correspondants mais ne respectant pas de formes épistolaires</li>
+                    <li>" postcard " pour une carte postale </li>
+                    <li>" attachment " pour une pièce jointe</li>
+                    <li>" draft " pour un brouillon</li>
+                  </ul>
+                </div>
+                
                 <choice> 
                   <value>envelope</value>
                   <value>letter</value>
@@ -308,499 +436,122 @@
                   <value>note</value>
                   <value>postcard</value>
                   <value>attachment</value>
+                  <value>draft</value>
                 </choice>
               </attribute>
-              <interleave>
-                <zeroOrMore>
-                  <element name="lb">
-                    <empty/>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="pb">
-                    <optional>
-                      <attribute name="facs">
-                        <data type="anyURI"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute name="n">
-                        <data type="integer"/>
-                      </attribute>
-                    </optional>
-                    <optional>
-                      <attribute>
-                        <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                        <data type="NCName"/>
-                      </attribute>
-                    </optional>                  
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="head_1"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="fw">
-                    <optional>
-                      <attribute name="type">
-                        <data type="NCName"/>
-                      </attribute>                    
-                    </optional>    
-                    <text/>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="opener">
-                    <interleave>
-                      <zeroOrMore>
-                        <ref name="salute"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="dateline"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="address"/>
-                      </zeroOrMore>                    
-                    </interleave>
-                  </element>
-                </zeroOrMore>
-                <oneOrMore>
+              
+              <oneOrMore>
+                <choice>
+                  <ref name="ab"/>
                   <ref name="p"/>
-                </oneOrMore>
-                <zeroOrMore>
+                  <ref name="subst"/>
+                  <ref name="lb"/>
+                  <ref name="head_1"/>      
+                  <ref name="pb"/>
                   <ref name="table"/>
-                </zeroOrMore>
-                <zeroOrMore>
                   <ref name="notatedMusic"/>
-                </zeroOrMore>
-                <zeroOrMore>
                   <ref name="figure"/>
-                </zeroOrMore>
-                <zeroOrMore>
                   <ref name="note"/>
-                </zeroOrMore>
-                <zeroOrMore>
                   <ref name="add"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="formula">
-                    <interleave>
-                      <optional>
-                        <attribute name="notation">
-                          <data type="NCName"/>
-                        </attribute>
-                      </optional>
-                      <optional>
-                        <ref name="graphic"/>
-                      </optional>
-                      <text/>
-                    </interleave>            
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="list">
-                    <oneOrMore>
-                      <element name="item">
-                        <text/>
-                      </element>
-                    </oneOrMore>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="closer">
-                    <interleave>
-                      <zeroOrMore>
-                        <ref name="salute"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="address"/>
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <ref name="dateline"/> 
-                      </zeroOrMore>
-                      <zeroOrMore>
-                        <element name="signed">
-                          <text/>
-                        </element>                        
-                      </zeroOrMore>
-                    </interleave>
-                  </element>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <element name="postscript">
-                    <optional>
-                      <attribute name="n">
-                        <data type="integer"/>
-                      </attribute>
-                    </optional>
-                    <oneOrMore>
-                      <ref name="p"/>
-                    </oneOrMore>                   
-                  </element>
-                </zeroOrMore>
-              </interleave>                                      
+                  <ref name="formula"/>
+                  <ref name="list"/>
+                  <ref name="fw"/>
+                  <ref name="lg"/>
+                  <ref name="l"/>
+                  <ref name="gap"/>
+                  <ref name="address"/>
+                  <ref name="opener"/>
+                  <ref name="closer"/>
+                  <ref name="postscript"/>
+                </choice>
+              </oneOrMore>
             </element>
           </oneOrMore>          
         </element>
       </element>
     </element>
   </start>
-  <define name="date">
-    <element name="date">
-      <optional>
-        <attribute name="cert">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="resp">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <choice>     
-        <attribute name="when">
-          <choice>
-            <data type="date"/>
-            <data type="gYear"/>
-            <data type="gYearMonth"/>
-          </choice>          
-        </attribute>
-        <attribute name="notAfter">
-          <choice>
-            <data type="date"/>
-            <data type="gYear"/>
-            <data type="gYearMonth"/>
-          </choice>
-        </attribute>
-        <attribute name="notBefore">
-          <choice>
-            <data type="date"/>
-            <data type="gYear"/>
-            <data type="gYearMonth"/>
-          </choice>
-        </attribute>
-        <group>
-          <interleave>
-            <attribute name="notAfter">
-              <choice>
-                <data type="date"/>
-                <data type="gYear"/>
-                <data type="gYearMonth"/>
-              </choice>
-            </attribute>
-            <attribute name="notBefore">
-              <choice>
-                <data type="date"/>
-                <data type="gYear"/>
-                <data type="gYearMonth"/>
-              </choice>
-            </attribute>
-          </interleave>         
-        </group>     
-      </choice>
-      
-      
-      
-      <text/>
-    </element>
-  </define>
-  <define name="idno">
-    <element name="idno">
+  
+  <!--en-têtes formalisées -->
+  <define name="fw">
+    <element name="fw">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;fw&gt;</code> balise les titres courants, en-têtes formalisées</a:documentation> 
       <optional>
         <attribute name="type">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p>@type, valeurs suggérées:  </p>
+            <ul>
+              <li>" header " un titre courant en haut de page</li>
+              <li>" footer " un titre courant en bas de page</li>
+              <li>" pageNum " un numéro de page ou symbole de foliation</li>
+              <li>" lineNum " numéro d'une ligne en prose ou en vers</li>
+              <li>" sig " marque de cahier</li>
+              <li>" catch " une réclame</li>
+            </ul>
+          </div>
+          <choice>
+            <data type="NCName"/>
+            <value>header</value>
+            <value>footer</value>
+            <value>pageNum</value>
+            <value>lineNum</value>
+            <value>sig</value>
+            <value>catch</value>
+          </choice>
+        </attribute>                    
+      </optional>    
       <text/>
     </element>
   </define>
-  <define name="p">
-    <element name="p">
+  
+  <!--formule de début-->
+  <define name="opener">
+    <element name="opener">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;opener&gt;</code> intègre la formule regroupant des informations préliminaires au commencement d'une lettre. Il comprend: une salutation/apostrophe <code xmlns="http://www.w3.org/1999/xhtml">&lt;salute&gt;</code> et/ou la mention d'une adresse <code xmlns="http://www.w3.org/1999/xhtml">&lt;address&gt;</code> et/ou la mention d'une date <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code> </a:documentation>
+      <zeroOrMore>
+        <choice>
+          <ref name="salute"/>
+          <ref name="dateline"/>
+          <ref name="address"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--formule de fin-->
+  <define name="closer">
+    <element name="closer">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;closer&gt;</code> intègre la formule regroupant des informations se trouvant à la fin d'une lettre. Il comprend: une salutation finale/formule de politesse <code xmlns="http://www.w3.org/1999/xhtml">&lt;salute&gt;</code> et/ou la mention d'une adresse <code xmlns="http://www.w3.org/1999/xhtml">&lt;address&gt;</code> et/ou la mention d'une date <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code> et/ou une signature <code xmlns="http://www.w3.org/1999/xhtml">&lt;signed&gt;</code>  </a:documentation>
+      <zeroOrMore>
+        <choice>
+          <ref name="salute"/>
+          <ref name="address"/>
+          <ref name="dateline"/>
+          <ref name="signed"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  
+  
+  <!--définition éléments pour opener et closer-->
+  <define name="salute">
+    <element name="salute">
       <oneOrMore>
         <choice>
           <text/>
-          <ref name="bibl"/>
-          <ref name="date"/>
-          <ref name="notatedMusic"/>
-          <ref name="persName"/>
-          <ref name="placeName"/>
-          <ref name="ref"/>
-          <ref name="table"/>
-          <element name="pb">
-            <optional>
-              <attribute name="facs">
-                <data type="anyURI"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute name="n">
-                <data type="integer"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute>
-                <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                <data type="NCName"/>
-              </attribute>
-            </optional>                  
-          </element>
-          <ref name="add"/>
-          <element name="choice">
-            <choice>
-              <group>
-                <interleave>
-                  <element name="reg">
-                    <text/>
-                  </element>
-                  <element name="orig">
-                    <text/>
-                  </element>
-                </interleave>
-              </group>
-              <group>
-                <interleave>
-                  <element name="abbr">
-                    <text/>
-                  </element>
-                  <element name="expan">
-                    <oneOrMore>
-                      <choice>
-                        <text/>
-                        <element name="ex">
-                          <text/>
-                        </element>
-                      </choice>
-                    </oneOrMore>
-                  </element>
-                </interleave>
-              </group>
-              <group>
-                <interleave>
-                  <element name="sic">
-                    <text/>
-                  </element>
-                  <element name="corr">
-                    <text/>
-                  </element>
-                </interleave>
-              </group>
-            </choice>
-          </element>
-         <element name="supplied">
-           <optional>
-             <attribute name="reason">
-               <data type="NCName"/>
-             </attribute>
-             <attribute name="resp">
-               <data type="NCName"/>
-             </attribute>
-           </optional>           
-           <text/>
-         </element> 
-          <element name="cit">
-            <interleave>           
-              <element name="quote">
-                <text/>
-              </element>           
-              <zeroOrMore>
-                <ref name="bibl"/>
-              </zeroOrMore>                           
-            </interleave>
-         </element>
-          <element name="del">
-            <text/>
-          </element>
-          <ref name="figure"/>         
-          <element name="formula">
-            <interleave>
-              <optional>
-                <attribute name="notation">
-                  <data type="NCName"/>
-                </attribute>
-              </optional>
-              <optional>
-                <ref name="graphic"/>
-              </optional>
-              <text/>
-            </interleave>            
-          </element>
-          <element name="gap">
-            <interleave>
-              <optional>
-                <attribute name="quantity">
-                  <data type="integer"/>
-                </attribute>
-              </optional>
-              <optional>
-                <attribute name="reason">
-                  <choice>
-                    <value>cancelled</value>
-                    <value>deleted</value>
-                    <value>editorial</value>
-                    <value>illegible</value>
-                    <value>irrevelant</value>
-                    <value>sampling</value>
-                  </choice>
-                </attribute>
-              </optional>
-              <optional>
-                <attribute name="unit">
-                  <data type="NCName"/>
-                </attribute>
-              </optional>
-            </interleave>          
-          </element>
-          <element name="hi">
-            <attribute name="rend"/>
-            <text/>
-          </element>
-          <element name="lb">
-            <empty/>
-          </element>
-          <element name="list">
-            <oneOrMore>
-              <element name="item">
-                <text/>
-              </element>
-            </oneOrMore>
-          </element>
-          <ref name="note"/>
-          <element name="orgName">
-            <optional>
-              <attribute name="key">
-                <data type="NCName"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute name="ref">
-                <data type="anyURI"/>
-              </attribute>
-            </optional>
-            <optional>
-              <attribute>
-                <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-                <data type="NCName"/>
-              </attribute>
-            </optional>            
-            <text/>
-          </element>
-          <element name="unclear">
-            <optional>
-              <attribute name="reason">
-                <data type="NCName"/>
-              </attribute>
-            </optional>   
-            <text/>
-          </element>
+          <ref name="lb"/>
         </choice>
       </oneOrMore>
     </element>
   </define>
-  <define name="bibl">
-    <element name="bibl">
-      <optional>
-        <attribute name="source">
-          <data type="anyURI"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="type">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute>
-          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <text/>
-    </element>
-  </define>
-  <define name="persName">
-    <element name="persName">
-      <optional>
-        <attribute name="key">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="ref">
-          <data type="anyURI"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute>
-          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-          <data type="NCName"/>
-        </attribute>
-      </optional>          
-      <text/>
-    </element>
-  </define>
-  <define name="placeName">
-    <element name="placeName">
-      <optional>
-        <attribute name="key">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="ref">
-          <data type="anyURI"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute>
-          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
-          <data type="NCName"/>
-        </attribute>
-      </optional>     
-      <text/>
-    </element>
-  </define>
-  <define name="ref">
-    <element name="ref">
-      <attribute name="target">
-        <data type="anyURI"/>
-      </attribute>
-      <optional>
-        <attribute name="type">
-          <choice>
-            <value>next</value>
-            <value>prev</value>
-            <value>replyTo</value>
-            <value>repliedBy</value>
-          </choice>
-        </attribute>
-      </optional>
-      <text/>
-    </element>
-  </define>
-  <define name="head_1">
-    <element name="head">   
-      <attribute name="type">
+  <define name="signed">
+    <element name="signed">
+      <oneOrMore>
         <choice>
-          <value>object</value>
-          <value>title</value>
+          <text/>
+          <ref name="lb"/>
         </choice>
-      </attribute>
-      <text/>
-    </element>
-  </define>
-  <define name="head_2">
-    <element name="head">
-      <optional>
-        <attribute name="type">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <text/>
-    </element>
-  </define>
-  <define name="salute">
-    <element name="salute">
-      <text/>
+      </oneOrMore>
     </element>
   </define>
   <define name="dateline">
@@ -814,54 +565,416 @@
   <define name="address">
     <element name="address">
       <optional>
-        <attribute name="sameAs"/>
+        <attribute name="type">
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p>permet d'associer une adresse à la personne qui y est domicilié. Valeurs autorisées:</p>
+            <ul>
+              <li>" receiver " adresse du destinataire</li>
+              <li>" sender " adresse de l'expéditeur</li>
+              <li>" other " adresse d'une autre personne</li>
+            </ul>
+          </div>
+          <choice>
+            <value>receiver</value>
+            <value>sender</value>
+            <value>other</value>
+          </choice>
+        </attribute>
       </optional>
       <oneOrMore>
         <element name="addrLine">
-          <text/>
+          <oneOrMore>
+            <choice>
+              <text/>
+              <ref name="placeName"/>
+              <ref name="persName"/>
+              <ref name="orgName"/>
+              <ref name="choice"/>
+              <ref name="del"/>
+              <ref name="add"/>
+              <ref name="subst"/>
+              <ref name="figure"/>
+              <ref name="pb"/>
+            </choice>
+          </oneOrMore>
         </element>
       </oneOrMore>    
     </element>
   </define>
-  <define name="table">
-    <element name="table">
+  <!--  définition post-scriptum-->  
+  <define name="postscript">
+    <element name="postscript">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;postscript&gt;</code> permet d'entrer le texte d'un post-scriptum</a:documentation>
       <optional>
-        <attribute name="cols">
+        <attribute name="n">
+          <a:documentation>@n pour numéroter les post-scriptum si il y en a plusieurs</a:documentation>
           <data type="integer"/>
         </attribute>
       </optional>
-      <optional>
-        <attribute name="rows">
-          <data type="integer"/>
-        </attribute>
-      </optional>
-      <zeroOrMore>
-        <ref name="head_2"/>
-      </zeroOrMore>
-      <zeroOrMore>
-        <element name="row">
-          <optional>
-            <attribute name="role">
-              <data type="NCName"/>
-            </attribute>
-          </optional>
-          <zeroOrMore>
-            <element name="cell">
-              <optional>
-                <attribute name="role">
-                  <data type="NCName"/>
-                </attribute>
-              </optional>
-              <text/>
-            </element>
-          </zeroOrMore> 
-          <text/>
-        </element>
-      </zeroOrMore>      
+      <oneOrMore>
+        <choice>
+          <ref name="p"/>
+          <ref name="address"/>
+          <ref name="note"/>
+        </choice>
+      </oneOrMore>                   
     </element>
   </define>
+  
+  <!--connexions avec d'autres lettres-->
+  <!-- ref normal-->
+  <define name="ref">
+    <element name="ref">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;ref&gt;</code> utilisé dans la partie texte du document, permet dans le cadre d'une correspondance de faire des connexions internes au corpus en balisant une mention faisant référence à une autre lettre </a:documentation>
+      <attribute name="target">
+        <a:documentation>@target, pour renvoyer vers cette autre lettre</a:documentation>
+        <data type="anyURI"/>
+      </attribute>
+      <optional>
+        <attribute name="type">
+          <a:documentation>@typer, pour typer la mention</a:documentation>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  
+  
+  <!--entités nommées-->
+  <define name="persName">
+    <element name="persName">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;persName&gt;</code> sert à baliser un nom de personne </a:documentation>
+      <optional>
+        <attribute name="key">
+          <a:documentation>@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="ref">
+          <a:documentation>@ref, pour localiser via URL la définition complète de l'entité nommée</a:documentation>
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p>Exemple de normalisation et référence:</p>
+            <a:example>
+              <p>...comme disait <persName xml:id="id_pers" key="Hugo, Victor (1802-1885)" ref="https://data.bnf.fr/fr/11907966/victor_hugo/">V. Hugo</persName> ... </p>
+            </a:example>
+          </div>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute> 
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>          
+      <data type="string">
+        <param name="pattern">.+</param>
+      </data>
+    </element>
+  </define>
+  <define name="placeName">
+    <element name="placeName">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;placeName&gt;</code> sert à baliser un nom de lieu </a:documentation>
+      <optional>
+        <attribute name="key">
+          <a:documentation>@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</a:documentation>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="ref">
+          <a:documentation>@ref, pour localiser via URL la définition complète de l'entité nommée</a:documentation>
+          <a:documentation>Voir l'exemple de normalisation et référence d'une EN de <code xmlns="http://www.w3.org/1999/xhtml">&lt;persName&gt;</code></a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>     
+      <text/>
+    </element>
+  </define>
+  <define name="orgName">
+    <element name="orgName">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;orgName&gt;</code> sert à baliser un nom d'institution ou d'organisation</a:documentation>
+      <optional>
+        <attribute name="key">
+          <a:documentation>@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</a:documentation>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="ref">
+          <a:documentation>@ref, pour localiser via URL la définition complète de l'entité nommée</a:documentation>
+          <a:documentation>Voir l'exemple de normalisation et référence d'une EN de <code xmlns="http://www.w3.org/1999/xhtml">&lt;persName&gt;</code></a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>            
+      <text/>
+    </element>
+  </define>
+  
+  <!--dates et format de date-->
+  <define name="date">
+    <element name="date">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code> permet de baliser les dates. Pour utiliser <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code>, il faut renseigner obligatoirement @when ou @notBefore ou @notAfter ou @notBefore et @noteAfter  </a:documentation>
+      <choice>
+        <ref name="a_when"/>
+        <ref name="a_notAfter"/>
+        <ref name="a_notBefore"/>
+        <group>
+          <ref name="a_notAfter"/>
+          <ref name="a_notBefore"/>        
+        </group>
+      </choice>
+      <optional>
+        <ref name="a_cert"/>
+      </optional>
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  
+  
+  <!--mention, référence à des livres et oeuvres littéraires-->
+  <define name="bibl">
+    <element name="bibl">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;bibl&gt;</code> permet de baliser une référence bibliographique</a:documentation>
+      <optional>
+        <attribute name="source">
+          <a:documentation>spécifie la source par un lien url </a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="type">
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p>permet de catégoriser la référence bibliographique, valeurs suggérées:  </p>
+            <ul>
+              <li>" science "</li>
+              <li>" art "</li>
+              <li>" litterature "</li>
+            </ul>
+          </div>
+          <choice>
+            <data type="NCName"/>
+            <value>literature</value>
+            <value>science</value>
+            <value>art</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>   
+  </define>
+  
+  <!--ajouts et annotations-->
+  <define name="add">
+    <element name="add">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;add&gt;</code> permet de baliser les ajouts de texte au document </a:documentation>
+      <interleave>
+        <attribute name="type">
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p>obligatoire, détermine la nature de l'ajout, valeurs autorisées:  </p>
+            <ul>
+              <li>" posterior "</li> texte ajouté a posteriori par d'autres personnes que l'auteur (e.g. notes d'une institution de conservation)
+              <li>" author "</li> texte ajouté par l'auteur lui-même
+            </ul>
+          </div>
+          <choice>
+            <value>posterior</value>
+            <value>author</value>
+          </choice>
+        </attribute>
+        <optional>
+          <ref name="a_place"/>
+        </optional>
+      </interleave> 
+      <interleave>
+        <zeroOrMore>
+          <ref name="del"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="unclear"></ref>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="supplied"></ref>
+        </zeroOrMore>
+        <text/>
+      </interleave>
+    </element>  
+  </define>
+  
+  <!--définition d'une note-->
+  <define name="note">
+    <element name="note">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;note&gt;</code> encode les notes explicatives </a:documentation>
+      <interleave>
+        <attribute name="type">
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p>valeurs autorisées:  </p>
+            <ul>
+              <li>" author "</li> notes intégrées par l'auteur lui-même
+              <li>" editor "</li> notes critiques des éditeurs
+            </ul>
+          </div>
+          <choice>
+            <value>author</value>
+            <value>editor</value>
+          </choice>
+        </attribute>
+        <optional>
+          <ref name="a_place"/>
+        </optional> 
+        
+        <oneOrMore>
+          <choice>
+            <text/>
+            <!-- partie des options div-->
+            <ref name="p"/>
+            <ref name="subst"/>
+            <ref name="lb"/>
+            <ref name="head_1"/>      
+            <ref name="pb"/>
+            <ref name="table"/>
+            <ref name="notatedMusic"/>
+            <ref name="figure"/>
+            <ref name="add"/>
+            <ref name="formula"/>
+            <ref name="list"/>
+            <ref name="fw"/>
+            <ref name="lg"/>
+            <ref name="l"/>
+            <ref name="gap"/>
+            <ref name="address"/>
+            
+            <ref name="opener"/>
+            <ref name="closer"/>
+            
+            <ref name="postscript"/>
+            
+            <!--partie des options de p-->
+            <ref name="add"/>
+            <ref name="bibl"/>
+            <ref name="date"/>
+            <ref name="notatedMusic"/>
+            <ref name="persName"/>
+            <ref name="placeName"/>
+            <ref name="ref"/>
+            <ref name="table"/>
+            <ref name="figure"/>
+            <ref name="supplied"/>
+            <ref name="unclear"/>
+            <ref name="gap"/>
+            <ref name="del"/>
+            <ref name="pb"/>
+            <ref name="subst"/>
+            <ref name="cit"/>
+            <ref name="formula"/>
+            <ref name="hi"/>
+            <ref name="lb"/>
+            <ref name="list"/>
+            <ref name="orgName"/>
+            <ref name="choice"/>
+            
+          </choice>
+        </oneOrMore>
+        
+      </interleave>            
+      <text/>
+    </element>
+  </define>
+  
+  
+  <!--formes graphiques-->
+  <define name="figure">
+    <element name="figure">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;figure&gt;</code> permet de baliser les éléments graphiques (e.g. dessin, croquis)</a:documentation>
+      <interleave>
+        <zeroOrMore>
+          <ref name="graphic"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="figDesc"/>
+        </zeroOrMore>
+      </interleave>         
+    </element>
+  </define>
+  
+  <define name="graphic">
+    <element name="graphic">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;graphic&gt;</code> permet de baliser les éléments graphiques (e.g. dessin, croquis)</a:documentation>
+      <attribute name="facs">
+        <a:documentation>obligatoire, renseigne un lien vers une image</a:documentation>
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="figDesc">
+    <element name="figDesc">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;figDesc&gt;</code> donne une description du dessin, de la forme graphique </a:documentation>
+      <optional>
+        <attribute name="facs">
+          <a:documentation>permet éventuellement de relier la description à une image</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>   
+      <text/>
+    </element>
+  </define>
+  <define name="desc">
+    <element name="desc">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;desc&gt;</code> permet de donner une description d'une partition musicale, de notes de musiques </a:documentation>
+      <optional>
+        <attribute name="facs">
+          <a:documentation>permet éventuellement de relier la description à une image</a:documentation>
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  
+  <define name="formula">
+    <element name="formula">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;formula&gt;</code> décrit une formule mathématique </a:documentation>
+      <optional>
+        <attribute name="notation">
+          <a:documentation>précise la notation scientifique</a:documentation>
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <ref name="graphic"/>
+          <text/>
+        </choice>
+      </oneOrMore>        
+    </element>
+  </define>
+  
   <define name="notatedMusic">
     <element name="notatedMusic">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;notatedMusic&gt;</code>permet d'encoder une partition musicale ou des notes de musique </a:documentation>
       <optional>
         <attribute name="type">
           <data type="NCName"/>
@@ -877,36 +990,408 @@
       </interleave>     
     </element>
   </define>
-  <define name="graphic">
-    <element name="graphic">
-      <attribute name="url">
-        <data type="anyURI"/>
-      </attribute>
+  <define name="table">
+    <element name="table">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;table&gt;</code> permet de baliser les tableaux</a:documentation>
+      <optional>
+        <attribute name="cols">
+          <a:documentation>nombre de colonnes</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="rows">
+          <a:documentation>nombre de lignes</a:documentation>
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="head_2"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <element name="row">
+          <a:documentation>balise une ligne du tableau</a:documentation>
+          <optional>
+            <attribute name="role">
+              <data type="NCName"/>
+            </attribute>
+          </optional>
+          <zeroOrMore>
+            <element name="cell">
+              <a:documentation>balise une cellule du tableau</a:documentation>
+              <optional>
+                <attribute name="role">
+                  <data type="NCName"/>
+                </attribute>
+              </optional>
+              <text/>
+            </element>
+          </zeroOrMore> 
+          <text/>
+        </element>
+      </zeroOrMore>      
+    </element>
+  </define>
+  
+  <!--balises de transcription-->
+  <define name="lb">
+    <element name="lb">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;lb&gt;</code> marque les sauts de ligne </a:documentation>
       <empty/>
     </element>
   </define>
-  <define name="figDesc">
-    <element name="figDesc">
-      <optional>
-        <attribute name="facs">
-          <data type="anyURI"/>
-        </attribute>
-      </optional>   
-      <text/>
+  
+  <define name="gap">
+    <element name="gap">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;gap&gt;</code> balise une omission soit pour des raisons éditoriales soit du fait de la dégradation du document, @reason donne la raison de l'ommission, @unit en précise la mesure, @quantity donne la quantité de texte perdu. Si @quantity est utilisé, @unit est obligatoire, réciproquement si @unit est utilisé @quantity est obligatoire </a:documentation>
+      <interleave>
+        <optional>
+          <attribute name="reason">
+            <div xmlns="http://www.w3.org/1999/xhtml"> 
+              <p>valeurs autorisées:  </p>
+              <ul>
+                <li>" cancelled " râturé, biffé</li>
+                <li>" editorial " choix éditoriaux</li>
+                <li>" illegible "illisible</li>
+                <li>" irrevelant " non pertinent</li>
+                <li>" sampling " échantillonnage</li>
+              </ul>
+            </div>
+            
+            <choice>
+              <value>cancelled</value>
+              <value>editorial</value>
+              <value>illegible</value>
+              <value>irrevelant</value>
+              <value>sampling</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <interleave>
+            <attribute name="quantity">
+              <data type="integer"/>
+            </attribute>
+            <attribute name="unit">
+              <div xmlns="http://www.w3.org/1999/xhtml"> 
+                <p>valeurs autorisées:  </p>
+                <ul>
+                  <li>" cm " centimètres</li>
+                  <li>" mm " millimètres</li>
+                  <li>" chars " caractères </li>
+                  <li>" line " ligne</li>
+                  <li>" page " page</li>
+                  <li>" in " inches, pouces</li>
+                </ul>
+              </div>
+              <choice>
+                <value>cm</value>
+                <value>mm</value>
+                <value>chars</value>
+                <value>line</value>
+                <value>page</value>
+                <value>in</value>
+              </choice>
+            </attribute>
+          </interleave>       
+        </optional>
+      </interleave>          
     </element>
   </define>
-  <define name="desc">
-    <element name="desc">
+  <define name="unclear">
+    <element name="unclear">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;unclear&gt;</code> contient un mot, une expression ou bien un passage qui ne peut être transcrit avec certitude parce qu'il est illisible dans la source </a:documentation>
       <optional>
-        <attribute name="facs">
-          <data type="anyURI"/>
-        </attribute>
+        <attribute name="reason">
+          <div xmlns="http://www.w3.org/1999/xhtml"> 
+            <p> valeurs autorisées:  </p>
+            <ul>
+              <li>" illegible " illisible</li>
+              <li>" faded " délavé</li>
+              <li>" background_noise " bruit de fond</li>
+              <li>" eccentric_ductus "</li>
+            </ul>
+          </div>
+          <choice>
+            <value>illegible</value>
+            <value>faded</value>
+            <value>background_noise</value>
+            <value>eccentric_ductus</value>
+          </choice>
+        </attribute>      
+      </optional>
+      <optional>
+        <ref name="a_cert"/>
+      </optional>
+      <optional>
+        <ref name="a_resp"/>
       </optional>
       <text/>
     </element>
   </define>
-  <define name="place">
+  <define name="supplied">
+    <element name="supplied">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;supplied&gt;</code> permet d'encoder du texte restitué par l'éditeur ou auteur de la transcription</a:documentation>
+      <optional>
+        <attribute name="reason">
+          <data type="NCName"/>
+        </attribute>
+      </optional> 
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
+      <optional>
+        <ref name="a_cert"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="del">
+    <element name="del">
+      <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;del&gt;</code> contient une lettre un mot ou un passage supprimé, raturé ou barré. Si une partie du texte barré est difficile à lire ou incertaine, il est possible d'utiliser la balise <code xmlns="http://www.w3.org/1999/xhtml">&lt;unclear&gt;</code> à l'intérieur de <code xmlns="http://www.w3.org/1999/xhtml">&lt;del&gt;</code>. De la même façon, pour un passage impossible à restituer il est également possible d'utiliser <code xmlns="http://www.w3.org/1999/xhtml">&lt;gap&gt;</code></a:documentation>
+      <interleave>
+        <zeroOrMore>
+          <ref name="unclear"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="supplied"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="gap"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="lb"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="pb"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="del"/>
+        </zeroOrMore>
+        <text/>
+      </interleave>
+    </element>
+  </define>
+  <define name="subst">
+    <element name="subst">
+      <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;subst&gt;</code> permet de combiner les balises <code xmlns="http://www.w3.org/1999/xhtml">&lt;del&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;add&gt;</code> pour encoder une partie de texte supprimée et une partie ajoutée dans une même intervention de l'auteur </a:documentation>      
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>Exemple:</p>
+        <a:example>
+          <p>...je l'ai vu en <subst> <del>octobre</del><!-- mot biffé raturé--> <add>novembre</add> <!--ajout--> </subst> de cette année...</p>
+        </a:example>
+      </div>
+      <interleave>
+        <zeroOrMore>
+          <ref name="add"/>
+        </zeroOrMore> 
+        <zeroOrMore>
+          <ref name="del"/>
+        </zeroOrMore>
+        <text/>
+      </interleave>
+    </element>
+  </define>
+  <!--définition du choice-->
+  <define name="choice">
+    <element name="choice">
+      <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code> décrit les choix éditoriaux qui sont faits au moment d'une transcription </a:documentation>
+      <optional>
+        <ref name="a_resp"/>
+      </optional>
+      <choice>
+        <group>
+          <interleave>
+            <ref name="reg"/>
+            <ref name="orig"/>
+          </interleave>
+        </group>
+        <group>
+          <interleave>
+            <ref name="abbr"/>
+            <ref name="expan"/>
+          </interleave>
+        </group>
+        <group>
+          <interleave>
+            <ref name="sic"/>
+            <ref name="corr"/>
+          </interleave>
+        </group>
+      </choice>
+    </element>
+  </define>
+  <!--définition des options de choice-->
+  <define name="reg">
+    <element name="reg">
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;reg&gt;</code> encode les parties régularisées ou normalisées. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;orig&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code></p>
+        <p>Exemple:</p>
+        <a:example>
+          <p>...Paris, le onze <choice>
+            <orig>Juin</orig>
+            <reg>juin</reg></choice>...</p>
+        </a:example>
+      </div>
+      <text/>
+    </element>
+  </define>
+  <define name="orig">
+    <element name="orig">
+      <a:documentation><p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;orig&gt;</code> encode les parties fidèles à l'original et non normalisées. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;reg&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code>. Voir exemple dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;reg&gt;</code> </p></a:documentation>
+      <text/>
+    </element>
+  </define>
+  <define name="abbr">
+    <element name="abbr">
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;abbr&gt;</code> contient une abbréviation. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;ex&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;expan&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code></p>
+        <p>Exemple:</p>
+        <a:example>
+          <p>...il habite au 25 <choice>
+              <expan>b<ex>oulev</ex>ard</expan>
+              <abbr>Bard</abbr>
+            </choice> Beaumarchais,...</p>
+        </a:example>
+      </div>      
+      <text/>
+    </element>
+  </define>
+  <define name="ex">
+    <element name="ex">
+      <a:documentation><p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;ex&gt;</code> contient une successions de lettres ajoutées par un éditeur ou transcripteur pour compléter une abréviation. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;expan&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;abbr&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code>. Voir exemple dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;abbr&gt;</code> </p></a:documentation>
+      <text/>
+    </element>
+  </define>
+  <define name="expan">
+    <element name="expan">
+      <a:documentation><p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;expan&gt;</code> contient l'expansion d'une abréviation. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;ex&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;abbr&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code>. Voir exemple dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;abbr&gt;</code> </p></a:documentation>
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="ex"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="sic">
+    <element name="sic">
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;sic&gt;</code> contient du texte reproduit bien qu'il soit considéré comme incorrect ou inexact. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;corr&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code></p>
+        <p>Exemple:</p>
+        <a:example>
+          <p>J'ai retrouvé toute ma 
+            <choice><sic>luciditée</sic><corr>lucidité</corr></choice>...</p>
+        </a:example>
+      </div>
+      <text/>
+    </element>
+  </define>
+  <define name="corr">
+    <element name="corr">
+      <a:documentation><p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;corr&gt;</code> contient la forme correcte d'un passage ou mot considéré comme incorrect ou inexact. Il doit être utilisé en combinaison avec <code xmlns="http://www.w3.org/1999/xhtml">&lt;sic&gt;</code> dans un <code xmlns="http://www.w3.org/1999/xhtml">&lt;choice&gt;</code>. Voir exemple dans <code xmlns="http://www.w3.org/1999/xhtml">&lt;sic&gt;</code> </p></a:documentation>
+      <text/>
+    </element>
+  </define>
+  
+  
+  
+  
+  
+  <!--définition certains attributs  a_nomattribut-->
+  <define name="a_rend">
+    <attribute name="rend">
+      <choice>
+        <data type="NCName"/>
+        <value>i</value> <!--italique-->
+        <value>b</value> <!--gras-->
+        <value>u</value> <!--souligné-->
+        <value>sub</value> <!--indice-->
+        <value>sup</value> <!--exposant-->
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_when">
+    <attribute name="when">
+      <a:documentation>date de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</a:documentation>
+      <choice>
+        <data type="date"/>
+        <data type="gYear"/>
+        <data type="gMonth"/>
+        <data type="gDay"/>
+        <data type="gYearMonth"/>
+        <data type="gMonthDay"/>
+        <data type="time"/>
+        <data type="dateTime"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_notBefore">
+    <attribute name="notBefore">
+      <a:documentation>date la plus récente possible de l'événement sous une forme normalisée, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</a:documentation>
+      <choice>
+        <data type="date"/>
+        <data type="gYear"/>
+        <data type="gMonth"/>
+        <data type="gDay"/>
+        <data type="gYearMonth"/>
+        <data type="gMonthDay"/>
+        <data type="time"/>
+        <data type="dateTime"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_notAfter">
+    <attribute name="notAfter">
+      <a:documentation> date la plus tardive possible de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</a:documentation>
+      <choice>
+        <data type="date"/>
+        <data type="gYear"/>
+        <data type="gMonth"/>
+        <data type="gDay"/>
+        <data type="gYearMonth"/>
+        <data type="gMonthDay"/>
+        <data type="time"/>
+        <data type="dateTime"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_resp">
+    <attribute name="resp">
+      <choice>
+        <value>author</value>
+        <value>editor</value>
+        <value>posterior</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_cert">
+    <attribute name="cert">
+      <choice>
+        <value>high</value>
+        <value>medium</value>
+        <value>low</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="a_place">
     <attribute name="place">
+      <a:documentation>  </a:documentation>
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>pour spécifier la localisation de la note, valeurs autorisées:</p>
+        <ul>
+          <li>" below " au-dessous de la ligne</li>
+          <li>"bottom " dans la marge inférieure</li>
+          <li>" margin " dans la marge (gauche/droite/les deux)</li>
+          <li>" top " dans la marge supérieure </li>
+          <li>" opposite " sur la page opposée</li>
+          <li>"overleaf " de l'autre côté de la feuille</li>
+          <li>"above "au-dessus de la ligne </li>
+          <li>" end " à la fin par exemple d'un chapitre ou d'un volume</li>
+          <li>"inline" dans le corps du texte</li>
+          <li>"inspace" dans un espace prédéfini, par exemple à gauche d'un scripteur précédent</li>
+        </ul>
+      </div>
       <choice>
         <value>below</value>
         <value>bottom</value>
@@ -921,58 +1406,301 @@
       </choice>
     </attribute>
   </define>
-  <define name="figure">
-    <element name="figure">
-      <interleave>
-        <zeroOrMore>
-          <ref name="graphic"/>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="figDesc"/>
-        </zeroOrMore>
-      </interleave>         
+  
+  <!--autres balises corps de texte -->
+  <define name="pb">
+    <element name="pb">
+      <optional>
+        <attribute name="facs">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="n">
+          <data type="integer"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute>
+          <name ns="http://www.w3.org/XML/1998/namespace">id</name>
+          <data type="NCName"/>
+        </attribute>
+      </optional>                  
+    </element>    
+  </define>
+  
+  <!--head spécifique pour les textes de lettres valeurs fermées-->
+  <define name="head_1">
+    <element name="head">   
+      <attribute name="type">
+        <choice>
+          <value>object</value>
+          <value>title</value>
+        </choice>
+      </attribute>
+      <text/>
     </element>
   </define>
-  <define name="note">
-    <element name="note">
-      <interleave>
-        <attribute name="type">
-          <choice>
-            <value>author</value>
-            <value>editor</value>
-          </choice>
-        </attribute>
-        <optional>
-          <ref name="place"/>
-        </optional> 
-        <oneOrMore>
-          <choice>
+    
+  <!--définition citations et références -->
+  <define name="cit">
+    <element name="cit">
+      <choice>
+        <element name="quote">
+          <text/>
+        </element>
+        <group>
+          <element name="quote">
             <text/>
-            <ref name="placeName"/>
-            <ref name="bibl"/>
-            <ref name="persName"/>
-          </choice>
-        </oneOrMore>
-      </interleave>            
+          </element>
+          <ref name="bibl"/>
+        </group>
+        <group>
+          <element name="quote">
+            <text/>
+          </element>
+          <ref name="ref"/>
+        </group>
+      </choice>
+    </element>
+  </define>
+  
+  
+  
+  <define name="hi">
+    <element name="hi">
+      <ref name="a_rend"/>
       <text/>
     </element>
   </define>
-  <define name="add">
-    <element name="add">
-      <interleave>
+  
+  <define name="list">
+    <element name="list">
+      <oneOrMore>
+        <element name="item">
+          <text/>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+  
+   
+  <define name="idno_publication">
+    <element name="idno">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;idno&gt;</code> du <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> contient l'url du document de correspondance, identifiant unique que l'on retrouve dans le <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspDesc&gt;</code></a:documentation>
+      <optional>
         <attribute name="type">
-          <choice>
-            <value>posterior</value>
-            <value>author</value>
-          </choice>
+          <data type="NCName"/>
         </attribute>
-        <optional>
-          <ref name="place"/>
-        </optional>
-      </interleave>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="idno_msId">
+    <element name="idno">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+    
+  
+  
+  
+  <!--définition d'un ref contexte avec valeurs fermées pour le type-->
+  <define name="ref_context">
+    <element name="ref">
+      <a:documentation> L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;ref&gt;</code> du <code xmlns="http://www.w3.org/1999/xhtml">&lt;correspContext&gt;</code> décrit les relations entre les différents documents d'une correspondance. </a:documentation>
+      <attribute name="target">
+        <a:documentation>@target contient l'uri/url d'une lettre du même contexte de correspondance que le document </a:documentation>
+        <data type="anyURI"/>
+      </attribute>
+      <attribute name="type">
+        <div xmlns="http://www.w3.org/1999/xhtml"> 
+          <p>@type donne le type de contexte. Les valeurs autorisées sont:  </p>
+          <ul>
+            <li>"prev"  pour renvoyer vers la lettre qui précède le document dans un corpus de correspondance</li>
+            <li>"next"  pour renvoyer vers la lettre qui suit dans un corpus de correspondance</li>
+            <li>"replyTo"   pour renvoyer vers la lettre à laquelle le document répond </li>
+            <li>"repliedBy"   pour renvoyer vers la lettre qui répond au document</li>
+          </ul>
+        </div>
+        <choice>
+          <value>next</value>
+          <value>prev</value>
+          <value>replyTo</value>
+          <value>repliedBy</value>
+        </choice>
+      </attribute>
+    </element>
+  </define>
+  
+ 
+  
+  
+  
+ <!-- head pour un tableau element table -->
+  <define name="head_2">
+    <element name="head">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
       <text/>
     </element>
   </define>
   
+
   
+  
+  
+  <!--définition de p-->
+  <define name="p">
+    <element name="p">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="add"/>
+          <ref name="bibl"/>
+          <ref name="note"/>
+          <ref name="date"/>
+          <ref name="notatedMusic"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="ref"/>
+          <ref name="table"/>
+          <ref name="figure"/>
+          <ref name="supplied"/>
+          <ref name="unclear"/>
+          <ref name="gap"/>
+          <ref name="del"/>
+          <ref name="pb"/>
+          <ref name="subst"/>
+          <ref name="cit"/>
+          <ref name="formula"/>
+          <ref name="hi"/>
+          <ref name="lb"/>
+          <ref name="list"/>
+          <ref name="orgName"/>
+          <ref name="choice"/>
+          
+          
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  
+  
+ 
+  <!--définition élement l et lg pour les poèmes -->
+  <define name="l">
+    <element name="l">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <ref name="add"/>
+          <ref name="bibl"/>
+          <ref name="note"/>
+          <ref name="date"/>
+          <ref name="notatedMusic"/>
+          <ref name="persName"/>
+          <ref name="placeName"/>
+          <ref name="ref"/>
+          <ref name="table"/>
+          <ref name="figure"/>
+          <ref name="supplied"/>
+          <ref name="unclear"/>
+          <ref name="gap"/>
+          <ref name="del"/>
+          <ref name="pb"/>
+          <ref name="subst"/>
+          <ref name="cit"/>
+          <ref name="formula"/>
+          <ref name="hi"/>
+          <ref name="lb"/>
+          <ref name="list"/>
+          <ref name="orgName"/>
+          <ref name="choice"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  
+  <define name="lg">
+    <element name="lg">
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <interleave>
+        <oneOrMore>
+          <ref name="l"/>
+        </oneOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="note"/>
+            <ref name="gap"/>
+            <ref name="pb"/>
+            <ref name="opener"/>
+            <ref name="closer"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="history">
+    <element name="history">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;history&gt;</code> contient la description plus ou moins précise de l'histoire du manuscrit, soit en texte libre <code xmlns="http://www.w3.org/1999/xhtml">&lt;p&gt;</code>, soit en utilisant les balises <code xmlns="http://www.w3.org/1999/xhtml">&lt;origin&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;provenance&gt;</code> et <code xmlns="http://www.w3.org/1999/xhtml">&lt;acquisition&gt;</code></a:documentation>
+      <zeroOrMore>
+        <choice>
+          <element name="origin">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;origin&gt;</code> contient des informations sur l'origine du manuscrit</a:documentation>
+            <ref name="p"/>
+          </element>
+          <element name="provenance">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;provenance&gt;</code> contient des informations sur un épisode précis de l'histoire du manuscrit après sa création et avant son acquisition </a:documentation>
+            <ref name="p"/>
+          </element>
+          <element name="acquisition">
+            <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;acquisition&gt;</code> contient des informations sur les modalités et circonstances de l'entrée du manuscrit ou de la partie du manuscrit dans l'institution qui le détient </a:documentation>
+            <ref name="p"/>
+          </element>
+          <ref name="p"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ab">
+    <element name="ab">
+      <a:documentation>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;ab&gt;</code> contient un élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;stamp&gt;</code> qui permet d'encoder les cachets postaux et timbres apposés sur les documents de correspondance</a:documentation>
+      <optional>
+        <ref name="a_rend"/>
+      </optional>
+      <ref name="stamp"/>
+    </element>
+  </define>
+  <define name="stamp">
+    <element name="stamp">
+      <div xmlns="http://www.w3.org/1999/xhtml"> 
+        <p>L'élément <code xmlns="http://www.w3.org/1999/xhtml">&lt;stamp&gt;</code> permet de décrire en texte libre le contenu de cachets postaux et de timbres apposés sur les documents de correspondance. L'attribut @type est optionnel</p>
+        <a:example>
+          <ab><stamp type="postmark">Marque circulaire précisant Brighton Hove - Sussex et <date when="1970-10-26">26 Oct 1970</date></stamp></ab>
+        </a:example>
+      </div>
+      <optional>
+        <attribute name="type">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <text/>
+      <optional>
+        <ref name="date"/>
+      </optional>
+    </element>
+  </define>
 </grammar>

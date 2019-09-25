@@ -1,0 +1,1712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--rng_html.xsl — 2019-09-17+02:00-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+/* encoding="UTF-8"
+
+&lt;h1&gt;Xrem, croiser les remarques (documenteur)&lt;/h1&gt;
+
+
+[FG] Frédéric Glorieux &lt;frederic.glorieux@diple.net&gt;
+
+10 ans de CSS pour présenter des sources XML.
+*/
+
+/* HTML5 */
+
+section,
+nav,
+article,
+aside,
+hgroup,
+header,
+footer,
+figure,
+figcaption {
+  display:block;
+}
+
+/* Différentes dispositions */
+
+
+body.rng {
+  padding:0;
+  margin:0;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size:13px;
+}
+body.rng h1 {
+  text-align:center;
+}
+body.rng h3 {
+  /*
+  background-ccolor:#DADADA;
+  background-image: -webkit-gradient(linear, left top, right top,from(#DADADA),to(#FFFFFF));
+  background-image: -webkit-linear-gradient(left, #DADADA, #FFFFFF);
+  background-image:    -moz-linear-gradient(left, #DADADA, #FFFFFF);
+  background-image:     -ms-linear-gradient(left, #DADADA, #FFFFFF);
+  background-image:      -o-linear-gradient(left, #DADADA, #FFFFFF);
+  background-image:         linear-gradient(left, #DADADA, #FFFFFF);
+  */
+  border-bottom:1px solid #336699;
+  padding-left: 1em;
+  margin-top:2em;
+  margin-bottom:1em;
+}
+.tree ul {
+  padding:0;
+  margin:0;
+  padding-left:1em;
+}
+body.rng a {
+  color:#369;
+  text-decoration:none;
+}
+
+body.rng a:hover {
+  text-decoration:underline;
+}
+
+
+body.rng ul.tree ul {
+  padding-left:1ex;
+  margin-left:1em;
+}
+body.rng p {
+  text-align:justify;
+}
+
+body.rng #nav {
+  top:0;
+  position:fixed;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding:0 3px 2em 11px;
+  height:100%;
+  overflow:auto;
+  width:27%;
+  color:black;
+  margin:0 0 0 0;
+  font-family:Arial, sans-serif;
+  font-size:13px;
+  border-right:solid 1px #b3b3b3;
+}
+body.rng #nav header {
+  padding:1ex 0;
+  font-style:normal;
+  font-weight:bold;
+}
+/* corps du document */
+body.rng #article {
+  padding:0;
+  margin:3ex 5em 5em 30%;
+  min-height:500px;
+}
+.transform a {
+  border:none;
+}
+.match p,
+.result p {
+  text-indent:1em;
+  line-height:110%;
+  margin:0 0 0.5ex 0;
+}
+
+/*
+ &lt;h2&gt;XML par &lt;a href="./xml_html.xsl"&gt;xml_html.xsl&lt;/a&gt;&lt;/h2&gt;
+*/
+.example {
+  background-color: #FFFFFF;
+  background-image: -webkit-gradient(linear, left top, right top,from(#FFFFFF),to(#DADADA));
+  background-image: -webkit-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:    -moz-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:     -ms-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:      -o-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:         linear-gradient(left, #FFFFFF, #DADADA);
+  border-left:1px dotted #808080;
+  padding:1ex 1em;
+  margin:0;
+}
+.xml {
+  font-size:14px;
+  line-height:105%;
+  text-align:left;
+}
+
+
+  /* element names */
+.xml .tag a,
+.xml .tag a:visited,
+.xml .open a,
+.xml .open a:visited,
+.xml .close a,
+.xml .close a:visited {
+  text-decoration:none;
+  border-bottom:none;
+  border:none;
+  padding:0;
+}
+.xml a.val {
+  color:#0000FF;
+}
+.xml a.val:hover {
+  text-decoration:underline;
+  border:none;
+}
+
+  /* classes are provided for namespace prefix */
+a.xsl,
+a:visited.xsl {
+  font-family: Arial, sans-serif;
+  color:#669966;
+  font-weight:100;
+  text-decoration:none;
+  border:none;
+}
+a:hover.xsl,
+a:hover.rdf {
+  background:#0000FF;
+  color:white;
+}
+
+a.html,
+a:visited.html,
+a.dc,
+a:visited.dc {
+  color:#FF0000;
+  font-weight:bold;
+  text-decoration:none;
+  border:none;
+}
+a:hover.html,
+a:hover.dc,
+a:hover.template,
+a:focus.template  {
+  background:red;
+  color:white;
+}
+
+a.template,
+a:visited.template {
+  font-family: Verdana, arial, sans-serif;
+  font-weight:bold;
+}
+  /* element names */
+.xml .el,
+.xml  a.el {
+  font-weight:bold;
+  font-family: "Lucida Console", Courier, "MS Courier New", monospace;
+  text-decoration:none;
+  color:#961716;
+  border:none;
+}
+.xml a:hover.el,
+.xml a:hover.att {
+  background:#8080FF;
+  color:#FFFFFF;
+}
+
+  /* attribute names */
+.xml .att {
+  font-family:Arial, sans-serif;
+  font-weight:100;
+}
+.xml a .att {
+  font-family:Arial, sans-serif;
+  color:#444;
+}
+/* tag is what is between brackets */
+.xml .open,
+.xml .close,
+.xml .tag {
+  margin:0;
+  font-family:monospace, sans-serif;
+  /* font-size:80%; */
+  color:#669966;
+}
+.xml .fold {
+  color:#666666;
+}
+
+/* processing instructions */
+.xml .pi {
+  color:#008000;
+  font-weight: bold;
+}
+
+/* textual contents */
+.xml .val,
+.xml .cdata {
+  font-weight:normal;
+  color:#000;
+  margin:0;
+  padding:0;
+}
+
+  /* xml comment */
+
+.xml .comment,
+.xml .comment code {
+  font-size:12px;
+  line-height:125%;
+  background:#FFE;
+  color:#666;
+  /*
+  border:solid #CCCCCC 1px;
+  padding:1px 1em;
+  margin:0;
+  color:#000000;
+  font-weight: 100;
+  width:auto;
+  margin-right:3em;
+  */
+}
+
+.xml  pre.comment {
+  margin:0;
+  padding:0;
+}
+
+  /* button for +/- and margins */
+
+/*
+  a.click {
+  border:1px dotted #808080;
+  color:#000000;
+  font-weight:900;
+  text-decoration:none;
+  border:none;
+  }
+*/
+
+dd.code {
+  /* line-height:105%; */
+  margin:0 !important;
+  padding:0 !important;
+  padding-left:1em !important;
+  border-left: 1px dotted #808080;
+}
+
+.pre .text {
+  background:#EEF;
+  font-family:serif;
+  color:#000;
+}
+
+.xml span.text {
+  color:#000;
+}
+
+.xml .cdata {
+  color:red
+}
+
+.xml .ns {
+  color:#000080;
+  font-weight:100;
+}
+
+/* properties  */
+
+dt {
+  font-weight:bold;
+}
+dl.xml {
+  margin:0;
+  padding:0;
+}
+dl.xml dt {
+  font-weight:normal;
+}
+details.source {
+  margin-left:1em;
+  float:right;
+  max-width:60%;
+  background:#FFFFFF;
+}
+details.source summary {
+  float:right;
+  display:inline;
+  text-align:right;
+}
+details &gt; * {
+  display:none;
+}
+details.minus &gt; * {
+  display:block;
+}
+
+fieldset {
+  margin:1em 0 1ex 0;
+  padding:0 1ex 0 1ex;
+  border:1px dotted #363;
+  -moz-border-radius:1ex;
+  -webkit-border-radius:1ex;
+  white-space:normal;
+}
+.xsl-var {
+  margin-top:1ex;
+}
+.output {
+  color:#961716;
+  font-family: "Lucida Console", Courier, "MS Courier New", monospace;
+  font-size:13px;
+  line-height:110%;
+  text-indent:0;
+  text-align:left;
+}
+.template {
+  margin: 1em 0 0 0;
+  clear:both;
+}
+.template header {
+  border:none;
+  padding:0;
+  border-bottom:#888 1px solid;
+}
+/*
+.template ul,
+.template p {
+  margin-top:0;
+  margin-bottom:0;
+}
+*/
+
+/*
+ &lt;h2&gt;Relax-NG par &lt;a href="./rng_html.xsl"&gt;rng_html.xsl&lt;/a&gt;&lt;/h2&gt;
+*/
+
+section.element,
+section.define {
+  margin-top:2em;
+}
+section.attribute {
+  margin-top:1em;
+}
+
+
+
+.documentation {
+  margin: 1ex 0 1em 0;
+}
+a.define,
+a.ref,
+a:link.define,
+a:link.ref,
+header.define {
+  color:#363;
+  font-style:italic;
+}
+span.less span.refin .toggle {
+  display:none;
+}
+span.more .toggle {
+  background-image:url('http://subversion.cru.fr/diple/trunk/modules/xrem/more.png');
+}
+span.less .toggle {
+  background-image:url('http://subversion.cru.fr/diple/trunk/modules/xrem/less.png');
+}
+a.toggle {
+  background-position:1px center;
+  background-repeat:no-repeat;
+  cursor:pointer;
+  padding-left:7px;
+  padding-right:7px;
+  border:1px solid transparent;
+  padding-top:1px;
+  padding-bottom:1px;
+  margin-left:2px;
+}
+a.toggle:hover {
+  border:1px inset #DDDDDD;
+  text-decoration:none;
+  border:none;
+}
+/* cacher/montrer l'expansion d'une classe */
+span.more span.refin {
+  display:none;
+}
+span.less span.refin {
+  display:block;
+}
+
+/* indentation de la notation compacte des entités */
+span.less span.refin {
+  display:block;
+  margin-left:0.5ex;
+  border-left:1px dotted #888;
+  padding-left:3ex;
+  /* text-indent:-3ex; */
+}
+
+/* indentation des groupes d'usage */
+ul.values {
+  color:#000;
+  margin-top:0;
+  margin-bottom:0;
+  padding-top:0;
+  margin-bottom:0;
+}
+section.rng {
+  margin:2em 0 0 0;
+}
+header.rng {
+  font-weight:bold;
+  font-size:110%;
+  margin-bottom:1ex;
+  padding:0;
+  border:none;
+}
+header.rng a {
+  color:#77A;
+}
+section.rng section.rng header {
+  padding-left:2em;
+}
+section.rng section.rng section.rng header {
+  padding-left:4em;
+}
+section.rng section.rng section.rng section.rng header {
+  padding-left:6em;
+}
+/*
+ * Tableau technique Relax-NG
+ */
+table.grammar {
+  background-color:#FFFFFF;
+  background-image: -webkit-gradient(linear, left top, right top,from(#FFFFFF),to(#DADADA));
+  background-image: -webkit-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:    -moz-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:     -ms-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:      -o-linear-gradient(left, #FFFFFF, #DADADA);
+  background-image:         linear-gradient(left, #FFFFFF, #DADADA);
+  border-collapse:collapse;
+  width:100%;
+  line-height:105%;
+  border-left:1px dotted #808080;
+}
+/* ?? */
+table.grammar tt {
+  color:#000;
+}
+header.attribute {
+  color:#666;
+}
+
+table.grammar td {
+  color:red;
+  padding:0 1ex;
+  line-height:1.1em;
+}
+
+table.grammar th {
+  font-family:Helvetica, Arial, "DejaVu Sans Light ", sans-serif;
+  font-size:12px;
+  width:10ex;
+  vertical-align:top;
+  padding:0 1ex;
+  background:#DADADA;
+  border-bottom:1px solid #FFFFFF;
+  font-weight:normal;
+}
+.grammar a {
+  font-family:Helvetica, Arial, "DejaVu Sans Light ", sans-serif;
+  color:#315BA7;
+  border:none;
+}
+
+em.value {
+  color:#000;
+}
+
+/*
+ &lt;h2&gt;PHP&lt;/h2&gt;
+*/
+
+pre.php {
+  white-space: pre-wrap;
+  font-size:14px;
+  color:red;
+}
+.pre {
+  white-space: pre-wrap;
+}
+code.function {
+  color:#A82C37;
+}
+span.function {
+  font-family:Frutiger,"Deja Vu Sans",Helvetica,sans-serif;
+  color:#000;
+}
+a.function {
+  font-family:Frutiger,"Deja Vu Sans",Helvetica,sans-serif;
+}
+a.function:hover {
+  text-decoration:underline;
+}
+
+pre.php b.construct {
+  font-family:Frutiger,"Deja Vu Sans",Helvetica,sans-serif;
+  color:#000;
+}
+
+pre.php var {
+  font-family:Frutiger,"Deja Vu Sans",Helvetica,sans-serif;
+  color:#000000;
+  font-style:normal;
+}
+
+code.string {
+  color:#060;
+}
+/* comments */
+.comment {
+  font-family:sans-serif;
+  color:#000;
+}
+/* line comments, choice si make them readable the pore as possible */
+span.comment {
+  color:#888;
+  font-style:normal;
+}
+/* sample code in a comment */
+fieldset.comment pre {
+  color:#008;
+}
+div.comment {
+  white-space: normal;
+}
+
+code.integer {
+  color:#FF0000;
+  font-weight:bold;
+}
+code.php-tag {
+  color:#FF0000;
+}
+code.numeric {
+  color:#FF0000;
+  font-weight:bold;
+}
+code.constant {
+  color:#000000;
+}
+tt.op {
+  background:none repeat scroll 0 0 #EEEEEE;
+  color:#000000;
+}
+code.defined {
+  color:red;
+}
+code.whitespace {
+  white-space:pre;
+}
+code.curly {
+  background:none repeat scroll 0 0 #FFAAAA;
+}
+code.parenthese {
+  background:none repeat scroll 0 0 #AAFFAA;
+}
+code.square {
+  background:none repeat scroll 0 0 #AAAAFF;
+}
+code.error-control {
+  background:none repeat scroll 0 0 #FF0000;
+  font-weight:bold;
+}
+</style>
+    <script type="text/javascript" src="http://subversion.cru.fr/diple/trunk/js/Tree.js">//</script>
+  </head>
+  <body class="rng">
+    <nav id="nav"><div id="toc"> </div>
+  <section id="els" class="index"><header>Elements (88)</header><b>T : </b><a href="#el_TEI">TEI</a>.
+<br/><b>A : </b><a href="#el_add" title="L'élément">add</a>, <a href="#el_addrLine">addrLine</a>, <a href="#el_address">address</a>, <a href="#el_author">author</a>, <a href="#el_availability">availability</a>.
+<br/><b>B : </b><a href="#el_bibl" title="L'élément">bibl</a>, <a href="#el_body">body</a>.
+<br/><b>C : </b><a href="#el_cell" title="balise une cellule du tableau">cell</a>, <a href="#el_change">change</a>, <a href="#el_choice" title="L'élément">choice</a>, <a href="#el_cit">cit</a>, <a href="#el_closer" title="L'élément">closer</a>, <a href="#el_corr" title="L'élément &lt;corr&gt; contient la forme correcte d'un passage ou mot considéré comme incorrect ou inexact">corr</a>, <a href="#el_correspAction" title="L'élément">correspAction</a>, <a href="#el_correspContext" title="L'élément">correspContext</a>, <a href="#el_correspDesc" title="L'élément">correspDesc</a>.
+<br/><b>D : </b><a href="#el_date" title="L'élément">date</a>, <a href="#el_dateline">dateline</a>, <a href="#el_del" title="L'élément">del</a>, <a href="#el_desc" title="L'élément">desc</a>, <a href="#el_div">div</a>.
+<br/><b>E : </b><a href="#el_editionStmt">editionStmt</a>, <a href="#el_editor">editor</a>, <a href="#el_encodingDesc" title="L'élément">encodingDesc</a>, <a href="#el_ex" title="L'élément &lt;ex&gt; contient une successions de lettres ajoutées par un éditeur ou transcripteur pour com">ex</a>, <a href="#el_expan" title="L'élément &lt;expan&gt; contient l'expansion d'une abréviation. Il doit être utilisé en combinaison avec &lt;">expan</a>, <a href="#el_extent">extent</a>.
+<br/><b>F : </b><a href="#el_figDesc" title="L'élément">figDesc</a>, <a href="#el_figure" title="L'élément">figure</a>, <a href="#el_fileDesc" title="Le">fileDesc</a>, <a href="#el_formula" title="L'élément">formula</a>, <a href="#el_fw" title="L'élément">fw</a>.
+<br/><b>G : </b><a href="#el_gap" title="L'élément">gap</a>, <a href="#el_graphic" title="L'élément">graphic</a>.
+<br/><b>H : </b><a href="#el_head_1">head</a>, <a href="#el_head_2">head</a>, <a href="#el_hi">hi</a>.
+<br/><b>I : </b><a href="#el_idno_1" title="L'élément">idno</a>, <a href="#el_idno_1">idno</a>.
+<br/><b>K : </b><a href="#el_keywords" title="L'élément">keywords</a>.
+<br/><b>L : </b><a href="#el_l">l</a>, <a href="#el_lb" title="L'élément">lb</a>, <a href="#el_lg">lg</a>, <a href="#el_licence">licence</a>, <a href="#el_list">list</a>, <a href="#el_listPerson" title="L'élément">listPerson</a>.
+<br/><b>M : </b><a href="#el_measure-page" title="Il n'est pas possible de choisir le @type de mesure qui est &quot;page&quot; par défaut">measure<small class="att"> type="page"</small></a>, <a href="#el_msContents" title="L'élément">msContents</a>, <a href="#el_msDesc" title="&lt;msDesc&gt;">msDesc</a>, <a href="#el_msIdentifier" title="L'élément">msIdentifier</a>, <a href="#el_msItem_0">msItem</a>, <a href="#el_msItem_0">msItem</a>.
+<br/><b>N : </b><a href="#el_notatedMusic" title="L'élément">notatedMusic</a>, <a href="#el_note" title="L'élément">note</a>.
+<br/><b>O : </b><a href="#el_objectDesc">objectDesc</a>, <a href="#el_opener" title="L'élément">opener</a>, <a href="#el_orgName" title="L'élément">orgName</a>, <a href="#el_orig" title="L'élément &lt;orig&gt; encode les parties fidèles à l'original et non normalisées. Il doit être utilisé en">orig</a>.
+<br/><b>P : </b><a href="#el_p">p</a>, <a href="#el_particDesc" title="L'élément">particDesc</a>, <a href="#el_pb">pb</a>, <a href="#el_persName" title="L'élément">persName</a>, <a href="#el_person" title="L'élément">person</a>, <a href="#el_physDesc" title="L'élément">physDesc</a>, <a href="#el_placeName" title="L'élément">placeName</a>, <a href="#el_postscript" title="L'élément">postscript</a>, <a href="#el_profileDesc" title="L'élément">profileDesc</a>, <a href="#el_publicationStmt" title="L'élément">publicationStmt</a>.
+<br/><b>R : </b><a href="#el_ref_0" title="L'élément">ref</a>, <a href="#el_ref_1" title="L'élément">ref</a>, <a href="#el_relation" title="L'élément">relation</a>, <a href="#el_respStmt">respStmt</a>, <a href="#el_revisionDesc" title="L'élément">revisionDesc</a>, <a href="#el_row" title="balise une ligne du tableau">row</a>.
+<br/><b>S : </b><a href="#el_salute">salute</a>, <a href="#el_signed">signed</a>, <a href="#el_sourceDesc">sourceDesc</a>, <a href="#el_subst" title="L'élément">subst</a>, <a href="#el_supplied" title="L'élément">supplied</a>, <a href="#el_supportDesc" title="L'élément">supportDesc</a>.
+<br/><b>T : </b><a href="#el_table" title="L'élément">table</a>, <a href="#el_teiHeader">teiHeader</a>, <a href="#el_term" title="L'élément">term</a>, <a href="#el_text">text</a>, <a href="#el_textClass" title="L'élément">textClass</a>, <a href="#el_titleStmt">titleStmt</a>.
+<br/><b>U : </b><a href="#el_unclear" title="L'élément">unclear</a></section><section id="atts" class="index"><header>Attributes (75)</header><b>A : </b><a href="#el_relation" title="&lt;relation&gt;">active</a>, <a href="#el_person" title="&lt;person&gt;">age</a>.
+<br/><b>C : </b><a href="#att_cert" title=" (3)">cert</a>, <a href="#att_cols" title="&lt;table&gt;">cols</a>.
+<br/><b>F : </b><a href="#att_facs_1" title="&lt;graphic&gt;">facs</a>, <a href="#att_facs_2" title="&lt;figDesc&gt;">facs</a>, <a href="#att_facs_3" title="&lt;desc&gt;">facs</a>, <a href="#el_pb" title="&lt;pb&gt;">facs</a>, <a href="#att_form" title="&lt;objectDesc&gt;">form</a>.
+<br/><b>I : </b><a href="#el_persName" title="&lt;persName&gt;">id</a>, <a href="#el_placeName" title="&lt;placeName&gt;">id</a>, <a href="#el_orgName" title="&lt;orgName&gt;">id</a>, <a href="#el_bibl" title="&lt;bibl&gt;">id</a>, <a href="#el_pb" title="&lt;pb&gt;">id</a>.
+<br/><b>K : </b><a href="#el_author" title="&lt;author&gt;">key</a>, <a href="#el_editor" title="&lt;editor&gt;">key</a>, <a href="#att_key_3" title="&lt;persName&gt;">key</a>, <a href="#att_key_4" title="&lt;placeName&gt;">key</a>, <a href="#att_key_5" title="&lt;orgName&gt;">key</a>.
+<br/><b>L : </b><a href="#el_TEI" title="&lt;TEI&gt;">lang</a>.
+<br/><b>M : </b><a href="#el_relation" title="&lt;relation&gt;">mutual</a>.
+<br/><b>N : </b><a href="#att_n_1" title="&lt;postscript&gt;">n</a>, <a href="#el_pb" title="&lt;pb&gt;">n</a>, <a href="#el_relation" title="&lt;relation&gt;">name</a>, <a href="#att_notAfter" title=" (2)">notAfter</a>, <a href="#att_notBefore" title=" (2)">notBefore</a>, <a href="#att_notation" title="&lt;formula&gt;">notation</a>.
+<br/><b>P : </b><a href="#el_relation" title="&lt;relation&gt;">passive</a>, <a href="#att_place" title=" (2)">place</a>.
+<br/><b>Q : </b><a href="#el_gap" title="&lt;gap&gt;">quantity</a>.
+<br/><b>R : </b><a href="#att_reason_1" title="&lt;gap&gt;">reason</a>, <a href="#att_reason_2" title="&lt;unclear&gt;">reason</a>, <a href="#el_supplied" title="&lt;supplied&gt;">reason</a>, <a href="#el_author" title="&lt;author&gt;">ref</a>, <a href="#att_ref_2" title="&lt;correspDesc&gt;">ref</a>, <a href="#att_ref_3" title="&lt;persName&gt;">ref</a>, <a href="#att_ref_4" title="&lt;placeName&gt;">ref</a>, <a href="#att_ref_5" title="&lt;orgName&gt;">ref</a>, <a href="#att_rend" title="&lt;hi&gt;">rend</a>, <a href="#att_resp" title=" (3)">resp</a>, <a href="#el_person" title="&lt;person&gt;">role</a>, <a href="#el_row" title="&lt;row&gt;">role</a>, <a href="#el_cell" title="&lt;cell&gt;">role</a>, <a href="#att_rows" title="&lt;table&gt;">rows</a>.
+<br/><b>S : </b><a href="#el_person" title="&lt;person&gt;">sameAs</a>, <a href="#att_scheme" title="&lt;keywords&gt;">scheme</a>, <a href="#el_person" title="&lt;person&gt;">sex</a>, <a href="#el_correspAction" title="&lt;correspAction&gt;">sortKey</a>, <a href="#att_source" title="&lt;bibl&gt;">source</a>, <a href="#el_availability" title="&lt;availability&gt;">status</a>, <a href="#el_correspAction" title="&lt;correspAction&gt;">subtype</a>.
+<br/><b>T : </b><a href="#el_licence" title="&lt;licence&gt;">target</a>, <a href="#att_target_2" title="&lt;ref&gt;">target</a>, <a href="#att_target_3" title="&lt;ref&gt;">target</a>, <a href="#el_measure-page" title="&lt;measure type=&quot;page&quot;&gt;">type="page"</a>, <a href="#att_type_2" title="&lt;correspAction&gt;">type</a>, <a href="#el_relation" title="&lt;relation&gt;">type</a>, <a href="#att_type_4" title="&lt;div&gt;">type</a>, <a href="#att_type_5" title="&lt;fw&gt;">type</a>, <a href="#att_type_6" title="&lt;address&gt;">type</a>, <a href="#att_type_7" title="&lt;ref&gt;">type</a>, <a href="#att_type_8" title="&lt;bibl&gt;">type</a>, <a href="#att_type_9" title="&lt;add&gt;">type</a>, <a href="#att_type_10" title="&lt;note&gt;">type</a>, <a href="#el_notatedMusic" title="&lt;notatedMusic&gt;">type</a>, <a href="#att_type_12" title="&lt;head&gt;">type</a>, <a href="#el_idno_1" title="&lt;idno&gt;">type</a>, <a href="#el_idno_1" title="&lt;idno&gt;">type</a>, <a href="#att_type_15" title="&lt;ref&gt;">type</a>, <a href="#el_head_2" title="&lt;head&gt;">type</a>, <a href="#el_lg" title="&lt;lg&gt;">type</a>.
+<br/><b>U : </b><a href="#att_unit" title="&lt;gap&gt;">unit</a>.
+<br/><b>W : </b><a href="#att_when_1" title="&lt;change&gt;">when</a>, <a href="#att_when_2" title=" (1)">when</a>, <a href="#att_who" title="&lt;change&gt;">who</a></section></nav>
+    <article id="article">
+  <div class="documentation"> Schéma correspondances</div>
+  
+  
+  
+    <section class="element rng" id="el_TEI"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-TEI.html" target="TEI">TEI</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_TEI">@lang</a></td></tr><tr><th>Contenu</th><td><a href="#el_teiHeader">teiHeader</a>, <a href="#el_text">text</a></td></tr><tr><th>Usage</th><td>Elément racine</td></tr></table><section class="element rng" id="el_teiHeader"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-teiHeader.html" target="TEI">teiHeader</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_fileDesc" title="Le">fileDesc</a>, <a href="#el_encodingDesc" title="L'élément">encodingDesc</a>?, <a href="#el_profileDesc" title="L'élément">profileDesc</a>, <a href="#el_revisionDesc" title="L'élément">revisionDesc</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_TEI">TEI</a> </td></tr></table><section class="element rng" id="el_fileDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-fileDesc.html" target="TEI">fileDesc</a>&gt;</header><div class="documentation">Le <code>&lt;fileDesc&gt;</code> donne des informations sur l'édition, la publication et l'origine du document de correspondance. Dans le <code>&lt;fileDesc&gt;</code> les éléments <code>&lt;titleStmt&gt;</code>, <code>&lt;editionStmt&gt;</code> et <code>&lt;publicationStmt&gt;</code> ont été repris du header Obvil, <code>&lt;SourceDesc&gt;</code> a été modifié. </div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_titleStmt">titleStmt</a>, <a href="#el_editionStmt">editionStmt</a>, <a href="#el_publicationStmt" title="L'élément">publicationStmt</a>, <a href="#el_sourceDesc">sourceDesc</a></td></tr><tr><th>Usage</th><td> <a href="#el_teiHeader">teiHeader</a> </td></tr></table><section class="element rng" id="el_titleStmt"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-titleStmt.html" target="TEI">titleStmt</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_title_0">title</a>, <a href="#el_author">author</a>, <a href="#el_editor">editor</a></td></tr><tr><th>Usage</th><td> <a href="#el_fileDesc" title="Le">fileDesc</a> </td></tr></table><section class="element rng" id="el_author"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-author.html" target="TEI">author</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_author">@key</a> <a href="#el_author">@ref</a></td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_titleStmt">titleStmt</a> </td></tr></table></section><section class="element rng" id="el_editor"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-editor.html" target="TEI">editor</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_editor">@key</a></td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_titleStmt">titleStmt</a> </td></tr></table></section></section><section class="element rng" id="el_editionStmt"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-editionStmt.html" target="TEI">editionStmt</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_edition_0">edition</a>, <a href="#el_respStmt">respStmt</a></td></tr><tr><th>Usage</th><td> <a href="#el_fileDesc" title="Le">fileDesc</a> </td></tr></table><section class="element rng" id="el_edition_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-edition.html" target="TEI">edition</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><em class="data">{NCName}</em> </td></tr><tr><th>Usage</th><td> <a href="#el_editionStmt">editionStmt</a> </td></tr></table></section><section class="element rng" id="el_respStmt"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-respStmt.html" target="TEI">respStmt</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_name_0">name</a>, <a href="#el_resp_0">resp</a></td></tr><tr><th>Usage</th><td> <a href="#el_editionStmt">editionStmt</a> </td></tr></table></section></section><section class="element rng" id="el_publicationStmt"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-publicationStmt.html" target="TEI">publicationStmt</a>&gt;</header><div class="documentation">L'élément <code>&lt;idno&gt;</code> du <code>&lt;publicationStmt&gt;</code> contient l'url du document de correspondance, identifiant unique que l'on retrouve dans le <code>&lt;correspDesc&gt;</code></div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_publisher_0">publisher</a>, <a href="#el_date" title="L'élément">date</a>, <a href="#el_idno_1" title="L'élément">idno</a>, <a href="#el_availability">availability</a></td></tr><tr><th>Usage</th><td> <a href="#el_fileDesc" title="Le">fileDesc</a> </td></tr></table><section class="element rng" id="el_availability"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-availability.html" target="TEI">availability</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_availability">@status</a></td></tr><tr><th>Contenu</th><td><a href="#el_licence">licence</a></td></tr><tr><th>Usage</th><td> <a href="#el_publicationStmt" title="L'élément">publicationStmt</a> </td></tr></table><section class="element rng" id="el_licence"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-licence.html" target="TEI">licence</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_licence">@target</a></td></tr><tr><th>Contenu</th><td><a href="#el_p">p</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_availability">availability</a> </td></tr></table>
+                  
+                </section></section></section><section class="element rng" id="el_sourceDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-sourceDesc.html" target="TEI">sourceDesc</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_msDesc" title="&lt;msDesc&gt;">msDesc</a></td></tr><tr><th>Usage</th><td> <a href="#el_fileDesc" title="Le">fileDesc</a> </td></tr></table><section class="element rng" id="el_msDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-msDesc.html" target="TEI">msDesc</a>&gt;</header><div class="documentation"><code>&lt;msDesc&gt;</code> permet de décrire le manuscrit du document de correspondance.</div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_msIdentifier" title="L'élément">msIdentifier</a>, <a href="#el_msContents" title="L'élément">msContents</a>?, <a href="#el_physDesc" title="L'élément">physDesc</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_sourceDesc">sourceDesc</a> </td></tr></table><section class="element rng" id="el_msIdentifier"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-msIdentifier.html" target="TEI">msIdentifier</a>&gt;</header><div class="documentation">L'élément <code>&lt;msIdentifier&gt;</code> est obligatoire dans <code>&lt;msDesc&gt;</code>. Il donne des informations sur l'origine et le lieu de conservation du document. Le <code>&lt;repository&gt;</code>, nom du dépôt dans lequel le manuscrit est entreposé, doit être rempli. Les autres éléments sont optionnels. </div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_country_0">country</a>?, <a href="#el_settlement_0">settlement</a>?, <a href="#el_institution_0">institution</a>?, <a href="#el_repository_0">repository</a>, <a href="#el_collection_0">collection</a>?, <a href="#el_idno_1">idno</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_msDesc" title="&lt;msDesc&gt;">msDesc</a> </td></tr></table>
+                  
+                
+                  
+                
+                  
+                <section class="element rng" id="el_repository_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-repository.html" target="TEI">repository</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><em class="data">{string}</em> 
+                    <tt>.+</tt>
+                  </td></tr><tr><th>Usage</th><td> <a href="#el_msIdentifier" title="L'élément">msIdentifier</a> </td></tr></table></section>
+                  
+                
+                  
+                </section>
+                <section class="element rng" id="el_msContents"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-msContents.html" target="TEI">msContents</a>&gt;</header><div class="documentation">L'élément <code>&lt;msContents&gt;</code>peut contenir un résumé avec <code>&lt;summary&gt;</code>) et/ou un incipit avec <code>&lt;msItem&gt;</code></div><table class="grammar"><tr><th>Contenu</th><td>( <a href="#el_summary_0">summary</a> | <a href="#el_msItem_0">msItem</a> | <section class="group">( <a href="#el_summary_0">summary</a>, <a href="#el_msItem_0">msItem</a> )</section> )</td></tr><tr><th>Usage</th><td> <a href="#el_msDesc" title="&lt;msDesc&gt;">msDesc</a> </td></tr></table>
+                    
+                    <section class="element rng" id="el_msItem_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-msItem.html" target="TEI">msItem</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_incipit_0">incipit</a></td></tr><tr><th>Usage</th><td> <a href="#el_msContents" title="L'élément">msContents</a> </td></tr></table></section>
+                    <section class="group">
+                      
+                      <section class="element rng" id="el_msItem_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-msItem.html" target="TEI">msItem</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_incipit_0">incipit</a></td></tr><tr><th>Usage</th><td> <a href="#el_msContents" title="L'élément">msContents</a> </td></tr></table></section>
+                    </section>
+                  </section> 
+              
+                <section class="element rng" id="el_physDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-physDesc.html" target="TEI">physDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;physDesc&gt;</code>donne une description matérielle du document. <code>&lt;objectDesc&gt;</code> permet de décrire la matérialité du document, <code>&lt;accMat&gt;</code> décrit le matériel accompagnant le document principal (e.g. annexes, objets, pièces jointes...)  </div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_objectDesc">objectDesc</a>, <a href="#el_accMat_0">accMat</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_msDesc" title="&lt;msDesc&gt;">msDesc</a> </td></tr></table><section class="element rng" id="el_objectDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-objectDesc.html" target="TEI">objectDesc</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#att_form">@form</a>?</td></tr><tr><th>Contenu</th><td><a href="#el_supportDesc" title="L'élément">supportDesc</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_physDesc" title="L'élément">physDesc</a> </td></tr></table>
+                      <section class="attribute rng" id="att_form"><header class="attribute rng">@form</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"letter"</em> |<em class="value">"telegram"</em> |<em class="value">"note"</em> |<em class="value">"postcard"</em> ]</td></tr></table>
+                        <div> 
+                          <p>L'attribut @form renseigne la forme principale du document de correspondance </p>
+                          <p>Les valeurs autorisées sont: </p>
+                          <ul>
+                            <li>"letter" pour une lettre</li>
+                            <li>"telegram" pour un télégramme</li>
+                            <li>"note" pour un billet, autrement dit une communication qui ne respecte pas les formes épistolaires</li>
+                            <li>"postcard" pour une carte postale</li>
+                          </ul>
+                        </div>
+                        
+                                              
+                          
+                          
+                          
+                          
+                        
+                      </section>
+                    
+                      <section class="element rng" id="el_supportDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-supportDesc.html" target="TEI">supportDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;supportDesc&gt;</code> permet de donner le nombre de page avec <code>&lt;extent&gt;</code> et de décrire l'état du document dans <code>&lt;condition&gt;</code></div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_extent">extent</a>?, <a href="#el_condition_0">condition</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_objectDesc">objectDesc</a> </td></tr></table>
+                          <section class="element rng" id="el_extent"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-extent.html" target="TEI">extent</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_measure-page" title="Il n'est pas possible de choisir le @type de mesure qui est &quot;page&quot; par défaut">measure<small class="att"> type="page"</small></a></td></tr><tr><th>Usage</th><td> <a href="#el_supportDesc" title="L'élément">supportDesc</a> </td></tr></table><section class="element rng" id="el_measure-page"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-measure.html" target="TEI">measure<small class="att"> type="page"</small></a>&gt;</header><div class="documentation">Il n'est pas possible de choisir le @type de mesure qui est "page" par défaut</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_measure-page">@type="page"</a></td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_extent">extent</a> </td></tr></table></section></section> 
+                        
+                          
+                        </section>
+                    </section>
+                    
+                  </section>
+              </section></section></section>
+          <section class="element rng" id="el_encodingDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-encodingDesc.html" target="TEI">encodingDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;encodingDesc&gt;</code> permet de décrire en texte libre les choix de transcription</div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_p">p</a></td></tr><tr><th>Usage</th><td> <a href="#el_teiHeader">teiHeader</a> </td></tr></table></section>
+        <section class="element rng" id="el_profileDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-profileDesc.html" target="TEI">profileDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;profileDesc&gt;</code> renseigne les actions de correspondance dans <code>&lt;correspDesc&gt;</code> qui est obligatoire. L'élément permet aussi de décrire les relations entre les acteurs de la correspondance dans <code>&lt;particDesc&gt;</code> et d'associer un ou plusieurs mots-clés thématiques au document en utilisant <code>&lt;textClass&gt;</code></div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_correspDesc" title="L'élément">correspDesc</a>, <a href="#el_particDesc" title="L'élément">particDesc</a>?, <a href="#el_textClass" title="L'élément">textClass</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_teiHeader">teiHeader</a> </td></tr></table><section class="element rng" id="el_correspDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-correspDesc.html" target="TEI">correspDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;correspDesc&gt;</code> doit comprendre au moins un <code>&lt;correspAction&gt;</code> décrivant une action de correspondance. La description des contextes de correspondance est optionnelle, elle peut se faire dans l'élément <code>&lt;correspContext&gt;</code></div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_ref_2" title="L'attribut @ref contient l'url du document de correspondance, identifiant unique voir">@ref</a></td></tr><tr><th>Contenu</th><td><a href="#el_correspAction" title="L'élément">correspAction</a>+, <a href="#el_correspContext" title="L'élément">correspContext</a>?</td></tr><tr><th>Usage</th><td> <a href="#el_profileDesc" title="L'élément">profileDesc</a> </td></tr></table><section class="attribute rng" id="att_ref_2"><header class="attribute rng">@ref</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+              <div class="documentation">L'attribut @ref contient l'url du document de correspondance, identifiant unique voir <code>&lt;publicationStmt&gt;</code> </div>
+              
+            </section>
+              <section class="element rng" id="el_correspAction"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-correspAction.html" target="TEI">correspAction</a>&gt;</header><div class="documentation">L'élément <code>&lt;correspAction&gt;</code> décrit un événement de correspondance (e.g. expédition). Son attribut @type est obligatoire. Il comprend au moins un élément <code>&lt;persName&gt;</code> avec le nom qui est associé à l'action (e.g. nom du destinataire). La date de l'action <code>&lt;date&gt;</code>, le lieu de l'action <code>&lt;placeName&gt;</code> (e.g lieu d'expédition), le nom d'une organisation ou institution <code>&lt;orgName&gt;</code> sont optionnels.</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_correspAction">@sortKey</a>? <a href="#el_correspAction">@subtype</a>? <a href="#att_type_2">@type</a></td></tr><tr><th>Contenu</th><td><a href="#el_persName" title="L'élément">persName</a>, ( <a href="#el_placeName" title="L'élément">placeName</a> | <a href="#el_orgName" title="L'élément">orgName</a> | <a href="#el_date" title="L'élément">date</a> )*</td></tr><tr><th>Usage</th><td> <a href="#el_correspDesc" title="L'élément">correspDesc</a> </td></tr></table><div> 
+                  <p>Les attributs @sortKey et @subtype sont optionnels. Ils permettent de décrire le transfert d'une lettre. Exemple: </p>
+                  <figure class="xml example">
+                    <div class="comment">&lt;!--<code> action 1 premier envoi</code>--&gt;</div>
+                    <dl class="xml "><dt class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_correspAction">correspAction</a> <b class="att">type</b>="<code class="val">sent</code>" <b class="att">sortKey</b>="<code class="val">1</code>"&gt;</dt><dd class="code">  
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_persName">persName</a>&gt;</span><span class="text">nom de l'expéditeur</span><span class="close">&lt;/<a class="el" href="#el_persName">persName</a>&gt;</span></div> 
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_placeName">placeName</a>&gt;</span><span class="text">lieu 1</span><span class="close">&lt;/<a class="el" href="#el_placeName">placeName</a>&gt;</span></div>  
+                      <div class="open ">&lt;<a class="el" href="#el_date">date</a> <b class="att">when</b>="<code class="val">2001-01-01</code>"/&gt;</div> <div class="comment">&lt;!--<code>date d'expédition</code>--&gt;</div>
+                    </dd><dt class="close">&lt;/<a class="el" href="#el_correspAction">correspAction</a>&gt;</dt></dl>
+                    
+                    <div class="comment">&lt;!--<code>action 2 première réception</code>--&gt;</div>
+                    <dl class="xml "><dt class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_correspAction">correspAction</a> <b class="att">type</b>="<code class="val">received</code>" <b class="att">subtype</b>="<code class="val">redirecting</code>" <b class="att">sortKey</b>="<code class="val">2</code>"&gt;</dt><dd class="code">  
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_persName">persName</a>&gt;</span><span class="text">unknown</span><span class="close">&lt;/<a class="el" href="#el_persName">persName</a>&gt;</span></div> 
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_placeName">placeName</a>&gt;</span><span class="text">lieu 2</span><span class="close">&lt;/<a class="el" href="#el_placeName">placeName</a>&gt;</span></div>  
+                      <div class="open ">&lt;<a class="el" href="#el_date">date</a> <b class="att">when</b>="<code class="val">2001-01-03</code>"/&gt;</div> <div class="comment">&lt;!--<code>date première reception</code>--&gt;</div>
+                    </dd><dt class="close">&lt;/<a class="el" href="#el_correspAction">correspAction</a>&gt;</dt></dl>
+                    
+                    <div class="comment">&lt;!--<code>action 3 transfert de la lettre</code>--&gt;</div>
+                    <dl class="xml "><dt class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_correspAction">correspAction</a> <b class="att">type</b>="<code class="val">sent</code>" <b class="att">subtype</b>="<code class="val">redirecting</code>" <b class="att">sortKey</b>="<code class="val">3</code>"&gt;</dt><dd class="code">  
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_persName">persName</a>&gt;</span><span class="text">unknown</span><span class="close">&lt;/<a class="el" href="#el_persName">persName</a>&gt;</span></div> 
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_placeName">placeName</a>&gt;</span><span class="text">lieu 2</span><span class="close">&lt;/<a class="el" href="#el_placeName">placeName</a>&gt;</span></div>  
+                      <div class="open ">&lt;<a class="el" href="#el_date">date</a> <b class="att">when</b>="<code class="val">2001-01-04</code>"/&gt;</div> <div class="comment">&lt;!--<code>date du renvoi</code>--&gt;</div>
+                    </dd><dt class="close">&lt;/<a class="el" href="#el_correspAction">correspAction</a>&gt;</dt></dl>
+                    
+                    <div class="comment">&lt;!--<code>action 4 réception finale de la lettre</code>--&gt;</div>
+                    <dl class="xml "><dt class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_correspAction">correspAction</a> <b class="att">type</b>="<code class="val">reveived</code>" <b class="att">subtype</b>="<code class="val">redirecting</code>" <b class="att">sortKey</b>="<code class="val">4</code>"&gt;</dt><dd class="code">  
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_persName">persName</a>&gt;</span><span class="text">nom destinataire final</span><span class="close">&lt;/<a class="el" href="#el_persName">persName</a>&gt;</span></div> 
+                      <div class=""><span class="open">&lt;<a class="el" href="#el_placeName">placeName</a>&gt;</span><span class="text">lieu 3</span><span class="close">&lt;/<a class="el" href="#el_placeName">placeName</a>&gt;</span></div>  
+                    </dd><dt class="close">&lt;/<a class="el" href="#el_correspAction">correspAction</a>&gt;</dt></dl>
+                  </figure>
+                </div>
+                  
+                
+                  
+                <section class="attribute rng" id="att_type_2"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"sent"</em> |<em class="value">"received"</em> ]</td></tr></table>
+                  <div>
+                    <p>Les valeurs autorisées sont: </p>
+                    <ul>
+                      <li>"sent" pour un envoi</li>
+                      <li>"received" pour une réception</li>
+                    </ul>
+                  </div>
+                  
+                    
+                    
+                  
+                </section>
+                  
+                    
+                    
+                    
+                  
+                </section>
+            
+              <section class="element rng" id="el_correspContext"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-correspContext.html" target="TEI">correspContext</a>&gt;</header><div class="documentation">L'élément <code>&lt;correspContext&gt;</code> (optionnel) permet de replacer un document de correspondance dans son/ses contexte(s) de correspondance. Il contient un ou plusieurs éléments <code>&lt;ref&gt;</code> renvoyant vers d'autres lettres. </div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_ref_1" title="L'élément">ref</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_correspDesc" title="L'élément">correspDesc</a> </td></tr></table>
+                  
+                </section>
+            </section>
+            <section class="element rng" id="el_particDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-particDesc.html" target="TEI">particDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;particDesc&gt;</code> permet de décrire les liens et relations entre différents acteurs de la correspondance (voir <code>&lt;relation&gt;</code>) </div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_listPerson" title="L'élément">listPerson</a></td></tr><tr><th>Usage</th><td> <a href="#el_profileDesc" title="L'élément">profileDesc</a> </td></tr></table><section class="element rng" id="el_listPerson"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-listPerson.html" target="TEI">listPerson</a>&gt;</header><div class="documentation"> L'élément <code>&lt;listPerson&gt;</code> définit les personnes dont on souhaite décrire les liens</div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_person" title="L'élément">person</a>+, <a href="#el_relation" title="L'élément">relation</a></td></tr><tr><th>Usage</th><td> <a href="#el_particDesc" title="L'élément">particDesc</a> </td></tr></table>
+                  <section class="element rng" id="el_person"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-person.html" target="TEI">person</a>&gt;</header><div class="documentation"> L'élément <code>&lt;person&gt;</code> fournit des informations optionnelles sur un acteur identifiable de la correspondance: idenitifiant @sameAs, âge @age, sexe @sex, fonction/métier @role</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_person">@age</a>? <a href="#el_person">@role</a>? <a href="#el_person">@sameAs</a>? <a href="#el_person">@sex</a>?</td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_listPerson" title="L'élément">listPerson</a> </td></tr></table>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    <p class="cf">Autres exemples dans : <a href="#el_relation" title="L'élément">relation</a>.</p></section>
+                <section class="element rng" id="el_relation"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-relation.html" target="TEI">relation</a>&gt;</header><div class="documentation">L'élément <code>&lt;relation&gt;</code> caractérise la nature des relations entre les individus déclarés. Si la relation est réciproque on utilise @mutual, si elle est hiérarchique @active et @passive</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_relation">@name</a>? <a href="#el_relation">@type</a>? <a href="#el_relation">@mutual</a>? <a href="#el_relation">@active</a>? <a href="#el_relation">@passive</a>?</td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_listPerson" title="L'élément">listPerson</a> </td></tr></table><div>
+                    <ul>
+                      <li>@type donne le type de relation (e.g. "social" "personal")</li>
+                      <li> @name donne un nom à la relation (e.g. "spouse" "friend" "supervisor")</li>
+                      <li>@mutual identifie les correspondants entre lesquels la relation est réciproque</li>
+                      <li>@active identifie les correspondants "actifs" dans une relation à sens unique, non mutuelle </li>
+                      <li> @passive identifie les correspondants "passifs" dans une relation à sens unique ou non mutuelle (ne peut s'utiliser que si un @active est déjà utilisé) </li>
+                    </ul>
+                    <p>Exemple:</p>
+                    <figure class="xml example">
+                      <dl class="xml "><dt class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_particDesc">particDesc</a>&gt;</dt><dd class="code"> <div class="comment">&lt;!--<code>relation amicale entre l'expéditeur et le destinataire</code>--&gt;</div>
+                        <dl class="xml "><dt class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_listPerson">listPerson</a>&gt;</dt><dd class="code"> 
+                          <div class="comment">&lt;!--<code>déclaration des individus</code>--&gt;</div>
+                          <div class="open ">&lt;<a class="el" href="#el_person">person</a> <b class="att">sex</b>="<code class="val">M</code>" <b class="att">age</b>="<code class="val">26</code>" <b class="att">role</b>="<code class="val">secretary</code>" <b class="att">sameAs</b>="<code class="val">#id_exped</code>"/&gt;</div>            
+                          <div class="open ">&lt;<a class="el" href="#el_person">person</a> <b class="att">sex</b>="<code class="val">F</code>" <b class="att">sameAs</b>="<code class="val">#id_dest</code>"/&gt;</div>
+                          <div class="comment">&lt;!--<code>description de la relation</code>--&gt;</div>
+                          <div class="open ">&lt;<a class="el" href="#el_relation">relation</a> <b class="att">type</b>="<code class="val">personal</code>" <b class="att">name</b>="<code class="val">friend</code>" <b class="att">mutual</b>="<code class="val">#id_exped #id_dest</code>"/&gt;</div> 
+                        </dd><dt class="close">&lt;/<a class="el" href="#el_listPerson">listPerson</a>&gt;</dt></dl>
+                      </dd><dt class="close">&lt;/<a class="el" href="#el_particDesc">particDesc</a>&gt;</dt></dl>
+                    </figure>
+                  </div>
+                    
+                  
+                    
+                  
+                    
+                  
+                    
+                  
+                    
+                  </section></section></section>
+          
+            <section class="element rng" id="el_textClass"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-textClass.html" target="TEI">textClass</a>&gt;</header><div class="documentation">L'élément <code>&lt;textClass&gt;</code> permet d'associer un thèse/mot-clé ou une série de thèmes/mots-clés au document de correspondance</div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_keywords" title="L'élément">keywords</a></td></tr><tr><th>Usage</th><td> <a href="#el_profileDesc" title="L'élément">profileDesc</a> </td></tr></table><section class="element rng" id="el_keywords"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-keywords.html" target="TEI">keywords</a>&gt;</header><div class="documentation">L'élément <code>&lt;keywords&gt;</code> contient le ou les mots-clés <code>&lt;term&gt;</code></div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_scheme" title="@scheme, optionnel, donne le nom du thésaurus auquel se rattache le ou les mots-clés (e.g. scheme= &quot;">@scheme</a>?</td></tr><tr><th>Contenu</th><td><a href="#el_term" title="L'élément">term</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_textClass" title="L'élément">textClass</a> </td></tr></table>
+                  <section class="attribute rng" id="att_scheme"><header class="attribute rng">@scheme</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+                    <div class="documentation">@scheme, optionnel, donne le nom du thésaurus auquel se rattache le ou les mots-clés (e.g. scheme= "RAMEAU") </div>
+                    
+                  </section>
+                
+                  <section class="element rng" id="el_term"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-term.html" target="TEI">term</a>&gt;</header><div class="documentation">L'élément <code>&lt;term&gt;</code> contien un mot clé ou un thème</div><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_keywords" title="L'élément">keywords</a> </td></tr></table></section>
+                </section></section>
+          </section>
+          <section class="element rng" id="el_revisionDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-revisionDesc.html" target="TEI">revisionDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;revisionDesc&gt;</code> détaille la mise à jour éditoriale du document. Chaque changement est notifié dans une balise <code>&lt;change&gt;</code></div><table class="grammar"><tr><th>Contenu</th><td><a href="#el_change">change</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_teiHeader">teiHeader</a> </td></tr></table>
+              <section class="element rng" id="el_change"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-change.html" target="TEI">change</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#att_when_1" title="@when donne la date de la modification (format voir">@when</a> <a href="#att_who" title="désigne la personne qui a effectué la modification">@who</a></td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_revisionDesc" title="L'élément">revisionDesc</a> </td></tr></table><section class="attribute rng" id="att_when_1"><header class="attribute rng">@when</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{date}</em> </td></tr></table>
+                  <div class="documentation">@when donne la date de la modification (format voir <code>&lt;date&gt;</code>)</div>
+                  
+                </section><section class="attribute rng" id="att_who"><header class="attribute rng">@who</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+                  <div class="documentation">désigne la personne qui a effectué la modification</div>
+                  
+                </section></section>
+            </section>
+        </section><section class="element rng" id="el_text"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-text.html" target="TEI">text</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_body">body</a></td></tr><tr><th>Usage</th><td> <a href="#el_TEI">TEI</a> </td></tr></table><section class="element rng" id="el_body"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-body.html" target="TEI">body</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_div">div</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_text">text</a> </td></tr></table>
+            <section class="element rng" id="el_div"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-div.html" target="TEI">div</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#att_type_4">@type</a></td></tr><tr><th>Contenu</th><td>( <a href="#el_p">p</a> | <a href="#el_subst" title="L'élément">subst</a> | <a href="#el_lb" title="L'élément">lb</a> | <a href="#el_head_1">head</a> | <a href="#el_pb">pb</a> | <a href="#el_table" title="L'élément">table</a> | <a href="#el_notatedMusic" title="L'élément">notatedMusic</a> | <a href="#el_figure" title="L'élément">figure</a> | <a href="#el_note" title="L'élément">note</a> | <a href="#el_add" title="L'élément">add</a> | <a href="#el_formula" title="L'élément">formula</a> | <a href="#el_list">list</a> | <a href="#el_fw" title="L'élément">fw</a> | <a href="#el_lg">lg</a> | <a href="#el_l">l</a> | <a href="#el_gap" title="L'élément">gap</a> | <a href="#el_address">address</a> | <a href="#el_opener" title="L'élément">opener</a> | <a href="#el_closer" title="L'élément">closer</a> | <a href="#el_postscript" title="L'élément">postscript</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_body">body</a> </td></tr></table><section class="attribute rng" id="att_type_4"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"envelope"</em> |<em class="value">"letter"</em> |<em class="value">"telegram"</em> |<em class="value">"note"</em> |<em class="value">"postcard"</em> |<em class="value">"attachment"</em> ]</td></tr></table>
+                 
+                  
+                  
+                  
+                  
+                  
+                  
+                
+              </section>
+                
+                  
+                  
+                  
+                        
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                
+              </section>
+          </section></section></section>
+  
+  
+  
+  <section class="element rng" id="el_fw"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-fw.html" target="TEI">fw</a>&gt;</header><div class="documentation">L'élément <code>&lt;fw&gt;</code> balise les titres courants, en-têtes formalisées</div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_type_5">@type</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a> </td></tr></table>
+        <section class="attribute rng" id="att_type_5"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="data">{NCName}</em>  |<em class="value">"header"</em> |<em class="value">"footer"</em> |<em class="value">"pageNum"</em> |<em class="value">"lineNum"</em> |<em class="value">"sig"</em> |<em class="value">"catch"</em> ]</td></tr></table>
+          <div> 
+            <p>@type, valeurs suggérées:  </p>
+            <ul>
+              <li>" header " un titre courant en haut de page</li>
+              <li>" footer " un titre courant en bas de page</li>
+              <li>" pageNum " un numéro de page ou symbole de foliation</li>
+              <li>" lineNum " numéro d'une ligne en prose ou en vers</li>
+              <li>" sig " marque de cahier</li>
+              <li>" catch " une réclame</li>
+            </ul>
+          </div>
+          
+            
+            
+            
+            
+            
+            
+            
+          
+        </section>                    
+      </section>
+  
+  
+  <section class="element rng" id="el_opener"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-opener.html" target="TEI">opener</a>&gt;</header><div class="documentation">L'élément <code>&lt;opener&gt;</code> intègre la formule regroupant des informations préliminaires au commencement d'une lettre. Il comprend: une salutation/apostrophe <code>&lt;salute&gt;</code> et/ou la mention d'une adresse <code>&lt;address&gt;</code> et/ou la mention d'une date <code>&lt;date&gt;</code> </div><table class="grammar"><tr><th>Contenu</th><td>( <a href="#el_salute">salute</a> | <a href="#el_dateline">dateline</a> | <a href="#el_address">address</a> )*</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_lg">lg</a> </td></tr></table>
+        
+          
+          
+          
+        
+      </section>
+  
+  <section class="element rng" id="el_closer"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-closer.html" target="TEI">closer</a>&gt;</header><div class="documentation">L'élément <code>&lt;closer&gt;</code> intègre la formule regroupant des informations se trouvant à la fin d'une lettre. Il comprend: une salutation finale/formule de politesse <code>&lt;salute&gt;</code> et/ou la mention d'une adresse <code>&lt;address&gt;</code> et/ou la mention d'une date <code>&lt;date&gt;</code> et/ou une signature <code>&lt;signed&gt;</code>  </div><table class="grammar"><tr><th>Contenu</th><td>( <a href="#el_salute">salute</a> | <a href="#el_address">address</a> | <a href="#el_dateline">dateline</a> | <a href="#el_signed">signed</a> )*</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_lg">lg</a> </td></tr></table>
+        
+          
+          
+          
+          
+        
+      </section>
+  
+  
+  
+  <section class="element rng" id="el_salute"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-salute.html" target="TEI">salute</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td>( <i> text() </i> | <a href="#el_lb" title="L'élément">lb</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_opener" title="L'élément">opener</a>  <a href="#el_closer" title="L'élément">closer</a> </td></tr></table>
+        
+          
+          
+        
+      </section>
+  <section class="element rng" id="el_signed"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-signed.html" target="TEI">signed</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td>( <i> text() </i> | <a href="#el_lb" title="L'élément">lb</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_closer" title="L'élément">closer</a> </td></tr></table>
+        
+          
+          
+        
+      </section>
+  <section class="element rng" id="el_dateline"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-dateline.html" target="TEI">dateline</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><i> text() </i>, <a href="#el_date" title="L'élément">date</a>*</td></tr><tr><th>Usage</th><td> <a href="#el_opener" title="L'élément">opener</a>  <a href="#el_closer" title="L'élément">closer</a> </td></tr></table>
+        
+      </section>
+  <section class="element rng" id="el_address"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-address.html" target="TEI">address</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#att_type_6">@type</a>?</td></tr><tr><th>Contenu</th><td><a href="#el_addrLine">addrLine</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_opener" title="L'élément">opener</a>  <a href="#el_closer" title="L'élément">closer</a>  <a href="#el_postscript" title="L'élément">postscript</a>  <a href="#el_note" title="L'élément">note</a> </td></tr></table>
+        <section class="attribute rng" id="att_type_6"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"receiver"</em> |<em class="value">"sender"</em> |<em class="value">"other"</em> ]</td></tr></table>
+          <div> 
+            <p>permet d'associer une adresse à la personne qui y est domicilié. Valeurs autorisées:</p>
+            <ul>
+              <li>" receiver " adresse du destinataire</li>
+              <li>" sender " adresse de l'expéditeur</li>
+              <li>" other " adresse d'une autre personne</li>
+            </ul>
+          </div>
+          
+            
+            
+            
+          
+        </section>
+      
+        <section class="element rng" id="el_addrLine"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-addrLine.html" target="TEI">addrLine</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td>( <i> text() </i> | <a href="#el_placeName" title="L'élément">placeName</a> | <a href="#el_persName" title="L'élément">persName</a> | <a href="#el_orgName" title="L'élément">orgName</a> | <a href="#el_choice" title="L'élément">choice</a> | <a href="#el_del" title="L'élément">del</a> | <a href="#el_add" title="L'élément">add</a> | <a href="#el_subst" title="L'élément">subst</a> | <a href="#el_figure" title="L'élément">figure</a> | <a href="#el_pb">pb</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_address">address</a> </td></tr></table>
+            
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            
+          </section>
+      </section>
+    
+  <section class="element rng" id="el_postscript"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-postscript.html" target="TEI">postscript</a>&gt;</header><div class="documentation">L'élément <code>&lt;postscript&gt;</code> permet d'entrer le texte du post-scriptum</div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_n_1" title="@n pour numéroter les post-scriptum si il y en a plusieurs">@n</a>?</td></tr><tr><th>Contenu</th><td>( <a href="#el_p">p</a> | <a href="#el_address">address</a> | <a href="#el_note" title="L'élément">note</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a> </td></tr></table>
+        <section class="attribute rng" id="att_n_1"><header class="attribute rng">@n</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{integer}</em> </td></tr></table>
+          <div class="documentation">@n pour numéroter les post-scriptum si il y en a plusieurs</div>
+          
+        </section>
+      
+        
+          
+          
+          
+        
+      </section>
+  
+  
+  
+  <section class="element rng" id="el_ref_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-ref.html" target="TEI">ref</a>&gt;</header><div class="documentation">L'élément <code>&lt;ref&gt;</code> utilisé dans la partie texte du document, permet dans le cadre d'une correspondance de faire des connexions internes au corpus en balisant une mention faisant référence à une autre lettre </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_target_2" title="@target, pour renvoyer vers cette autre lettre">@target</a> <a href="#att_type_7" title="@typer, pour typer la mention">@type</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_note" title="L'élément">note</a>  <a href="#el_cit">cit</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table><section class="attribute rng" id="att_target_2"><header class="attribute rng">@target</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+        <div class="documentation">@target, pour renvoyer vers cette autre lettre</div>
+        
+      </section>
+        <section class="attribute rng" id="att_type_7"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+          <div class="documentation">@typer, pour typer la mention</div>
+          
+        </section>
+      </section>
+  
+  
+  
+  <section class="element rng" id="el_persName"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-persName.html" target="TEI">persName</a>&gt;</header><div class="documentation">L'élément <code>&lt;persName&gt;</code> sert à baliser un nom de personne </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_key_3" title="@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées">@key</a>? <a href="#att_ref_3" title="@ref, pour localiser via URL la définition complète de l'entité nommée">@ref</a>? <a href="#el_persName">@id</a>?</td></tr><tr><th>Contenu</th><td><em class="data">{string}</em> 
+        <tt>.+</tt>
+      </td></tr><tr><th>Usage</th><td> <a href="#el_correspAction" title="L'élément">correspAction</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_key_3"><header class="attribute rng">@key</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+          <div class="documentation">@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</div>
+          
+        </section>
+      
+        <section class="attribute rng" id="att_ref_3"><header class="attribute rng">@ref</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+          <div class="documentation">@ref, pour localiser via URL la définition complète de l'entité nommée</div>
+          <div> 
+            <p>Exemple de normalisation et référence:</p>
+            <figure class="xml example">
+              <div class="xml_block "><span class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_p">p</a>&gt;</span><span class="xml_mix"><span class="text">...comme disait </span><span class=""><span class="open">&lt;<a class="el" href="#el_persName">persName</a> <b class="xml att">xml:id</b>="<code class="val">id_pers</code>" <b class="att">key</b>="<code class="val">Hugo, Victor (1802-1885)</code>" <b class="att">ref</b>="<code class="val">https://data.bnf.fr/fr/11907966/victor_hugo/</code>"&gt;</span><span class="text">V. Hugo</span><span class="close">&lt;/<a class="el" href="#el_persName">persName</a>&gt;</span></span><span class="text"> ... </span></span><span class="close">&lt;/<a class="el" href="#el_p">p</a>&gt;</span></div>
+            </figure>
+          </div>
+          
+        </section>
+      
+        
+      <p class="cf">Autres exemples dans : <a href="#el_correspAction" title="L'élément">correspAction</a>.</p></section>
+  <section class="element rng" id="el_placeName"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-placeName.html" target="TEI">placeName</a>&gt;</header><div class="documentation">L'élément <code>&lt;placeName&gt;</code> sert à baliser un nom de lieu </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_key_4" title="@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées">@key</a>? <a href="#att_ref_4" title="@ref, pour localiser via URL la définition complète de l'entité nomméeVoir l'exemple de normalisation et référence d'une EN de">@ref</a>? <a href="#el_placeName">@id</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_correspAction" title="L'élément">correspAction</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_key_4"><header class="attribute rng">@key</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+          <div class="documentation">@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</div>
+          
+        </section>
+      
+        <section class="attribute rng" id="att_ref_4"><header class="attribute rng">@ref</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+          <div class="documentation">@ref, pour localiser via URL la définition complète de l'entité nommée</div>
+          <div class="documentation">Voir l'exemple de normalisation et référence d'une EN de <code>&lt;persName&gt;</code></div>
+          
+        </section>
+      
+        
+      <p class="cf">Autres exemples dans : <a href="#el_correspAction" title="L'élément">correspAction</a>.</p></section>
+  <section class="element rng" id="el_orgName"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-orgName.html" target="TEI">orgName</a>&gt;</header><div class="documentation">L'élément <code>&lt;orgName&gt;</code> sert à baliser un nom d'institution ou d'organisation</div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_key_5" title="@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées">@key</a>? <a href="#att_ref_5" title="@ref, pour localiser via URL la définition complète de l'entité nomméeVoir l'exemple de normalisation et référence d'une EN de">@ref</a>? <a href="#el_orgName">@id</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_correspAction" title="L'élément">correspAction</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_key_5"><header class="attribute rng">@key</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+          <div class="documentation">@key, pour entrer un nom normalisé issu d'une base de données d'entités nommées</div>
+          
+        </section>
+      
+        <section class="attribute rng" id="att_ref_5"><header class="attribute rng">@ref</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+          <div class="documentation">@ref, pour localiser via URL la définition complète de l'entité nommée</div>
+          <div class="documentation">Voir l'exemple de normalisation et référence d'une EN de <code>&lt;persName&gt;</code></div>
+          
+        </section>
+      
+        
+      </section>
+  
+  
+  <section class="element rng" id="el_date"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-date.html" target="TEI">date</a>&gt;</header><div class="documentation">L'élément <code>&lt;date&gt;</code> permet de baliser les dates. Pour utiliser <code>&lt;date&gt;</code>, il faut renseigner obligatoirement @when ou @notBefore ou @notAfter ou @notBefore et @noteAfter  </div><table class="grammar"><tr><th>Attributs</th><td> (<a href="#att_when_2" title="date de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. &quot; 2001-01-01 &quot;) ou aaaa-mm (&quot; 2001-0">@when</a> | <a href="#att_notAfter" title="date la plus tardive possible de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. &quot; 2001-01-0">@notAfter</a> | <a href="#att_notBefore" title="date la plus récente possible de l'événement sous une forme normalisée, (ex. &quot; 2001-01-01 &quot;) ou aaaa">@notBefore</a> |   (<a href="#att_notAfter" title="date la plus tardive possible de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. &quot; 2001-01-0">@notAfter</a><a href="#att_notBefore" title="date la plus récente possible de l'événement sous une forme normalisée, (ex. &quot; 2001-01-01 &quot;) ou aaaa">@notBefore</a>)) <a href="#att_cert">@cert</a>? <a href="#att_resp">@resp</a>?</td></tr><tr><th>Contenu</th><td>(  )<i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_publicationStmt" title="L'élément">publicationStmt</a>  <a href="#el_correspAction" title="L'élément">correspAction</a>  <a href="#el_dateline">dateline</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+        
+        
+        <section class="group">
+          
+                  
+        </section>
+      
+        
+      
+        
+      <p class="cf">Autres exemples dans : <a href="#el_correspAction" title="L'élément">correspAction</a>.</p></section>
+  
+  
+  
+  <section class="element rng" id="el_bibl"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-bibl.html" target="TEI">bibl</a>&gt;</header><div class="documentation">L'élément <code>&lt;bibl&gt;</code> permet de baliser une référence bibliographique</div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_source" title="spécifie la source par un lien url">@source</a>? <a href="#att_type_8">@type</a>? <a href="#el_bibl">@id</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_note" title="L'élément">note</a>  <a href="#el_cit">cit</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_source"><header class="attribute rng">@source</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+          <div class="documentation">spécifie la source par un lien url </div>
+          
+        </section>
+      
+        <section class="attribute rng" id="att_type_8"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="data">{NCName}</em>  |<em class="value">"literature"</em> |<em class="value">"science"</em> |<em class="value">"art"</em> ]</td></tr></table>
+          <div> 
+            <p>permet de catégoriser la référence bibliographique, valeurs suggérées:  </p>
+            <ul>
+              <li>" science "</li>
+              <li>" art "</li>
+              <li>" litterature "</li>
+            </ul>
+          </div>
+          
+            
+            
+            
+            
+          
+        </section>
+      
+        
+      </section>
+  
+  
+  <section class="element rng" id="el_add"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-add.html" target="TEI">add</a>&gt;</header><div class="documentation">L'élément <code>&lt;add&gt;</code> permet de baliser les ajouts de texte au document </div><table class="grammar"><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_subst" title="L'élément">subst</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_type_9"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"posterior"</em> |<em class="value">"author"</em> ]</td></tr></table>
+          <div> 
+            <p>obligatoire, détermine la nature de l'ajout, valeurs autorisées:  </p>
+            <ul>
+              <li>" posterior "</li> texte ajouté a posteriori par d'autres personnes que l'auteur (e.g. notes d'une institution de conservation)
+              <li>" author "</li> texte ajouté par l'auteur lui-même
+            </ul>
+          </div>
+          
+            
+            
+          
+        </section>
+        
+          
+        
+      
+        
+          
+        
+        
+          
+        
+        
+          
+        
+        
+      <p class="cf">Autres exemples dans : <a href="#el_subst" title="L'élément">subst</a>.</p></section>
+  
+  
+  <section class="element rng" id="el_note"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-note.html" target="TEI">note</a>&gt;</header><div class="documentation">L'élément <code>&lt;note&gt;</code> encode les notes explicatives </div><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_postscript" title="L'élément">postscript</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a>  <a href="#el_lg">lg</a> </td></tr></table>
+        <section class="attribute rng" id="att_type_10"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"author"</em> |<em class="value">"editor"</em> ]</td></tr></table>
+          <div> 
+            <p>valeurs autorisées:  </p>
+            <ul>
+              <li>" author "</li> notes intégrées par l'auteur lui-même
+              <li>" editor "</li> notes critiques des éditeurs
+            </ul>
+          </div>
+          
+            
+            
+          
+        </section>
+        
+          
+         
+        
+        
+          
+            
+            
+            
+            
+            
+                  
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          
+        
+        
+      </section>
+  
+  
+  
+  <section class="element rng" id="el_figure"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-figure.html" target="TEI">figure</a>&gt;</header><div class="documentation">L'élément <code>&lt;figure&gt;</code> permet de baliser les éléments graphiques (e.g. dessin, croquis)</div><table class="grammar"><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+          
+        
+        
+          
+        
+      </section>
+  
+  <section class="element rng" id="el_graphic"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-graphic.html" target="TEI">graphic</a>&gt;</header><div class="documentation">L'élément <code>&lt;graphic&gt;</code> permet de baliser les éléments graphiques (e.g. dessin, croquis)</div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_facs_1" title="obligatoire, renseigne un lien vers une image">@facs</a></td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_figure" title="L'élément">figure</a>  <a href="#el_formula" title="L'élément">formula</a>  <a href="#el_notatedMusic" title="L'élément">notatedMusic</a> </td></tr></table><section class="attribute rng" id="att_facs_1"><header class="attribute rng">@facs</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+        <div class="documentation">obligatoire, renseigne un lien vers une image</div>
+        
+      </section></section>
+  <section class="element rng" id="el_figDesc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-figDesc.html" target="TEI">figDesc</a>&gt;</header><div class="documentation">L'élément <code>&lt;figDesc&gt;</code> donne une description du dessin, de la forme graphique </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_facs_2" title="permet éventuellement de relier la description à une image">@facs</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_figure" title="L'élément">figure</a> </td></tr></table>
+        <section class="attribute rng" id="att_facs_2"><header class="attribute rng">@facs</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+          <div class="documentation">permet éventuellement de relier la description à une image</div>
+          
+        </section>
+      </section>
+  <section class="element rng" id="el_desc"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-desc.html" target="TEI">desc</a>&gt;</header><div class="documentation">L'élément <code>&lt;desc&gt;</code> permet de donner une description d'une partition musicale, de notes de musiques </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_facs_3" title="permet éventuellement de relier la description à une image">@facs</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_notatedMusic" title="L'élément">notatedMusic</a> </td></tr></table>
+        <section class="attribute rng" id="att_facs_3"><header class="attribute rng">@facs</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+          <div class="documentation">permet éventuellement de relier la description à une image</div>
+          
+        </section>
+      </section>
+  
+  <section class="element rng" id="el_formula"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-formula.html" target="TEI">formula</a>&gt;</header><div class="documentation">L'élément <code>&lt;formula&gt;</code> décrit une formule mathématique </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_notation" title="précise la notation scientifique">@notation</a>?</td></tr><tr><th>Contenu</th><td>( <a href="#el_graphic" title="L'élément">graphic</a> | <i> text() </i> )+</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_notation"><header class="attribute rng">@notation</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{NCName}</em> </td></tr></table>
+          <div class="documentation">précise la notation scientifique</div>
+          
+        </section>
+      
+        
+          
+          
+        
+      </section>
+  
+  <section class="element rng" id="el_notatedMusic"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-notatedMusic.html" target="TEI">notatedMusic</a>&gt;</header><div class="documentation">L'élément <code>&lt;notatedMusic&gt;</code>permet d'encoder une partition musicale ou des notes de musique </div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_notatedMusic">@type</a>?</td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+      
+        
+          
+        
+        
+          
+          
+      </section>
+  <section class="element rng" id="el_table"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-table.html" target="TEI">table</a>&gt;</header><div class="documentation">L'élément <code>&lt;table&gt;</code> permet de baliser les tableaux</div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_cols" title="nombre de colonnes">@cols</a>? <a href="#att_rows" title="nombre de lignes">@rows</a>?</td></tr><tr><th>Contenu</th><td><a href="#el_head_2">head</a>*, <a href="#el_row" title="balise une ligne du tableau">row</a>*</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_cols"><header class="attribute rng">@cols</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{integer}</em> </td></tr></table>
+          <div class="documentation">nombre de colonnes</div>
+          
+        </section>
+      
+        <section class="attribute rng" id="att_rows"><header class="attribute rng">@rows</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{integer}</em> </td></tr></table>
+          <div class="documentation">nombre de lignes</div>
+          
+        </section>
+      
+        
+      
+        <section class="element rng" id="el_row"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-row.html" target="TEI">row</a>&gt;</header><div class="documentation">balise une ligne du tableau</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_row">@role</a>?</td></tr><tr><th>Contenu</th><td><a href="#el_cell" title="balise une cellule du tableau">cell</a>*, <i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_table" title="L'élément">table</a> </td></tr></table>
+            
+          
+            <section class="element rng" id="el_cell"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-cell.html" target="TEI">cell</a>&gt;</header><div class="documentation">balise une cellule du tableau</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_cell">@role</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_row" title="balise une ligne du tableau">row</a> </td></tr></table>
+                
+              </section>
+          </section>
+      </section>
+  
+  
+  <section class="element rng" id="el_lb"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-lb.html" target="TEI">lb</a>&gt;</header><div class="documentation">L'élément <code>&lt;lb&gt;</code> marque les sauts de ligne </div><table class="grammar"><tr><th>Contenu</th><td><i>empty()</i></td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_salute">salute</a>  <a href="#el_signed">signed</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_del" title="L'élément">del</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table></section>
+  
+  <section class="element rng" id="el_gap"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-gap.html" target="TEI">gap</a>&gt;</header><div class="documentation">L'élément <code>&lt;gap&gt;</code> balise une omission soit pour des raisons éditoriales soit du fait de la dégradation du document, @reason donne la raison de l'ommission, @unit en précise la mesure, @quantity donne la quantité de texte perdu. Si @quantity est utilisé, @unit est obligatoire, réciproquement si @unit est utilisé @quantity est obligatoire </div><table class="grammar"><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_del" title="L'élément">del</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a>  <a href="#el_lg">lg</a> </td></tr></table>
+        
+          <section class="attribute rng" id="att_reason_1"><header class="attribute rng">@reason</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"cancelled"</em> |<em class="value">"editorial"</em> |<em class="value">"illegible"</em> |<em class="value">"irrevelant"</em> |<em class="value">"sampling"</em> ]</td></tr></table>
+            <div> 
+              <p>valeurs autorisées:  </p>
+              <ul>
+                <li>" cancelled " râturé, biffé</li>
+                <li>" editorial " choix éditoriaux</li>
+                <li>" illegible "illisible</li>
+                <li>" irrevelant " non pertinent</li>
+                <li>" sampling " échantillonnage</li>
+              </ul>
+            </div>
+            
+            
+              
+              
+              
+              
+              
+            
+          </section>
+        
+        
+          
+            
+            <section class="attribute rng" id="att_unit"><header class="attribute rng">@unit</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"cm"</em> |<em class="value">"mm"</em> |<em class="value">"chars"</em> |<em class="value">"line"</em> |<em class="value">"page"</em> |<em class="value">"in"</em> ]</td></tr></table>
+              <div> 
+                <p>valeurs autorisées:  </p>
+                <ul>
+                  <li>" cm " centimètres</li>
+                  <li>" mm " millimètres</li>
+                  <li>" chars " caractères </li>
+                  <li>" line " ligne</li>
+                  <li>" page " page</li>
+                  <li>" in " inches, pouces</li>
+                </ul>
+              </div>
+              
+                
+                
+                
+                
+                
+                
+              
+            </section>
+                 
+        
+      </section>
+  <section class="element rng" id="el_unclear"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-unclear.html" target="TEI">unclear</a>&gt;</header><div class="documentation">L'élément <code>&lt;unclear&gt;</code> contient un mot, une expression ou bien un passage qui ne peut être transcrit avec certitude parce qu'il est illisible dans la source </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_reason_2">@reason</a>? <a href="#att_cert">@cert</a>? <a href="#att_resp">@resp</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_add" title="L'élément">add</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_del" title="L'élément">del</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="attribute rng" id="att_reason_2"><header class="attribute rng">@reason</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"illegible"</em> |<em class="value">"faded"</em> |<em class="value">"background_noise"</em> |<em class="value">"eccentric_ductus"</em> ]</td></tr></table>
+          <div> 
+            <p> valeurs autorisées:  </p>
+            <ul>
+              <li>" illegible " illisible</li>
+              <li>" faded " délavé</li>
+              <li>" background_noise " bruit de fond</li>
+              <li>" eccentric_ductus "</li>
+            </ul>
+          </div>
+          
+            
+            
+            
+            
+          
+        </section>      
+      
+        
+      
+        
+      </section>
+  <section class="element rng" id="el_supplied"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-supplied.html" target="TEI">supplied</a>&gt;</header><div class="documentation">L'élément <code>&lt;supplied&gt;</code> permet d'encoder du texte restitué par l'éditeur ou auteur de la transcription</div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_supplied">@reason</a>? <a href="#att_resp">@resp</a>? <a href="#att_cert">@cert</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_add" title="L'élément">add</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_del" title="L'élément">del</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+      
+        
+      
+        
+      </section>
+  <section class="element rng" id="el_del"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-del.html" target="TEI">del</a>&gt;</header><div class="documentation"> L'élément <code>&lt;del&gt;</code> contient une lettre un mot ou un passage supprimé, raturé ou barré. Si une partie du texte barré est difficile à lire ou incertaine, il est possible d'utiliser la balise <code>&lt;unclear&gt;</code> à l'intérieur de <code>&lt;del&gt;</code>. De la même façon, pour un passage impossible à restituer il est également possible d'utiliser <code>&lt;gap&gt;</code></div><table class="grammar"><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_addrLine">addrLine</a>  <a href="#el_add" title="L'élément">add</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_del" title="L'élément">del</a>  <a href="#el_subst" title="L'élément">subst</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+          
+        
+        
+          
+        
+        
+          
+        
+        
+          
+        
+        
+          
+        
+        
+          
+        
+        
+      <p class="cf">Autres exemples dans : <a href="#el_subst" title="L'élément">subst</a>.</p></section>
+  <section class="element rng" id="el_subst"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-subst.html" target="TEI">subst</a>&gt;</header><div class="documentation"> L'élément <code>&lt;subst&gt;</code> permet de combiner les balises <code>&lt;del&gt;</code> et <code>&lt;add&gt;</code> pour encoder une partie de texte supprimée et une partie ajoutée dans une même intervention de l'auteur </div><table class="grammar"><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table><div> 
+        <p>Exemple:</p>
+        <figure class="xml example">
+          <div class="xml_block "><span class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_p">p</a>&gt;</span><span class="xml_mix"><span class="text">...je l'ai vu en </span><span class=""><span class="open">&lt;<a class="el" href="#el_subst">subst</a>&gt;</span> <span class=""><span class="open">&lt;<a class="el" href="#el_del">del</a>&gt;</span><span class="text">octobre</span><span class="close">&lt;/<a class="el" href="#el_del">del</a>&gt;</span></span><div class="comment">&lt;!--<code> mot biffé raturé</code>--&gt;</div> <span class=""><span class="open">&lt;<a class="el" href="#el_add">add</a>&gt;</span><span class="text">novembre</span><span class="close">&lt;/<a class="el" href="#el_add">add</a>&gt;</span></span> <div class="comment">&lt;!--<code>ajout</code>--&gt;</div> <span class="close">&lt;/<a class="el" href="#el_subst">subst</a>&gt;</span></span><span class="text"> de cette année...</span></span><span class="close">&lt;/<a class="el" href="#el_p">p</a>&gt;</span></div>
+        </figure>
+      </div>
+        
+          
+         
+        
+          
+        
+        
+      </section>
+  
+  <section class="element rng" id="el_choice"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-choice.html" target="TEI">choice</a>&gt;</header><div class="documentation"> L'élément <code>&lt;choice&gt;</code> décrit les choix éditoriaux qui sont faits au moment d'une transcription </div><table class="grammar"><tr><th>Contenu</th><td>(  )</td></tr><tr><th>Usage</th><td> <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        <section class="group">
+          
+            
+            
+          
+        </section>
+        <section class="group">
+          
+            
+            
+          
+        </section>
+        <section class="group">
+          
+            
+            
+          
+        </section>
+      <p class="cf">Autres exemples dans : <a href="#el_abbr_0">abbr</a>, <a href="#el_reg_0">reg</a>, <a href="#el_sic_0">sic</a>.</p></section>
+  
+  <section class="element rng" id="el_reg_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-reg.html" target="TEI">reg</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_choice" title="L'élément">choice</a> </td></tr></table><div> 
+        <p>L'élément <code>&lt;reg&gt;</code> encode les parties régularisées ou normalisées. Il doit être utilisé en combinaison avec <code>&lt;orig&gt;</code> dans un <code>&lt;choice&gt;</code></p>
+        <p>Exemple:</p>
+        <figure class="xml example">
+          <div class="xml_block "><span class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_p">p</a>&gt;</span><span class="xml_mix"><span class="text">...Paris, le onze </span><span class=""><span class="open">&lt;<a class="el" href="#el_choice">choice</a>&gt;</span>
+            <span class=""><span class="open">&lt;<a class="el" href="#el_orig">orig</a>&gt;</span><span class="text">Juin</span><span class="close">&lt;/<a class="el" href="#el_orig">orig</a>&gt;</span></span>
+            <span class=""><span class="open">&lt;<a class="el" href="#el_reg">reg</a>&gt;</span><span class="text">juin</span><span class="close">&lt;/<a class="el" href="#el_reg">reg</a>&gt;</span></span><span class="close">&lt;/<a class="el" href="#el_choice">choice</a>&gt;</span></span><span class="text">...</span></span><span class="close">&lt;/<a class="el" href="#el_p">p</a>&gt;</span></div>
+        </figure>
+      </div></section>
+  <section class="element rng" id="el_orig"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-orig.html" target="TEI">orig</a>&gt;</header><div class="documentation">L'élément <code>&lt;orig&gt;</code> encode les parties fidèles à l'original et non normalisées. Il doit être utilisé en combinaison avec <code>&lt;reg&gt;</code> dans un <code>&lt;choice&gt;</code>. Voir exemple dans <code>&lt;reg&gt;</code> </div><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_choice" title="L'élément">choice</a> </td></tr></table><p class="cf">Autres exemples dans : <a href="#el_reg_0">reg</a>.</p></section>
+  <section class="element rng" id="el_abbr_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-abbr.html" target="TEI">abbr</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_choice" title="L'élément">choice</a> </td></tr></table><div> 
+        <p>L'élément <code>&lt;abbr&gt;</code> contient une abbréviation. Il doit être utilisé en combinaison avec <code>&lt;ex&gt;</code> et <code>&lt;expan&gt;</code> dans un <code>&lt;choice&gt;</code></p>
+        <p>Exemple:</p>
+        <figure class="xml example">
+          <div class="xml_block "><span class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_p">p</a>&gt;</span><span class="xml_mix"><span class="text">...il habite au 25 </span><span class=""><span class="open">&lt;<a class="el" href="#el_choice">choice</a>&gt;</span>
+              <span class=""><span class="open">&lt;<a class="el" href="#el_expan">expan</a>&gt;</span><span class="text">b</span><span class=""><span class="open">&lt;<a class="el" href="#el_ex">ex</a>&gt;</span><span class="text">oulev</span><span class="close">&lt;/<a class="el" href="#el_ex">ex</a>&gt;</span></span><span class="text">ard</span><span class="close">&lt;/<a class="el" href="#el_expan">expan</a>&gt;</span></span>
+              <span class=""><span class="open">&lt;<a class="el" href="#el_abbr">abbr</a>&gt;</span><span class="text">Bard</span><span class="close">&lt;/<a class="el" href="#el_abbr">abbr</a>&gt;</span></span>
+            <span class="close">&lt;/<a class="el" href="#el_choice">choice</a>&gt;</span></span><span class="text"> Beaumarchais,...</span></span><span class="close">&lt;/<a class="el" href="#el_p">p</a>&gt;</span></div>
+        </figure>
+      </div></section>
+  <section class="element rng" id="el_ex"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-ex.html" target="TEI">ex</a>&gt;</header><div class="documentation">L'élément <code>&lt;ex&gt;</code> contient une successions de lettres ajoutées par un éditeur ou transcripteur pour compléter une abréviation. Il doit être utilisé en combinaison avec <code>&lt;expan&gt;</code> et <code>&lt;abbr&gt;</code> dans un <code>&lt;choice&gt;</code>. Voir exemple dans <code>&lt;abbr&gt;</code> </div><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_expan" title="L'élément &lt;expan&gt; contient l'expansion d'une abréviation. Il doit être utilisé en combinaison avec &lt;">expan</a> </td></tr></table><p class="cf">Autres exemples dans : <a href="#el_abbr_0">abbr</a>.</p></section>
+  <section class="element rng" id="el_expan"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-expan.html" target="TEI">expan</a>&gt;</header><div class="documentation">L'élément <code>&lt;expan&gt;</code> contient l'expansion d'une abréviation. Il doit être utilisé en combinaison avec <code>&lt;ex&gt;</code> et <code>&lt;abbr&gt;</code> dans un <code>&lt;choice&gt;</code>. Voir exemple dans <code>&lt;abbr&gt;</code> </div><table class="grammar"><tr><th>Contenu</th><td>( <i> text() </i> | <a href="#el_ex" title="L'élément &lt;ex&gt; contient une successions de lettres ajoutées par un éditeur ou transcripteur pour com">ex</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_choice" title="L'élément">choice</a> </td></tr></table>
+        
+          
+          
+        
+      <p class="cf">Autres exemples dans : <a href="#el_abbr_0">abbr</a>.</p></section>
+  <section class="element rng" id="el_sic_0"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-sic.html" target="TEI">sic</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_choice" title="L'élément">choice</a> </td></tr></table><div> 
+        <p>L'élément <code>&lt;sic&gt;</code> contient du texte reproduit bien qu'il soit considéré comme incorrect ou inexact. Il doit être utilisé en combinaison avec <code>&lt;corr&gt;</code> dans un <code>&lt;choice&gt;</code></p>
+        <p>Exemple:</p>
+        <figure class="xml example">
+          <div class="xml_block "><span class="open"><a class="fold" tabindex="1">&lt;</a><a class="el" href="#el_p">p</a>&gt;</span><span class="xml_mix"><span class="text">J'ai retrouvé toute ma 
+            </span><span class=""><span class="open">&lt;<a class="el" href="#el_choice">choice</a>&gt;</span><span class=""><span class="open">&lt;<a class="el" href="#el_sic">sic</a>&gt;</span><span class="text">luciditée</span><span class="close">&lt;/<a class="el" href="#el_sic">sic</a>&gt;</span></span><span class=""><span class="open">&lt;<a class="el" href="#el_corr">corr</a>&gt;</span><span class="text">lucidité</span><span class="close">&lt;/<a class="el" href="#el_corr">corr</a>&gt;</span></span><span class="close">&lt;/<a class="el" href="#el_choice">choice</a>&gt;</span></span><span class="text">...</span></span><span class="close">&lt;/<a class="el" href="#el_p">p</a>&gt;</span></div>
+        </figure>
+      </div></section>
+  <section class="element rng" id="el_corr"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-corr.html" target="TEI">corr</a>&gt;</header><div class="documentation">L'élément <code>&lt;corr&gt;</code> contient la forme correcte d'un passage ou mot considéré comme incorrect ou inexact. Il doit être utilisé en combinaison avec <code>&lt;sic&gt;</code> dans un <code>&lt;choice&gt;</code>. Voir exemple dans <code>&lt;sic&gt;</code> </div><table class="grammar"><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_choice" title="L'élément">choice</a> </td></tr></table><p class="cf">Autres exemples dans : <a href="#el_sic_0">sic</a>.</p></section>
+  
+  
+  
+  
+  
+  
+  <section class="attribute rng" id="att_when_2"><header class="attribute rng">@when</header><table class="grammar"><tr><th>Valeur</th><td>( <em class="data">{date}</em>  | <em class="data">{gYear}</em>  | <em class="data">{gMonth}</em>  | <em class="data">{gDay}</em>  | <em class="data">{gYearMonth}</em>  | <em class="data">{gMonthDay}</em>  | <em class="data">{time}</em>  | <em class="data">{dateTime}</em>  )</td></tr><tr><th>Usage</th><td> <a href="#el_date" title="L'élément">date</a> </td></tr></table>
+      <div class="documentation">date de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</div>
+      
+        
+        
+        
+        
+        
+        
+        
+        
+      
+    </section>
+  <section class="attribute rng" id="att_notBefore"><header class="attribute rng">@notBefore</header><table class="grammar"><tr><th>Valeur</th><td>( <em class="data">{date}</em>  | <em class="data">{gYear}</em>  | <em class="data">{gMonth}</em>  | <em class="data">{gDay}</em>  | <em class="data">{gYearMonth}</em>  | <em class="data">{gMonthDay}</em>  | <em class="data">{time}</em>  | <em class="data">{dateTime}</em>  )</td></tr><tr><th>Usage</th><td> <a href="#el_date" title="L'élément">date</a> </td></tr></table>
+      <div class="documentation">date la plus récente possible de l'événement sous une forme normalisée, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</div>
+      
+        
+        
+        
+        
+        
+        
+        
+        
+      
+    </section>
+  <section class="attribute rng" id="att_notAfter"><header class="attribute rng">@notAfter</header><table class="grammar"><tr><th>Valeur</th><td>( <em class="data">{date}</em>  | <em class="data">{gYear}</em>  | <em class="data">{gMonth}</em>  | <em class="data">{gDay}</em>  | <em class="data">{gYearMonth}</em>  | <em class="data">{gMonthDay}</em>  | <em class="data">{time}</em>  | <em class="data">{dateTime}</em>  )</td></tr><tr><th>Usage</th><td> <a href="#el_date" title="L'élément">date</a> </td></tr></table>
+      <div class="documentation"> date la plus tardive possible de l'événement sous une forme normalisée, aaaa-mm-jj, (ex. " 2001-01-01 ") ou aaaa-mm (" 2001-01 ") ou aaaa (" 2001") ou (" -0101 " )  ou (" --01 " )</div>
+      
+        
+        
+        
+        
+        
+        
+        
+        
+      
+    </section>
+  <section class="attribute rng" id="att_resp"><header class="attribute rng">@resp</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"author"</em> |<em class="value">"editor"</em> |<em class="value">"posterior"</em> ]</td></tr><tr><th>Usage</th><td> <span class="defex"><a class="define" href="#def_a_resp">a_resp</a><span class="defin"> &gt;  <a href="#el_date" title="L'élément">date</a>  <a href="#el_unclear" title="L'élément">unclear</a>  <a href="#el_supplied" title="L'élément">supplied</a>  &lt;</span></span></td></tr></table>
+      
+        
+        
+        
+      
+    </section>
+  <section class="attribute rng" id="att_cert"><header class="attribute rng">@cert</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"high"</em> |<em class="value">"medium"</em> |<em class="value">"low"</em> ]</td></tr><tr><th>Usage</th><td> <span class="defex"><a class="define" href="#def_a_cert">a_cert</a><span class="defin"> &gt;  <a href="#el_date" title="L'élément">date</a>  <a href="#el_unclear" title="L'élément">unclear</a>  <a href="#el_supplied" title="L'élément">supplied</a>  &lt;</span></span></td></tr></table>
+      
+        
+        
+        
+      
+    </section>
+  <section class="attribute rng" id="att_place"><header class="attribute rng">@place</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"below"</em> |<em class="value">"bottom"</em> |<em class="value">"margin"</em> |<em class="value">"top"</em> |<em class="value">"opposite"</em> |<em class="value">"overleaf"</em> |<em class="value">"above"</em> |<em class="value">"end"</em> |<em class="value">"inline"</em> |<em class="value">"inspace"</em> ]</td></tr><tr><th>Usage</th><td> <span class="defex"><a class="define" href="#def_a_place">a_place</a><span class="defin"> &gt;  <a href="#el_add" title="L'élément">add</a>  <a href="#el_note" title="L'élément">note</a>  &lt;</span></span></td></tr></table>
+      <div class="documentation">  </div>
+      <div> 
+        <p>pour spécifier la localisation de la note, valeurs autorisées:</p>
+        <ul>
+          <li>" below " au-dessous de la ligne</li>
+          <li>"bottom " dans la marge inférieure</li>
+          <li>" margin " dans la marge (gauche/droite/les deux)</li>
+          <li>" top " dans la marge supérieure </li>
+          <li>" opposite " sur la page opposée</li>
+          <li>"overleaf " de l'autre côté de la feuille</li>
+          <li>"above "au-dessus de la ligne </li>
+          <li>" end " à la fin par exemple d'un chapitre ou d'un volume</li>
+          <li>"inline" dans le corps du texte</li>
+          <li>"inspace" dans un espace prédéfini, par exemple à gauche d'un scripteur précédent</li>
+        </ul>
+      </div>
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                
+      
+    </section>
+  
+  
+  <section class="element rng" id="el_pb"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-pb.html" target="TEI">pb</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_pb">@facs</a>? <a href="#el_pb">@n</a>? <a href="#el_pb">@id</a>?</td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_addrLine">addrLine</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_del" title="L'élément">del</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a>  <a href="#el_lg">lg</a> </td></tr></table>
+        
+      
+        
+      
+        
+      </section>
+  
+  
+  <section class="element rng" id="el_head_1"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-head.html" target="TEI">head</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#att_type_12">@type</a></td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a> </td></tr></table><section class="attribute rng" id="att_type_12"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"object"</em> |<em class="value">"title"</em> ]</td></tr></table>
+        
+          
+          
+        
+      </section></section>
+    
+  
+  <section class="element rng" id="el_cit"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-cit.html" target="TEI">cit</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td>( <a href="#el_quote_1">quote</a> | <section class="group">( <a href="#el_quote_1">quote</a>, <a href="#el_bibl" title="L'élément">bibl</a> )</section> | <section class="group">( <a href="#el_quote_1">quote</a>, <a href="#el_ref_0" title="L'élément">ref</a> )</section> )</td></tr><tr><th>Usage</th><td> <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+        <section class="group">
+          
+          
+        </section>
+        <section class="group">
+          
+          
+        </section>
+      </section>
+  
+  
+  
+  <section class="element rng" id="el_hi"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-hi.html" target="TEI">hi</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#att_rend">@rend</a></td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table><section class="attribute rng" id="att_rend"><header class="attribute rng">@rend</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="data">{NCName}</em>  |<em class="value">"i"</em> |<em class="value">"b"</em> |<em class="value">"u"</em> |<em class="value">"sub"</em> |<em class="value">"sup"</em> ]</td></tr></table>
+        
+          
+           
+           
+           
+           
+           
+        
+      </section></section>
+  
+  <section class="element rng" id="el_list"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-list.html" target="TEI">list</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td><a href="#el_item_1">item</a>+</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_p">p</a>  <a href="#el_l">l</a> </td></tr></table>
+        
+      </section>
+  
+   
+  <section class="element rng" id="el_idno_1"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-idno.html" target="TEI">idno</a>&gt;</header><div class="documentation">L'élément <code>&lt;idno&gt;</code> du <code>&lt;publicationStmt&gt;</code> contient l'url du document de correspondance, identifiant unique que l'on retrouve dans le <code>&lt;correspDesc&gt;</code></div><table class="grammar"><tr><th>Attributs</th><td><a href="#el_idno_1">@type</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_publicationStmt" title="L'élément">publicationStmt</a> </td></tr></table>
+        
+      </section>
+  <section class="element rng" id="el_idno_1"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-idno.html" target="TEI">idno</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_idno_1">@type</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_msIdentifier" title="L'élément">msIdentifier</a> </td></tr></table>
+        
+      </section>
+    
+  
+  
+  
+  
+  <section class="element rng" id="el_ref_1"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-ref.html" target="TEI">ref</a>&gt;</header><div class="documentation"> L'élément <code>&lt;ref&gt;</code> du <code>&lt;correspContext&gt;</code> décrit les relations entre les différents documents d'une correspondance. </div><table class="grammar"><tr><th>Attributs</th><td><a href="#att_target_3" title="@target contient l'uri/url d'une lettre du même contexte de correspondance que le document">@target</a> <a href="#att_type_15">@type</a></td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_correspContext" title="L'élément">correspContext</a> </td></tr></table><section class="attribute rng" id="att_target_3"><header class="attribute rng">@target</header><table class="grammar"><tr><th>Valeur</th><td><em class="data">{anyURI}</em> </td></tr></table>
+        <div class="documentation">@target contient l'uri/url d'une lettre du même contexte de correspondance que le document </div>
+        
+      </section><section class="attribute rng" id="att_type_15"><header class="attribute rng">@type</header><table class="grammar"><tr><th>Valeur</th><td>[ <em class="value">"next"</em> |<em class="value">"prev"</em> |<em class="value">"replyTo"</em> |<em class="value">"repliedBy"</em> ]</td></tr></table>
+        <div> 
+          <p>@type donne le type de contexte. Les valeurs autorisées sont:  </p>
+          <ul>
+            <li>"prev"  pour renvoyer vers la lettre qui précède le document dans un corpus de correspondance</li>
+            <li>"next"  pour renvoyer vers la lettre qui suit dans un corpus de correspondance</li>
+            <li>"replyTo"   pour renvoyer vers la lettre à laquelle le document répond </li>
+            <li>"repliedBy"   pour renvoyer vers la lettre qui répond au document</li>
+          </ul>
+        </div>
+        
+          
+          
+          
+          
+        
+      </section></section>
+  
+ 
+  
+  
+  
+ 
+  <section class="element rng" id="el_head_2"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-head.html" target="TEI">head</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_head_2">@type</a>?</td></tr><tr><th>Contenu</th><td><i> text() </i></td></tr><tr><th>Usage</th><td> <a href="#el_table" title="L'élément">table</a> </td></tr></table>
+        
+      </section>
+  
+
+  
+  
+  
+  
+  <section class="element rng" id="el_p"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-p.html" target="TEI">p</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td>( <i> text() </i> | <a href="#el_add" title="L'élément">add</a> | <a href="#el_bibl" title="L'élément">bibl</a> | <a href="#el_note" title="L'élément">note</a> | <a href="#el_date" title="L'élément">date</a> | <a href="#el_notatedMusic" title="L'élément">notatedMusic</a> | <a href="#el_persName" title="L'élément">persName</a> | <a href="#el_placeName" title="L'élément">placeName</a> | <a href="#el_ref_0" title="L'élément">ref</a> | <a href="#el_table" title="L'élément">table</a> | <a href="#el_figure" title="L'élément">figure</a> | <a href="#el_supplied" title="L'élément">supplied</a> | <a href="#el_unclear" title="L'élément">unclear</a> | <a href="#el_gap" title="L'élément">gap</a> | <a href="#el_del" title="L'élément">del</a> | <a href="#el_pb">pb</a> | <a href="#el_subst" title="L'élément">subst</a> | <a href="#el_cit">cit</a> | <a href="#el_formula" title="L'élément">formula</a> | <a href="#el_hi">hi</a> | <a href="#el_lb" title="L'élément">lb</a> | <a href="#el_list">list</a> | <a href="#el_orgName" title="L'élément">orgName</a> | <a href="#el_choice" title="L'élément">choice</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_licence">licence</a>  <a href="#el_encodingDesc" title="L'élément">encodingDesc</a>  <a href="#el_div">div</a>  <a href="#el_postscript" title="L'élément">postscript</a>  <a href="#el_note" title="L'élément">note</a> </td></tr></table>
+        
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        
+      <p class="cf">Autres exemples dans : <a href="#el_abbr_0">abbr</a>, <a href="#el_persName" title="L'élément">persName</a>, <a href="#el_reg_0">reg</a>, <a href="#el_sic_0">sic</a>, <a href="#el_subst" title="L'élément">subst</a>.</p></section>
+  
+  
+ 
+  
+  <section class="element rng" id="el_l"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-l.html" target="TEI">l</a>&gt;</header><table class="grammar"><tr><th>Contenu</th><td>( <i> text() </i> | <a href="#el_add" title="L'élément">add</a> | <a href="#el_bibl" title="L'élément">bibl</a> | <a href="#el_note" title="L'élément">note</a> | <a href="#el_date" title="L'élément">date</a> | <a href="#el_notatedMusic" title="L'élément">notatedMusic</a> | <a href="#el_persName" title="L'élément">persName</a> | <a href="#el_placeName" title="L'élément">placeName</a> | <a href="#el_ref_0" title="L'élément">ref</a> | <a href="#el_table" title="L'élément">table</a> | <a href="#el_figure" title="L'élément">figure</a> | <a href="#el_supplied" title="L'élément">supplied</a> | <a href="#el_unclear" title="L'élément">unclear</a> | <a href="#el_gap" title="L'élément">gap</a> | <a href="#el_del" title="L'élément">del</a> | <a href="#el_pb">pb</a> | <a href="#el_subst" title="L'élément">subst</a> | <a href="#el_cit">cit</a> | <a href="#el_formula" title="L'élément">formula</a> | <a href="#el_hi">hi</a> | <a href="#el_lb" title="L'élément">lb</a> | <a href="#el_list">list</a> | <a href="#el_orgName" title="L'élément">orgName</a> | <a href="#el_choice" title="L'élément">choice</a> )+</td></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a>  <a href="#el_lg">lg</a> </td></tr></table>
+        
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        
+      </section>
+  
+  <section class="element rng" id="el_lg"><header class="element rng">&lt;<a href="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-lg.html" target="TEI">lg</a>&gt;</header><table class="grammar"><tr><th>Attributs</th><td><a href="#el_lg">@type</a>?</td></tr><tr><th>Contenu</th><td/></tr><tr><th>Usage</th><td> <a href="#el_div">div</a>  <a href="#el_note" title="L'élément">note</a> </td></tr></table>
+        
+      
+        
+          
+        
+        
+          
+            
+            
+            
+            
+            
+          
+        
+      </section>
+  
+</article>
+  </body>
+</html>
